@@ -22,19 +22,12 @@ This not only helps students save money but also fosters a sense of community an
 
 ### Backend and Frontend Setup
 
-#### Backend Setup
+1. **Backend Setup (Node + Express)**
 
-1. Navigate to the backend directory:
+   - Navigate to the backend directory, install dependencies, set environment variables, and start the backend server:
    ```bash
-   cd backend/
-npm install
-MONGO_URI=your-mongodb-uri
-STRIPE_SECRET_KEY=your-stripe-secret-key
-npm start
-cd frontend/
-npm install
-NEXT_PUBLIC_API_URL=http://localhost:5000
-npm run dev
+   cd backend/ && npm install && MONGO_URI=your-mongodb-uri STRIPE_SECRET_KEY=your-stripe-secret-key npm start
+
 
 
 

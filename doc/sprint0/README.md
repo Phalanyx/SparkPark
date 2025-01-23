@@ -1,9 +1,3 @@
-A high-quality README file explains what your application does and why you used
-the technologies that you did. At a bare minimum, a README needs a title and a
-short description explaining the what, why, and how of the project.
-
-
-
 # 🚗 Driveway Rentals
 
 Welcome to **Driveway Rentals**, the ultimate solution for connecting homeowners with unused driveway space to drivers seeking convenient and affordable parking. Say goodbye to the hassle of finding parking and start earning or saving today!

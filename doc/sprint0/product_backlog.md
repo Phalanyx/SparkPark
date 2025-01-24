@@ -33,7 +33,7 @@ As a **short-term parker** \
 ### Visible Pricing
 As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *see the pricing for the parking spot beforehand.* \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can chose a spot I can afford.*
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can choose a spot I can afford.*
 
 #### Acceptance Criteria
 

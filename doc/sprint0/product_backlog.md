@@ -4,10 +4,25 @@
 
 ### Map
 As a **car owner** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *I want to* \
-&nbsp;&nbsp;&nbsp; *So that* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *I want to* \ have a live map of available parking spots.
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *So that* I can find a parking spot suiting my needs.
 
-### Live Navigation
-As a **car owner**
-> *I want to*
-> *So that* 
+### Navigation
+As a **car owner** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *I want to* \ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *So that* 
+
+### 
+As a **** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *I want to* \ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *So that* 
+
+### 
+As a **** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *I want to* \ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *So that* 
+
+### 
+As a **** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *I want to* \ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *So that* 

@@ -8,9 +8,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can find a parking spot suiting my needs.*
 
 #### Acceptance Criteria
-Given ..., \
-when ..., \
-then
+Given the user is connected to the internet, \
+when the user is in the "find parking spot" tab, \
+then available parking spots should be displayed with symbols on an interactive map.
 ### Navigation
 As a **short-term parker** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *have live navigation to my selected parking spot.* \

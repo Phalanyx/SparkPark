@@ -79,7 +79,63 @@ As a **parking customer** \
 
 #### Acceptance Criteria
 
-### Navigation
+### Secure Payment
+As a **parking customer** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *pay securely on the platform.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am protected against potential fraud.* 
+
+#### Acceptance Criteria
+
+### Easy Payment
+As a **paking customer** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *be able to use standard payment methods to pay the fees on the platform.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can pay without much effort.* 
+
+#### Acceptance Criteria
+
+### Trustable Customers
+As a **parking space owner** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *be guaranteed to have customers that abide by the rules.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am guaranteed to have a seamless interaction with my customers.* 
+
+#### Acceptance Criteria
+
+### Trustable Landlords
+As a **parking customer** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *be guaranteed that landlords are legit.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am guaranteed to get a parking spot when I rent one on the platform.* 
+
+#### Acceptance Criteria
+
+### Guaranteed Payment
+As a **parking space owner** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *the platform to handle the payment process.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am protected against fraud.* 
+
+#### Acceptance Criteria
+
+### Compare Rents
+As a **parking space owner** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *be able to see rents for other (similar) parking spots.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can choose my rent accordingly.* 
+
+#### Acceptance Criteria
+
+### Placeholder 18
+As a **** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to ** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that ** 
+
+#### Acceptance Criteria
+
+### Placeholder 19
+As a **** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to ** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that ** 
+
+#### Acceptance Criteria
+
+### Placeholder 20
 As a **** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to ** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that ** 

@@ -123,10 +123,10 @@ As a **parking space owner** \
 
 #### Acceptance Criteria
 
-### Placeholder 18
-As a **** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to ** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that ** 
+### Favorite Parking Spots
+As a **parking customer** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *have a list of favorite or frequently used parking spots.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I have easy access to them whenever I want to use them again.* 
 
 #### Acceptance Criteria
 

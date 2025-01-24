@@ -11,7 +11,7 @@ As a **parking customer** \
 
 ### Navigation
 As a **short-term parker** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *have live navigation to my selected parking spot.* \ 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *have live navigation to my selected parking spot.* \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can quickly and easily find my parking spot.*
 
 #### Acceptance Criteria

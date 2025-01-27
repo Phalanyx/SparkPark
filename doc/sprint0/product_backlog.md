@@ -130,10 +130,10 @@ As a **parking customer** \
 
 #### Acceptance Criteria
 
-### Placeholder 19
-As a **** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to ** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that ** 
+### Availability Calender
+As a **parking customer** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *see an overview of when the parking spot is available.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can plan ahead.* 
 
 #### Acceptance Criteria
 

@@ -17,9 +17,9 @@ As a **short-term parker** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can quickly and easily find my parking spot.*
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a user has booked a parking spot,* \
+When *they click on the navigation button on the listing,* \
+Then *a navigation map showing directions to the prking spot (using a navigation API).*
 
 ### 3. Picture
 As a **parking customer** \
@@ -27,9 +27,13 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I know I am parking at the right spot.*
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a user is looking for a parking spot on the "find parking spot tab",* \
+When *they select a parking spot on the map,* \
+Then *there is a picture of the parking spot visible in the details.*
+
+Given *a landlord wants to add a parking spot to the platform,* \
+When *they are adding their spot in the "add parking spot" tab,* \
+Then *they are required to upload a picture of the spot.*
 
 ### 4. Spot Recommendation
 As a **short-term parker** \
@@ -37,9 +41,9 @@ As a **short-term parker** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can find a spot quickly and without much effort.* 
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a registered customer on the "find parking spot" tab,* \
+When *they click the "auto find" button,* \
+Then *a "good" parking spot will be automatically selected based on distance, price and preferences of the user.*
 
 ### 5. Visible Pricing
 As a **parking customer** \
@@ -47,9 +51,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can choose a spot I can afford.*
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a user is looking for a parking spot on the platform,* \
+When *they look at the "find parking spot" tab,* \
+Then *there should be hourly prices displayed for each parking spot.*
 
 ### 6. Flexible Duration
 As a **short-term parker** \
@@ -57,9 +61,13 @@ As a **short-term parker** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *can be spontaneous in my activities.*
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a user wants to rent a parking spot,* \
+When *they are on the "find parking spot" tab* \
+Then *there is an option to select "pay-as-you-go" if the landlord has setup their parking spot for this functionality.*
+
+Given *a landlord who has/adds a listing on the platform,* \
+When *they edit/add a listing,* \
+Then *there is the option to enable the pay-as-you-go functionality for this parking spot, which in turn disables reservations and longterm rentals.*
 
 ### 7. Control over Availability
 As a **parking space owner** \
@@ -67,9 +75,9 @@ As a **parking space owner** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can use the spot whenever I need to.*
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a landlord has a listing on the platform,* \
+When *they visit the details of their listing,* \
+Then *the availability of the spot can be set in a calendar.*
 
 ### 8. Mobile Accessebility
 As a **parking customer** \

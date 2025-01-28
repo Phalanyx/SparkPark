@@ -153,13 +153,13 @@ Then **
 
 ### Guaranteed Payment
 As a **parking space owner** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *the platform to handle the payment process.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want *the platform to handle the payment process.* \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am protected against fraud.* 
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *an parking space owner has a listing for his space on the platform,* \
+When *a user rents this parking spot and proceeds to the payment,* \
+Then *the user should pay using the platforms payment service and the platform should then pay the parking space owner.*
 
 ### Compare Rents
 As a **parking space owner** \

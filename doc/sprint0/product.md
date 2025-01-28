@@ -1,0 +1,111 @@
+# YOUR PRODUCT/TEAM NAME
+
+ > _Note:_ This document is meant to evolve throughout the planning phase of your project.    
+ > That is, it makes sense for you commit regularly to this file while working on the project (especially edits/additions/deletions to the _Highlights_ section).
+
+Q1: What are you planning to build?
+
+ * Short (2-5 min' read)
+ * Start with a single sentence, high-level description of the product.
+ * Be clear - Describe the problem you are solving in simple terms.
+ * Be concrete. For example:
+    * What are you planning to build? Is it a website, mobile app,
+   browser extension, command-line app, etc.?      
+    * When describing the problem/need, give concrete examples of common use cases.
+ * Focus on *what* your product does, and avoid discussing *how* you're going to implement it.      
+   For example: This is not the time or the place to talk about which programming language and/or framework you are planning to use.
+ * **Feel free (and very much encouraged) to include useful diagrams, mock-ups and/or links**.
+[PRODUCT NAME] is a web application that allows people to rent and sell parking lots. Many people who commute to school or work by car are often forced to pay high parking fees at designated student/faculty parking spots. [PRODUCT NAME] connects local homeowners to drivers seeking a cheaper alternative for parking. We provide homeowners with an opportunity to earn passive income by renting out unused parking spaces, turning their property into a valuable resource. At the same time, it offers drivers a more affordable and convenient parking solution, making it a win-win for both parties. By bridging this gap, [PRODUCT NAME] fosters a community-driven approach to solving parking challenges.
+We are planning to build a responsive website and a mobile app to ensure seamless access and convenience for all users. The platform will allow drivers to search for available parking spaces near their destinations, filter options based on price and distance, and securely book their spots in advance. For example, a college student struggling to afford campus parking or a daily commuter seeking a reliable alternative to expensive downtown parking can easily find and reserve affordable spaces through our app. Homeowners can list their unused parking spots with details like availability, pricing, and location, creating a simple way to generate extra income. By addressing these common needs, [PRODUCT NAME] aims to streamline the parking experience for everyone involved.
+While students are a key audience, [PRODUCT NAME] offers benefits for a much broader range of users. Professionals working in busy urban areas can find affordable parking options close to their offices, saving time and money compared to high-cost commercial parking garages. Travelers can secure convenient parking near airports or transit hubs, avoiding the hassle of last-minute searches and expensive fees. Event-goers attending concerts, sports games, or festivals can easily reserve spots near the venue, reducing stress and improving their overall experience. By catering to diverse parking needs, [PRODUCT NAME] provides a versatile solution for anyone looking for more affordable and accessible parking options.
+With [PRODUCT NAME], users will have the option to book parking spaces for long-term use, providing a convenient solution for recurring parking needs. Whether it’s a commuter looking for a reliable spot near their workplace or a tenant needing consistent parking in a residential area, the platform allows users to secure spaces on a weekly, monthly, or even yearly basis. Homeowners can set custom terms and pricing for long-term reservations, ensuring flexibility and mutual benefit. This feature eliminates the hassle of daily reservations, offering both drivers and homeowners a stable and predictable arrangement.
+[PRODUCT NAME] is designed to transform the way people approach parking by creating an innovative, community-focused platform that benefits everyone involved. By connecting homeowners with drivers in need of affordable and convenient parking options, the platform fosters collaboration, maximizes unused resources, and provides sustainable solutions to parking challenges. Whether it's for daily use, long-term arrangements, or reducing the stress of finding a spot during busy events, [PRODUCT NAME] is committed to enhancing accessibility, affordability, and community connections. With a responsive website and mobile app, we aim to make parking simple, efficient, and hassle-free for all users.
+
+
+Q2: Who are your target users? (2-3 personas) 
+ * Short (2-5 min' read max)
+ * Be specific (e.g. )
+ * You can create your personas as part of this Markdown file, or add a link to an external site (for example, [Xtensio](https://xtensio.com/user-persona/)), or add a pdf
+Car owner who wants to find a cheap parking spot near their school/work
+![image](https://github.com/user-attachments/assets/475778d6-bcd6-40f9-a367-5ee0db55b55c)
+
+Annifer Awrence is a 19-year-old undergraduate student studying biology at the University of Toronto Scarborough. She lives with her parents in a suburban area 20 km away from campus and drives a 2018 Honda CRV that her family helped her buy for commuting. Annifer is currently taking five courses this semester, but her classes are scheduled such that she only needs to be on campus once a week, every Tuesday from 10 a.m. to 4 p.m.
+She has always been budget-conscious and feels that the university’s parking fees are too high, especially since she doesn’t use them frequently. Annifer wants to find a parking spot that is more affordable and close enough to make her walk to campus manageable, ideally within 10 minutes. In her free time, Annifer enjoys baking cookies, watching nature documentaries, and playing badminton with her friends. She often plans her week down to the hour to ensure she has time for both academics and hobbies.
+Annifer is hoping for a convenient and reliable solution to secure parking for the next four months and would appreciate an app or service that allows her to pre-book spaces without needing to negotiate directly with homeowners.
+Car owner who wants to find parking spots occasionally when they sightsee
+![image](https://github.com/user-attachments/assets/ef94ae3e-a733-4a1e-a94f-c5d965d3d4df)
+
+Barry Bee is a 37-year-old freelance photographer specializing in landscapes and travel. He lives in a studio apartment in Vancouver and spends much of his time driving across Canada in his well-maintained 2015 Subaru Outback. Barry loves discovering hidden gems during his road trips, often stopping at national parks, quaint towns, and historic sites to capture the perfect shot.
+When traveling, Barry often faces the challenge of finding convenient and affordable parking near his destinations. Whether it’s a bustling city center or a tourist hotspot, he dislikes wasting time circling for a spot. Barry is spontaneous with his plans—one day, he could be photographing wildlife in Jasper, and the next, he might be exploring the art galleries in Toronto.
+Barry values flexibility and simplicity. When not on the road, Barry enjoys editing his photos at local cafés, hiking, and attending photography workshops. He’s searching for a platform that allows him to easily book short-term parking in advance, ensuring a hassle-free experience no matter where his adventures take him.
+Homeowner who wants to rent out their driveway
+![image](https://github.com/user-attachments/assets/b91c06be-edee-4d7d-aae1-6ebb58ec1b68)
+
+Capy Cbara is a 46-year-old marketing consultant who lives in a quiet suburban neighborhood just outside Calgary. She shares her home with her husband, Paul, and their two teenage daughters, Emily and Sara. Capy’s driveway can fit up to three vehicles, but her family only uses one of the spaces for their SUV. With a busy shopping center and a train station just a 10-minute walk away, parking in her area is always in high demand.
+Capy first heard about the idea of renting out her driveway from a neighbor and saw it as a great opportunity to earn extra income for family expenses, such as her daughters’ extracurricular activities and summer camps. She’s interested in renting her driveway on weekdays, especially to commuters who need a consistent parking spot.
+In her free time, Capy enjoys gardening, baking, and hosting movie nights with her family. She’s looking for a system that makes renting her driveway simple and secure, with clear communication from renters and guaranteed payments. Capy takes pride in keeping her home and driveway well-maintained and wants to ensure anyone using her property treats it with respect.
+
+
+Q3: Why would your users choose your product? What are they using today to solve their problem/need?
+
+YOUR ANSWER GOES HERE ...
+
+ * Short (2-5 min' read max)
+ * We want you to "connect the dots" for us - Why does your product (as described in your answer to Q1) fits the needs of your users (as described in your answer to Q2)?
+ * Explain the benefits of your product explicitly & clearly. For example:
+    * Save users time (how much?)
+    * Allow users to discover new information (which information? And, why couldn't they discover it before?)
+    * Provide users with more accurate and/or informative data (what kind of data? Why is it useful to them?)
+Our users would choose [PRODUCT NAME] because it provides tailored solutions to their diverse parking needs while addressing common frustrations with current alternatives. For example, Annifer, a budget-conscious university student, finds campus parking fees unnecessarily high, especially since she only needs parking once a week. [PRODUCT NAME] offers her an affordable, convenient option to book a parking spot close to her campus without the need for costly long-term permits. With the ability to pre-book her space in advance, Annifer can better manage her tight schedule and avoid the stress of last-minute parking searches.
+For users like Barry, a freelance photographer and avid traveler, flexibility is key. Whether he’s navigating a busy city center or a remote tourist spot, Barry values having access to affordable and convenient parking without wasting time driving in circles. [PRODUCT NAME] allows him to find and book short-term parking on the go, ensuring he can focus on capturing the perfect shot instead of dealing with parking hassles. The platform’s simple and intuitive interface is designed to fit seamlessly into Barry’s spontaneous travel lifestyle, giving him the freedom to park wherever his adventures take him.
+Homeowners like Capy also stand to benefit greatly from [PRODUCT NAME]. With an unused driveway near a busy shopping center and train station, Capy can earn passive income by renting her parking space to commuters in need. The platform offers her a secure and hassle-free way to list her driveway, set availability, and communicate with renters. By turning an underutilized resource into a reliable income stream, Capy can help cover her family’s expenses while offering a valuable service to her community.
+[PRODUCT NAME] fits the needs of users like Annifer, Barry, and Capy by saving time, reducing costs, and fostering trust. Drivers get affordable, reliable parking options tailored to their schedules and locations, while homeowners can maximize their property’s value effortlessly. The platform’s combination of convenience, security, and community-driven solutions makes it the perfect choice for anyone looking to transform their parking experience.
+
+
+
+
+Q4: What does "DONE" means to your Team 
+ * The whole team needs to agree as to what ”done” means for the features you will
+   implement.
+ * Definition of done applies to all user stories
+
+----
+We will be done when the following is completed:
+User stories: All user stories, such as the ability to search for, book, and pay for parking spaces, must be fully developed and work as intended. This includes ensuring users can filter parking spots based on location, price, and availability, and that bookings can be made seamlessly.
+Code Quality: The code is clean, well-documented, and follows the team’s coding standards. This includes proper naming conventions for variables and components, use of comments where necessary, and ensuring that no hard-coded values are present.
+
+ User Experience: The app is easy to navigate, visually consistent, and responsive across devices. The process of searching, booking, and paying for parking should be seamless and clear, with minimal steps, quick loading times, and clear feedback at each stage (e.g., confirmations, error messages). The design must be accessible to all users, including those with disabilities, and should feel polished and professional. Performance is key—users should experience no lags or crashes. Finally, the feature must have been tested with real users, and their feedback should have been incorporated to refine and enhance the experience. This ensures that the app delivers a smooth, enjoyable, and frustration-free experience for both drivers and homeowners.
+
+Testing: All relevant tests must be in place, including unit tests for individual components (e.g., the booking form), integration tests to check how different parts of the system interact (e.g., payment processing with parking spot availability), and end-to-end tests to simulate user flows from searching for a parking space to completing a booking. Edge cases, such as unavailable spots or payment failures, are also thoroughly tested.
+
+Deployment: The feature is deployed to the appropriate staging or production environment. It has been verified to work in real-world conditions, such as users being able to book parking spaces, homeowners being able to list spots, and transactions being processed correctly.
+
+By meeting these criteria, the team ensures that each feature is fully complete, stable, and ready for release, providing a seamless and reliable experience for all users of the parking space rental app.
+
+
+
+
+### Highlights
+
+YOUR ANSWER GOES HERE ...
+
+Specify 3 - 5 key decisions and/or insights that came up during your meetings
+and/or collaborative process. Here are few questions that can guide you
+
+ * Short (5 min' read max)
+ * Decisions can be related to the product and/or the team process.
+    * Mention which alternatives you were considering.
+    * Present the arguments for each alternative.
+    * Explain why the option you decided on makes the most sense for your team/product/users.
+ * Essentially, we want to understand how (and why) you ended up with your current product plan.
+ * How did you organise the team? Which tools did you use, if any?
+ * How frequently did you meet?
+
+
+
+Platform Prioritization (Website First vs. Mobile App First): A key decision we faced was whether to prioritize launching a mobile app or focus on building a responsive website. Initially, we considered starting with a mobile app, given the widespread use of smartphones among our target users. However, after evaluating the needs of our users, we decided to prioritize a responsive website. A responsive website can be accessed easily on both desktop and mobile devices, removing the need for a separate app download. This also enables us to launch the MVP quickly, reaching a wider audience and gathering user feedback earlier in the process. By starting with the website, we can iterate based on real user insights, which will help guide future development, including the potential for a mobile app. This approach ensures that we provide flexibility to users while setting a solid foundation for future product growth.
+
+
+Choice of Booking System (Single-Transaction vs. Long-Term Contracts): One of the key decisions was whether to implement a single-transaction booking system, long-term contracts, or a combination of both. Single-transaction bookings provide flexibility, allowing users to book parking spots on a per-need basis without any long-term commitment. This is ideal for occasional users who might only need parking on specific days or during events. On the other hand, long-term contracts offer stability for both drivers and homeowners. For regular commuters, such as those with predictable parking needs, long-term contracts provide guaranteed access to a spot and can offer cost savings over time. After carefully considering both options, we decided to implement both models in the app. Users can choose between single-transaction bookings for short-term or occasional needs and long-term contracts for regular, extended use. This approach allows us to cater to a wider range of users, from those seeking short-term flexibility to those looking for long-term stability, creating a more comprehensive and adaptable platform for parking needs.
+
+We use Discord for quick chats and real-time updates, keeping everyone on the same page. Jira helps us track tasks and manage sprints, so we stay organized and on schedule. Google Docs is where we share meeting notes and product docs, making it easy for everyone to collaborate. This setup keeps things running smoothly and ensures we're all aligned throughout the project. We met every other day to make sure progress was being made during this sprint.

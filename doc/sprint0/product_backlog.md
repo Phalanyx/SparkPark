@@ -2,16 +2,16 @@
 
 ## User Stories
 
-### Map
+### 1. Map
 As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *have a live map of available parking spots.* \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can find a parking spot suiting my needs.*
 
-#### Acceptance Criteria
+#### 1. Acceptance Criteria
 Given *the user is connected to the internet and has allowed the app to access its location,* \
 When *the user is in the "find parking spot" tab,* \
 Then *available, close-by parking spots should be displayed with symbols on an interactive map.*
-### Navigation
+### 1. Navigation
 As a **short-term parker** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *have live navigation to my selected parking spot.* \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can quickly and easily find my parking spot.*

@@ -127,9 +127,9 @@ As a **paking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can pay without much effort.* 
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a user wants to book a parking spot,* \
+When *they get to the "checkout",* \
+Then *the payment should be handled by a common payment service.*
 
 ### Trustable Customers
 As a **parking space owner** \
@@ -137,9 +137,9 @@ As a **parking space owner** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am guaranteed to have a seamless interaction with my customers.* 
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a landlord has a listing on the platform,* \
+When *they add/edit their listing,* \
+Then *they should have the option to set a minmum user rating for a user to rent the spot.*
 
 ### Trustable Landlords
 As a **parking customer** \
@@ -147,9 +147,14 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am guaranteed to get a parking spot when I rent one on the platform.* 
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a landord has a parking space listed on the platform,* \
+When *a user views a listing from this landlord,* \
+Then *the rating of this landlord should be displayed on the lsiting.*
+
+Given *a landord has a parking space listed on the platform,* \
+When *a user views a listing from this landlord,* \
+Then *the user should not be allowed to book if the rating of the landlord is below a certain threshold.*
+
 
 ### Guaranteed Payment
 As a **parking space owner** \

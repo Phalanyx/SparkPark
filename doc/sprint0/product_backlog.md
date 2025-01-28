@@ -8,9 +8,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can find a parking spot suiting my needs.*
 
 #### Acceptance Criteria
-Given *the user is connected to the internet,* \
+Given *the user is connected to the internet and has allowed the app to access its location,* \
 When *the user is in the "find parking spot" tab,* \
-Then *available parking spots should be displayed with symbols on an interactive map.*
+Then *available, close-by parking spots should be displayed with symbols on an interactive map.*
 ### Navigation
 As a **short-term parker** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *have live navigation to my selected parking spot.* \
@@ -122,6 +122,9 @@ As a **parking space owner** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can choose my rent accordingly.* 
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Favorite Parking Spots
 As a **parking customer** \
@@ -129,6 +132,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I have easy access to them whenever I want to use them again.* 
 
 #### Acceptance Criteria
+Given *the user has added parking spots to his favorites,* \
+When *he clicks on the "favorites" tab,* \
+Then *a list as well as a map with his favorite parking spots should be displayed.*
 
 ### Availability Calender
 As a **parking customer** \
@@ -136,10 +142,16 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can plan ahead.* 
 
 #### Acceptance Criteria
+Given *the user is online and browsing the "find parking spots" tab* \
+When *the user inspects the details of a parking spot,* \
+Then *the availibility of a parking spot should be displayed in a calendar.*
 
-### Placeholder 20
-As a **** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to ** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that ** 
+### Custom Search
+As a **parking customer** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *modify the search parameters of the parking spot search.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am only recommended parking spots that fit my needs.* 
 
 #### Acceptance Criteria
+Given *The user has specified custom search options and is online,* \
+When *the user is in the "find parking spot" tab,*  \
+Then *only parking spots meeting the custom search criteria should be displayed.*

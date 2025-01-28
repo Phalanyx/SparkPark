@@ -73,7 +73,7 @@ Then **
 
 ### 8. Mobile Accessebility
 As a **parking customer** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *be able to acces the platform from my phone.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *be able to access the platform from my phone.* \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can find parking spots on the go.*
 
 #### Acceptance Criteria
@@ -87,9 +87,9 @@ As a **parking space owner** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can reach him in an emergency.*
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a registered (including phone number) customer wants to book a parking spot,* \
+When *the user completes a booking,* \
+Then *the users contact information should be displayed in the tab for managing your listings.*
 
 ### 10. Size Information
 As a **parking customer** \
@@ -97,9 +97,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can choose a spot that has enough space for my car.*
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a user wants to book a parking spot,* \
+When *they click on a parking spot on the map,* \
+Then *it should display details of this parking spot including size.*
 
 ### 11. Automatic Size Matching
 As a **parking customer** \
@@ -107,9 +107,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I don't have to worry about my car not fitting once I arrive.*
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a user has his car size in his profile,* \
+When *they select this car in the "find parking spot" tab,* \
+Then *only parking spots that fit the car should be displayed on the map.*
 
 ### 12. Secure Payment
 As a **parking customer** \
@@ -117,9 +117,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am protected against potential fraud.* 
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a use wants to rent a parking spot,* \
+When *they are making their payment,* \
+Then *the platform should handle the transaction as a middleman and not pay out the landlord immediately.*
 
 ### 13. Easy Payment
 As a **paking customer** \

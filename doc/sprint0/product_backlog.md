@@ -17,6 +17,9 @@ As a **short-term parker** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can quickly and easily find my parking spot.*
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Picture
 As a **parking customer** \
@@ -24,6 +27,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I know I am parking at the right spot.*
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Spot Recommendation
 As a **short-term parker** \
@@ -31,6 +37,9 @@ As a **short-term parker** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can find a spot quickly and without much effort.* 
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Visible Pricing
 As a **parking customer** \
@@ -38,6 +47,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can choose a spot I can afford.*
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Flexible Duration
 As a **short-term parker** \
@@ -45,6 +57,9 @@ As a **short-term parker** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *can be spontaneous in my activities.*
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Control over Availability
 As a **parking space owner** \
@@ -52,6 +67,9 @@ As a **parking space owner** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can use the spot whenever I need to.*
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Mobile Accessebility
 As a **parking customer** \
@@ -59,6 +77,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can find parking spots on the go.*
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Contacting Customer
 As a **parking space owner** \
@@ -66,6 +87,9 @@ As a **parking space owner** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can reach him in an emergency.*
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Size Information
 As a **parking customer** \
@@ -73,6 +97,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can choose a spot that has enough space for my car.*
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Automatic Size Matching
 As a **parking customer** \
@@ -80,6 +107,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I don't have to worry about my car not fitting once I arrive.*
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Secure Payment
 As a **parking customer** \
@@ -87,6 +117,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am protected against potential fraud.* 
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Easy Payment
 As a **paking customer** \
@@ -94,6 +127,9 @@ As a **paking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can pay without much effort.* 
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Trustable Customers
 As a **parking space owner** \
@@ -101,6 +137,9 @@ As a **parking space owner** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am guaranteed to have a seamless interaction with my customers.* 
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Trustable Landlords
 As a **parking customer** \
@@ -108,6 +147,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am guaranteed to get a parking spot when I rent one on the platform.* 
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Guaranteed Payment
 As a **parking space owner** \
@@ -115,6 +157,9 @@ As a **parking space owner** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am protected against fraud.* 
 
 #### Acceptance Criteria
+Given ** \
+When ** \
+Then **
 
 ### Compare Rents
 As a **parking space owner** \
@@ -122,9 +167,9 @@ As a **parking space owner** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can choose my rent accordingly.* 
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *the user is online and wants to register a parking spot,* \
+When *he is in the "add parking spot" tab,* \
+Then *there should prices of similar parking spots being shwon in a list and on a map.*
 
 ### Favorite Parking Spots
 As a **parking customer** \

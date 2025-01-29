@@ -2,7 +2,7 @@
 
 ## User Stories
 
-### 1. Map
+### 1. Live Map
 As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *have a live map of available parking spots.* \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can find a parking spot suiting my needs.*
@@ -11,7 +11,7 @@ As a **parking customer** \
 Given *the user is connected to the internet and has allowed the app to access its location,* \
 When *the user is in the "find parking spot" tab,* \
 Then *available, close-by parking spots should be displayed with symbols on an interactive map.*
-### 2. Navigation
+### 2. Live Navigation
 As a **short-term parker** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *have live navigation to my selected parking spot.* \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can quickly and easily find my parking spot.*

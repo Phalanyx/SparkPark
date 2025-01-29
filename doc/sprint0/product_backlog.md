@@ -21,7 +21,7 @@ Given *a user has booked a parking spot,* \
 When *they click on the navigation button on the listing,* \
 Then *a navigation map showing directions to the prking spot (using a navigation API).*
 
-### 3. Picture
+### 3. Picture of Parking Spot
 As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *see a picture of the parking spot on the platform.* \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I know I am parking at the right spot.*
@@ -85,9 +85,9 @@ As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can find parking spots on the go.*
 
 #### Acceptance Criteria
-Given ** \
-When ** \
-Then **
+Given *a user is accesing the platform on their phone,* \
+When *they use the platform,* \
+Then *UI should be easily navigatable and readable on phones.*
 
 ### 9. Contacting Customer
 As a **parking space owner** \

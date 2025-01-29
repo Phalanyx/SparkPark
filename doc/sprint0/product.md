@@ -4,17 +4,6 @@
  > That is, it makes sense for you commit regularly to this file while working on the project (especially edits/additions/deletions to the _Highlights_ section).
 
 Q1: What are you planning to build?
-
- * Short (2-5 min' read)
- * Start with a single sentence, high-level description of the product.
- * Be clear - Describe the problem you are solving in simple terms.
- * Be concrete. For example:
-    * What are you planning to build? Is it a website, mobile app,
-   browser extension, command-line app, etc.?      
-    * When describing the problem/need, give concrete examples of common use cases.
- * Focus on *what* your product does, and avoid discussing *how* you're going to implement it.      
-   For example: This is not the time or the place to talk about which programming language and/or framework you are planning to use.
- * **Feel free (and very much encouraged) to include useful diagrams, mock-ups and/or links**.
 [PRODUCT NAME] is a web application that allows people to rent and sell parking lots. Many people who commute to school or work by car are often forced to pay high parking fees at designated student/faculty parking spots. [PRODUCT NAME] connects local homeowners to drivers seeking a cheaper alternative for parking. We provide homeowners with an opportunity to earn passive income by renting out unused parking spaces, turning their property into a valuable resource. At the same time, it offers drivers a more affordable and convenient parking solution, making it a win-win for both parties. By bridging this gap, [PRODUCT NAME] fosters a community-driven approach to solving parking challenges.
 We are planning to build a responsive website and a mobile app to ensure seamless access and convenience for all users. The platform will allow drivers to search for available parking spaces near their destinations, filter options based on price and distance, and securely book their spots in advance. For example, a college student struggling to afford campus parking or a daily commuter seeking a reliable alternative to expensive downtown parking can easily find and reserve affordable spaces through our app. Homeowners can list their unused parking spots with details like availability, pricing, and location, creating a simple way to generate extra income. By addressing these common needs, [PRODUCT NAME] aims to streamline the parking experience for everyone involved.
 While students are a key audience, [PRODUCT NAME] offers benefits for a much broader range of users. Professionals working in busy urban areas can find affordable parking options close to their offices, saving time and money compared to high-cost commercial parking garages. Travelers can secure convenient parking near airports or transit hubs, avoiding the hassle of last-minute searches and expensive fees. Event-goers attending concerts, sports games, or festivals can easily reserve spots near the venue, reducing stress and improving their overall experience. By catering to diverse parking needs, [PRODUCT NAME] provides a versatile solution for anyone looking for more affordable and accessible parking options.
@@ -23,10 +12,7 @@ With [PRODUCT NAME], users will have the option to book parking spaces for long-
 
 
 Q2: Who are your target users? (2-3 personas) 
- * Short (2-5 min' read max)
- * Be specific (e.g. )
- * You can create your personas as part of this Markdown file, or add a link to an external site (for example, [Xtensio](https://xtensio.com/user-persona/)), or add a pdf
-Car owner who wants to find a cheap parking spot near their school/work
+Car owners who wants to find a cheap parking spot near their school/work.
 ![image](https://github.com/user-attachments/assets/475778d6-bcd6-40f9-a367-5ee0db55b55c)
 
 Annifer Awrence is a 19-year-old undergraduate student studying biology at the University of Toronto Scarborough. She lives with her parents in a suburban area 20 km away from campus and drives a 2018 Honda CRV that her family helped her buy for commuting. Annifer is currently taking five courses this semester, but her classes are scheduled such that she only needs to be on campus once a week, every Tuesday from 10 a.m. to 4 p.m.
@@ -48,14 +34,6 @@ In her free time, Capy enjoys gardening, baking, and hosting movie nights with h
 
 Q3: Why would your users choose your product? What are they using today to solve their problem/need?
 
-YOUR ANSWER GOES HERE ...
-
- * Short (2-5 min' read max)
- * We want you to "connect the dots" for us - Why does your product (as described in your answer to Q1) fits the needs of your users (as described in your answer to Q2)?
- * Explain the benefits of your product explicitly & clearly. For example:
-    * Save users time (how much?)
-    * Allow users to discover new information (which information? And, why couldn't they discover it before?)
-    * Provide users with more accurate and/or informative data (what kind of data? Why is it useful to them?)
 Our users would choose [PRODUCT NAME] because it provides tailored solutions to their diverse parking needs while addressing common frustrations with current alternatives. For example, Annifer, a budget-conscious university student, finds campus parking fees unnecessarily high, especially since she only needs parking once a week. [PRODUCT NAME] offers her an affordable, convenient option to book a parking spot close to her campus without the need for costly long-term permits. With the ability to pre-book her space in advance, Annifer can better manage her tight schedule and avoid the stress of last-minute parking searches.
 For users like Barry, a freelance photographer and avid traveler, flexibility is key. Whether he’s navigating a busy city center or a remote tourist spot, Barry values having access to affordable and convenient parking without wasting time driving in circles. [PRODUCT NAME] allows him to find and book short-term parking on the go, ensuring he can focus on capturing the perfect shot instead of dealing with parking hassles. The platform’s simple and intuitive interface is designed to fit seamlessly into Barry’s spontaneous travel lifestyle, giving him the freedom to park wherever his adventures take him.
 Homeowners like Capy also stand to benefit greatly from [PRODUCT NAME]. With an unused driveway near a busy shopping center and train station, Capy can earn passive income by renting her parking space to commuters in need. The platform offers her a secure and hassle-free way to list her driveway, set availability, and communicate with renters. By turning an underutilized resource into a reliable income stream, Capy can help cover her family’s expenses while offering a valuable service to her community.
@@ -65,11 +43,7 @@ Homeowners like Capy also stand to benefit greatly from [PRODUCT NAME]. With an 
 
 
 Q4: What does "DONE" means to your Team 
- * The whole team needs to agree as to what ”done” means for the features you will
-   implement.
- * Definition of done applies to all user stories
 
-----
 We will be done when the following is completed:
 User stories: All user stories, such as the ability to search for, book, and pay for parking spaces, must be fully developed and work as intended. This includes ensuring users can filter parking spots based on location, price, and availability, and that bookings can be made seamlessly.
 Code Quality: The code is clean, well-documented, and follows the team’s coding standards. This includes proper naming conventions for variables and components, use of comments where necessary, and ensuring that no hard-coded values are present.
@@ -82,26 +56,7 @@ Deployment: The feature is deployed to the appropriate staging or production env
 
 By meeting these criteria, the team ensures that each feature is fully complete, stable, and ready for release, providing a seamless and reliable experience for all users of the parking space rental app.
 
-
-
-
-### Highlights
-
-YOUR ANSWER GOES HERE ...
-
-Specify 3 - 5 key decisions and/or insights that came up during your meetings
-and/or collaborative process. Here are few questions that can guide you
-
- * Short (5 min' read max)
- * Decisions can be related to the product and/or the team process.
-    * Mention which alternatives you were considering.
-    * Present the arguments for each alternative.
-    * Explain why the option you decided on makes the most sense for your team/product/users.
- * Essentially, we want to understand how (and why) you ended up with your current product plan.
- * How did you organise the team? Which tools did you use, if any?
- * How frequently did you meet?
-
-
+**Highlights**
 
 Platform Prioritization (Website First vs. Mobile App First): A key decision we faced was whether to prioritize launching a mobile app or focus on building a responsive website. Initially, we considered starting with a mobile app, given the widespread use of smartphones among our target users. However, after evaluating the needs of our users, we decided to prioritize a responsive website. A responsive website can be accessed easily on both desktop and mobile devices, removing the need for a separate app download. This also enables us to launch the MVP quickly, reaching a wider audience and gathering user feedback earlier in the process. By starting with the website, we can iterate based on real user insights, which will help guide future development, including the potential for a mobile app. This approach ensures that we provide flexibility to users while setting a solid foundation for future product growth.
 

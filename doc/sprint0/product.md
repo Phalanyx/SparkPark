@@ -6,6 +6,8 @@
 
 We are developing a **responsive website and a mobile app** to ensure seamless access for all users. Features include:
 - Searching for available parking spaces based on location, price, and distance.
+- Navigation to parking spaces
+- Auto-suggestion of parking spaces
 - Securely booking spots in advance.
 - Listing unused parking spots with availability, pricing, and location.
 

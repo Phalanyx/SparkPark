@@ -14,7 +14,7 @@ export default function Home() {
         <div className='w-full h-full'>
           <Map />
           <div className="absolute w-full h-full top-0">
-          <Search />
+          {/*<Search />*/}
           </div>
         </div>
         {/* Search overlay */}

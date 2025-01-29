@@ -2,7 +2,7 @@
 
 ## Q1: What are you planning to build?
 
-**[PRODUCT NAME]** is a web application that allows people to rent and sell parking lots. Many commuters, such as students and workers, often face high parking fees at designated parking spots. **[PRODUCT NAME]** connects local homeowners to drivers seeking a cheaper alternative for parking. This provides homeowners an opportunity to earn passive income while offering drivers a more affordable and convenient solution.
+**[PRODUCT NAME]** is a web application that allows people to rent and sell parking lots. Many commuters, such as students and workers, often face high parking fees at designated parking spots. **[PRODUCT NAME]** connects local homeowners to drivers seeking a cheaper alternative for parking. This provides homeowners an opportunity to earn passive income while offering drivers a more affordable and convenient solution. While giving drivers the ability to easily find and navigate to parking spaces that fit their preferences. Gone are the days of driving around the block multiple times until you find a suitable parking spot.
 
 We are developing a **responsive website and a mobile app** to ensure seamless access for all users. Features include:
 - Searching for available parking spaces based on location, price, and distance.

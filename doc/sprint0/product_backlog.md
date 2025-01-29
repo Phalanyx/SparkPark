@@ -149,10 +149,10 @@ Given *a landlord is in the "add listing" tab,* \
 When *they fill out the form for adding a parking spot,* \
 Then *there should be different steps (pages of the form) as well as good defaults and explanations for the different fields.*
 
-### 15. Trustable Landlords
-As a **parking customer** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *be guaranteed that landlords are legit.* \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am guaranteed to get a parking spot when I rent one on the platform.* 
+### 15. Trustable Users
+As a **user** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *be guaranteed that other users are legit and trustworthy.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can use the platform without having to worry about fraud.* 
 
 #### Acceptance Criteria
 Given *a landord has a parking space listed on the platform,* \
@@ -162,6 +162,11 @@ Then *the rating of this landlord should be displayed on the lsiting.*
 Given *a landord has a parking space listed on the platform,* \
 When *a user views a listing from this landlord,* \
 Then *the user should not be allowed to book if the rating of the landlord is below a certain threshold.*
+
+Given *a user is registered on the platform,* \
+When *they have a bad rating and or do not abide by the rules,* \
+Then *their account should be temporarly disabled (removing all their listings) until verfied by a human.*
+
 
 
 ### 16. Guaranteed Payment

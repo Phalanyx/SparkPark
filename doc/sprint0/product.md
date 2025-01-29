@@ -1,18 +1,15 @@
 # YOUR PRODUCT/TEAM NAME
 
- > _Note:_ This document is meant to evolve throughout the planning phase of your project.    
- > That is, it makes sense for you commit regularly to this file while working on the project (especially edits/additions/deletions to the _Highlights_ section).
-
-Q1: What are you planning to build?
-[PRODUCT NAME] is a web application that allows people to rent and sell parking lots. Many people who commute to school or work by car are often forced to pay high parking fees at designated student/faculty parking spots. [PRODUCT NAME] connects local homeowners to drivers seeking a cheaper alternative for parking. We provide homeowners with an opportunity to earn passive income by renting out unused parking spaces, turning their property into a valuable resource. At the same time, it offers drivers a more affordable and convenient parking solution, making it a win-win for both parties. By bridging this gap, [PRODUCT NAME] fosters a community-driven approach to solving parking challenges.
+**Q1: What are you planning to build?
+**[PRODUCT NAME] is a web application that allows people to rent and sell parking lots. Many people who commute to school or work by car are often forced to pay high parking fees at designated student/faculty parking spots. [PRODUCT NAME] connects local homeowners to drivers seeking a cheaper alternative for parking. We provide homeowners with an opportunity to earn passive income by renting out unused parking spaces, turning their property into a valuable resource. At the same time, it offers drivers a more affordable and convenient parking solution, making it a win-win for both parties. By bridging this gap, [PRODUCT NAME] fosters a community-driven approach to solving parking challenges.
 We are planning to build a responsive website and a mobile app to ensure seamless access and convenience for all users. The platform will allow drivers to search for available parking spaces near their destinations, filter options based on price and distance, and securely book their spots in advance. For example, a college student struggling to afford campus parking or a daily commuter seeking a reliable alternative to expensive downtown parking can easily find and reserve affordable spaces through our app. Homeowners can list their unused parking spots with details like availability, pricing, and location, creating a simple way to generate extra income. By addressing these common needs, [PRODUCT NAME] aims to streamline the parking experience for everyone involved.
 While students are a key audience, [PRODUCT NAME] offers benefits for a much broader range of users. Professionals working in busy urban areas can find affordable parking options close to their offices, saving time and money compared to high-cost commercial parking garages. Travelers can secure convenient parking near airports or transit hubs, avoiding the hassle of last-minute searches and expensive fees. Event-goers attending concerts, sports games, or festivals can easily reserve spots near the venue, reducing stress and improving their overall experience. By catering to diverse parking needs, [PRODUCT NAME] provides a versatile solution for anyone looking for more affordable and accessible parking options.
 With [PRODUCT NAME], users will have the option to book parking spaces for long-term use, providing a convenient solution for recurring parking needs. Whether it’s a commuter looking for a reliable spot near their workplace or a tenant needing consistent parking in a residential area, the platform allows users to secure spaces on a weekly, monthly, or even yearly basis. Homeowners can set custom terms and pricing for long-term reservations, ensuring flexibility and mutual benefit. This feature eliminates the hassle of daily reservations, offering both drivers and homeowners a stable and predictable arrangement.
 [PRODUCT NAME] is designed to transform the way people approach parking by creating an innovative, community-focused platform that benefits everyone involved. By connecting homeowners with drivers in need of affordable and convenient parking options, the platform fosters collaboration, maximizes unused resources, and provides sustainable solutions to parking challenges. Whether it's for daily use, long-term arrangements, or reducing the stress of finding a spot during busy events, [PRODUCT NAME] is committed to enhancing accessibility, affordability, and community connections. With a responsive website and mobile app, we aim to make parking simple, efficient, and hassle-free for all users.
 
 
-Q2: Who are your target users? (2-3 personas) 
-Car owners who wants to find a cheap parking spot near their school/work.
+**Q2: Who are your target users? (2-3 personas) 
+**Car owners who wants to find a cheap parking spot near their school/work.
 ![image](https://github.com/user-attachments/assets/475778d6-bcd6-40f9-a367-5ee0db55b55c)
 
 Annifer Awrence is a 19-year-old undergraduate student studying biology at the University of Toronto Scarborough. She lives with her parents in a suburban area 20 km away from campus and drives a 2018 Honda CRV that her family helped her buy for commuting. Annifer is currently taking five courses this semester, but her classes are scheduled such that she only needs to be on campus once a week, every Tuesday from 10 a.m. to 4 p.m.
@@ -32,8 +29,8 @@ Capy first heard about the idea of renting out her driveway from a neighbor and 
 In her free time, Capy enjoys gardening, baking, and hosting movie nights with her family. She’s looking for a system that makes renting her driveway simple and secure, with clear communication from renters and guaranteed payments. Capy takes pride in keeping her home and driveway well-maintained and wants to ensure anyone using her property treats it with respect.
 
 
-Q3: Why would your users choose your product? What are they using today to solve their problem/need?
-
+**Q3: Why would your users choose your product? What are they using today to solve their problem/need?
+**
 Our users would choose [PRODUCT NAME] because it provides tailored solutions to their diverse parking needs while addressing common frustrations with current alternatives. For example, Annifer, a budget-conscious university student, finds campus parking fees unnecessarily high, especially since she only needs parking once a week. [PRODUCT NAME] offers her an affordable, convenient option to book a parking spot close to her campus without the need for costly long-term permits. With the ability to pre-book her space in advance, Annifer can better manage her tight schedule and avoid the stress of last-minute parking searches.
 For users like Barry, a freelance photographer and avid traveler, flexibility is key. Whether he’s navigating a busy city center or a remote tourist spot, Barry values having access to affordable and convenient parking without wasting time driving in circles. [PRODUCT NAME] allows him to find and book short-term parking on the go, ensuring he can focus on capturing the perfect shot instead of dealing with parking hassles. The platform’s simple and intuitive interface is designed to fit seamlessly into Barry’s spontaneous travel lifestyle, giving him the freedom to park wherever his adventures take him.
 Homeowners like Capy also stand to benefit greatly from [PRODUCT NAME]. With an unused driveway near a busy shopping center and train station, Capy can earn passive income by renting her parking space to commuters in need. The platform offers her a secure and hassle-free way to list her driveway, set availability, and communicate with renters. By turning an underutilized resource into a reliable income stream, Capy can help cover her family’s expenses while offering a valuable service to her community.
@@ -42,8 +39,8 @@ Homeowners like Capy also stand to benefit greatly from [PRODUCT NAME]. With an 
 
 
 
-Q4: What does "DONE" means to your Team 
-
+**Q4: What does "DONE" means to your Team 
+**
 We will be done when the following is completed:
 User stories: All user stories, such as the ability to search for, book, and pay for parking spaces, must be fully developed and work as intended. This includes ensuring users can filter parking spots based on location, price, and availability, and that bookings can be made seamlessly.
 Code Quality: The code is clean, well-documented, and follows the team’s coding standards. This includes proper naming conventions for variables and components, use of comments where necessary, and ensuring that no hard-coded values are present.

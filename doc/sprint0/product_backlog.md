@@ -218,3 +218,13 @@ As a **parking customer** \
 Given *The user has specified custom search options and is online,* \
 When *the user is in the "find parking spot" tab,*  \
 Then *only parking spots meeting the custom search criteria should be displayed.*
+
+### 21. Admin Control
+As an **admin** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *be able to look at user activities,* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can remove users that make the platform unsafe.* 
+
+#### Acceptance Criteria
+Given *a user is logged in as an admin,* \
+When *they visit a user profile,* \
+Then *there should advanced data about the users activity displayed as well as an option to remove/disable the account or listing of the user.*

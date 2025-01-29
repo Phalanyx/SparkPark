@@ -139,15 +139,15 @@ Given *a user wants to book a parking spot,* \
 When *they get to the "checkout",* \
 Then *the payment should be handled by a common payment service.*
 
-### 14. Trustable Customers
+### 14. Add Listing for Parking Spot
 As a **parking space owner** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *be guaranteed to have customers that abide by the rules.* \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am guaranteed to have a seamless interaction with my customers.* 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *be to be guided through the process of adding a listing to the platform* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am able to create a good listing with all the necessary information without much effort.* 
 
 #### Acceptance Criteria
-Given *a landlord has a listing on the platform,* \
-When *they add/edit their listing,* \
-Then *they should have the option to set a minmum user rating for a user to rent the spot.*
+Given *a landlord is in the "add listing" tab,* \
+When *they fill out the form for adding a parking spot,* \
+Then *there should be different steps (pages of the form) as well as good defaults and explanations for the different fields.*
 
 ### 15. Trustable Landlords
 As a **parking customer** \

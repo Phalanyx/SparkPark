@@ -65,7 +65,7 @@ The key differences to our product these platforms have are:
 - No live navigation to a booked parking spot, making it harder to find the parking spot you booked, especially if they are on private property.
 
 
-**Current Issues & Our Solutions:**
+## **Current Issues & Our Solutions:**
 Universities and workplaces often exploit commuters by charging exorbitant prices for parking permits and daily parking fees, knowing that students and employees have limited alternatives. For example, the UTSC student parking pass has increased heavily in the past 4 years, as the current price for a Fall/Winter parking pass is $1300. These high costs add significant financial strain, especially for students already burdened with tuition and living expenses. Many commuters face the frustration of circling overcrowded lots, wasting time and fuel, only to be forced into expensive on-campus or corporate parking options. [PRODUCT NAME] aims to disrupt this system by offering an affordable, community-driven solution that connects drivers with homeowners willing to rent out unused parking spaces. By providing a cost-effective and convenient alternative, [PRODUCT NAME] empowers commuters to save money while also helping property owners generate passive income.
 
 

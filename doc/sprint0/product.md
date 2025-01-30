@@ -16,8 +16,9 @@ We are developing a **responsive website and a mobile app** to ensure seamless a
 ### Target Use Cases:
 - **Students** struggling with high campus parking fees.
 - **Professionals** seeking affordable downtown parking.
-- **Travelers** needing parking near airports or transit hubs.
+- **Travelers** spontaneously decidin at which place or for how long they want to park.
 - **Event-goers** attending concerts or sports games.
+- **Property-Owners** having unused driveways or land that can serve as a parking spot and want to make some money on them.
 
 With **long-term booking options**, users can secure spaces for weekly, monthly, or yearly use, making parking easier and stress-free.
 

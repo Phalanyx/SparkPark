@@ -49,6 +49,21 @@ With **long-term booking options**, users can secure spaces for weekly, monthly,
 - Prefers guaranteed payments and clear communication with renters.
 
 ## Why our product is innovative in the Parking Management Market
+The Parking Management market is estimated to have a size of USD 5.67 billion in 2025. It is expected to grow at a CAGR of 9.26% to reach USD 8.83 billion by 2030. Several factors that are fueling the market growth are the increasing rate of urbanization, global vehicle sales, the proliferation of mobile and smartphone devices, and the growing demand for seamless traffic flow. A big part of the market is "Parking Reservation Managent", this is an opportunity we want to capitalize on with our product.
+
+The biggest actors in this market are companies like Amano McGann, deploying cloud-based parking accessibility and revenue process control systems. As these are not direct competitors to our product we will focus on smaller products that are closers competitors to our product in our market analysis.
+
+**neighbor.com** and **parkify.ca** are both platforms that allow users to list and rent parking spots on an "Air BnB" like platform. 
+The key differences to our product these platforms have are:
+- Focus is on long-term rental agreements between car owners and landlords, while we focus on spontaneous and short-term renting agreements.
+- Landlords are very professional, e.g. companies owning whole parking lots, while we also focus on more private parking spot owners who might only have a single lsiting.
+- No navigation or suggestion of parking spots based on current location is available on the platform, while our product focuses on exactly this to make finding and booking a spot as easy as possible.
+
+**SpotHero** is a mobile platform connecting landlords and car owners focusing on short-term parking agreements. The key differences to our product are:
+- No option for "pay as you go" rental agreements, as parking spots are booked for a period set at time of booking.
+- No auto-suggestion of parking spots based on location or preferences, which our app focuses on to make the finding, booking of a parking spot easy and quick.
+- No live navigation to a booked parking spot, making it harder to find the parking spot you booked, especially if they are on private property.
+
 
 **Current Issues & Our Solutions:**
 - **Expensive & Limited Parking:** Students like Annifer overpay for occasional campus parking. **[PRODUCT NAME]** offers affordable, pre-bookable spots.
@@ -57,7 +72,7 @@ With **long-term booking options**, users can secure spaces for weekly, monthly,
 
 By **saving time, reducing costs, and fostering trust**, **[PRODUCT NAME]** delivers a superior parking solution for all users.
 
-## Q4: What does "DONE" mean to your team?
+## What "DONE" means to us
 
 Our project is complete when:
 - **User Stories:** Core features (search, book, pay) are implemented and functional.
@@ -69,7 +84,7 @@ Our project is complete when:
 ## Highlights
 
 ### **Platform Prioritization: Website First vs. Mobile App First**
-We decided to **prioritize a responsive website** over a mobile app to:
+We decided to **prioritize a responsive website** over a mobile app to: WE NEED TO DISCUSS THIS AGAIN
 - Allow easy access from both desktop and mobile.
 - Launch an MVP quickly and gather user feedback sooner.
 - Ensure flexibility before developing a full-fledged mobile app.

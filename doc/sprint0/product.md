@@ -1,6 +1,6 @@
 # YOUR PRODUCT/TEAM NAME
 
-## Q1: What are you planning to build?
+## What we plan to build
 
 **[PRODUCT NAME]** is a web application that allows people to rent and sell parking lots. Many commuters, such as students and workers, often face high parking fees at designated parking spots. **[PRODUCT NAME]** connects local homeowners to drivers seeking a cheaper alternative for parking. This provides homeowners an opportunity to earn passive income while offering drivers a more affordable and convenient solution. While giving drivers the ability to easily find and navigate to parking spaces that fit their preferences. Gone are the days of driving around the block multiple times until you find a suitable parking spot. 
 The platform focuses on making it easy for users to find, book and navigate to a parking space by automating the process of looking for a spot with auto-suggestions based on location and user-preferences. Therefore, enabling users to find a parking spot quickly and conviniently anywhere they are and at any time.  
@@ -22,7 +22,7 @@ We are developing a **responsive website and a mobile app** to ensure seamless a
 
 With **long-term booking options**, users can secure spaces for weekly, monthly, or yearly use, making parking easier and stress-free.
 
-## Q2: Who are your target users? (2-3 Personas)
+## Our target users
 
 ### **Car owners looking for cheap parking near school/work**
 ![image](https://github.com/user-attachments/assets/475778d6-bcd6-40f9-a367-5ee0db55b55c)
@@ -48,7 +48,7 @@ With **long-term booking options**, users can secure spaces for weekly, monthly,
 - Wants a secure, simple way to rent out her driveway.
 - Prefers guaranteed payments and clear communication with renters.
 
-## Q3: Why would users choose your product? What are they using today?
+## Why our product is innovative in the Parking Management Market
 
 **Current Issues & Our Solutions:**
 - **Expensive & Limited Parking:** Students like Annifer overpay for occasional campus parking. **[PRODUCT NAME]** offers affordable, pre-bookable spots.

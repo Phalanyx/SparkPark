@@ -35,7 +35,7 @@ Given *a landlord wants to add a parking spot to the platform,* \
 When *they are adding their spot in the "add parking spot" tab,* \
 Then *they are required to upload a picture of the spot.*
 
-### 4. Spot Recommendation
+### 4. Parking Spot Auto-Recommendation
 As a **short-term parker** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *have an auto-suggestion of a "good" parking spot.* \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can find a spot quickly and without much effort.* 
@@ -55,7 +55,7 @@ Given *a user is looking for a parking spot on the platform,* \
 When *they look at the "find parking spot" tab,* \
 Then *there should be hourly prices displayed for each parking spot.*
 
-### 6. Flexible Duration
+### 6. Flexible Parking Duration
 As a **short-term parker** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *have flexibility in my parking duration.* \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *can be spontaneous in my activities.*
@@ -89,7 +89,7 @@ Given *a user is accesing the platform on their phone,* \
 When *they use the platform,* \
 Then *UI should be easily navigatable and readable on phones.*
 
-### 9. Contacting Customer
+### 9. Contacting Users
 As a **parking space owner** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *be able to contact the customer in a timely manner.* \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can reach him in an emergency.*
@@ -119,25 +119,29 @@ Given *a user has his car size in his profile,* \
 When *they select this car in the "find parking spot" tab,* \
 Then *only parking spots that fit the car should be displayed on the map.*
 
-### 12. Secure Payment
+### 12. Secure & Easy Payment
 As a **parking customer** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *pay securely on the platform.* \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am protected against potential fraud.* 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *pay securely and easily on the platform, while using standard payment methods.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am protected against potential fraud and can pay without much effort.* 
 
 #### Acceptance Criteria
 Given *a use wants to rent a parking spot,* \
 When *they are making their payment,* \
 Then *the platform should handle the transaction as a middleman and not pay out the landlord immediately.*
 
-### 13. Easy Payment
-As a **paking customer** \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *be able to use standard payment methods to pay the fees on the platform.* \
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can pay without much effort.* 
-
-#### Acceptance Criteria
 Given *a user wants to book a parking spot,* \
 When *they get to the "checkout",* \
 Then *the payment should be handled by a common payment service.*
+
+### 13. Live Information
+As a **paking customer** \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *have live, real-time data about avalability of parking spots.* \
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I am assured to be able to book a parking spot if I found it on the platform.* 
+
+#### Acceptance Criteria
+Given *a user wants to book a parking spot and is online,* \
+When *they are on the "find parking spot" tab,* \
+Then *the the map data should be regularly updated (every few seconds).*
 
 ### 14. Add Listing for Parking Spot
 As a **parking space owner** \
@@ -199,7 +203,7 @@ Given *the user has added parking spots to his favorites,* \
 When *he clicks on the "favorites" tab,* \
 Then *a list as well as a map with his favorite parking spots should be displayed.*
 
-### 19. Availability Calender
+### 19. Availability Calendar
 As a **parking customer** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; I want to *see an overview of when the parking spot is available.* \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; So that *I can plan ahead.* 

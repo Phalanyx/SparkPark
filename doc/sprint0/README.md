@@ -21,27 +21,37 @@ Driveway Rentals aims to provide an affordable and flexible parking solution by 
 This not only helps students save money but also fosters a sense of community and resource-sharing.
 
 ### Backend and Frontend Setup
-
    **Backend Setup (Node + Express)**
-      -Starting from the root directory of the project
-      ```bash
-      cd backend/ && npm i
-      ```
-      -Now to set up the .env file, contact Jaehyeon Heo for the details.
-      -Then start the backend server by:
-      ```bash
-      npm run dev
-      ```
-      
+      - Starting from the root directory of the project
+```bash
+cd backend/ && npm install
+```
+      - Now to set up the .env file, contact Jaehyeon Heo for the details.
+      - Then start the backend server by:
+```bash
+npm run dev
+```
    **Frontend Setup (Next.js)**
-      -Starting from the root directory of the project
-      ```bash
-      cd backend/ && npm i
-      ```
-      -Then start the frontend server by:
-            ```bash
-      npm run dev
-      ```
+      - Starting from the root directory of the project
+```bash
+cd frontend/ && npm install
+```
+      - Then start the frontend server by:
+```bash
+npm run dev
+```
+   **Frontend Setup (React Native)**
+      - Starting from the root directory of the project
+```bash
+cd frontend-mobile/ && npm install
+```
+      - Then start the frontend server by:
+```bash
+npm start
+```
+      Then choose an option to view the React Native application on this link:
+      https://docs.expo.dev/get-started/set-up-your-environment/
+
    Now if you visit the frontend page, you should see some sample parking spots that are saved in the mongoDB.
 
 ### Contribution Guidelines

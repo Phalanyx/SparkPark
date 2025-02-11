@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { View, StyleSheet, Text } from "react-native";
-import MapView, {PROVIDER_GOOGLE} from "react-native-maps";
+import Map from "./components/map";
+
 
 export default function Index() {
   const [datas, setDatas] = useState<any>([]);
@@ -12,16 +13,19 @@ export default function Index() {
         const result = await response.json();
         setDatas(result);
       } catch (error) {
+        setDatas([]);
         console.error('There was an error making the request!', error);
       }
     };
-
     fetchData();
   }, []);
+
   return (
     <View style={{flex: 1}}>
+      <Map />
       <Text className="text-lg">The following are the data of parking spots in Toronto retrieved from our MongoDB database, through our node + express server.</Text>
       <Text> {JSON.stringify(datas)}</Text>
+
     </View>
   );
 }

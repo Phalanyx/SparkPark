@@ -15,6 +15,9 @@ app.get("/", async (req, res) => {
     console.log(parking_spots);
 })
 
+
+
+
 app.post("/test", async (req, res) => {
 
     admin.auth().verifyIdToken(req.headers.authorization)

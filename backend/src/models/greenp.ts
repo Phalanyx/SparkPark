@@ -18,6 +18,7 @@ const RateDetailsSchema = new mongoose.Schema({
   addenda: [String],
 });
 
+
 const ParkingSchema = new mongoose.Schema({
   id: { type: String, required: true },
   is_bikeshare: { type: Boolean, default: false },

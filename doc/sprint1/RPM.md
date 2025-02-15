@@ -17,19 +17,25 @@ Make sure these metrics are quantifiable and trackable.
 
 
 Release Scope
+
 Outline what is included in and excluded from the release, detailing key features or improvements, bug fixes, non-functional requirements, etc.
+
 Included Features
 List all key features and improvements included in the release.
 Provide a brief description and purpose of each.
+
 Excluded Features
 Identify any features or changes not included in the release.
 Explain the reasoning behind these exclusions.
+
 Bug Fixes
 List major bug fixes included in the release.
 Prioritize them based on impact and urgency.
+
 Non-Functional Requirements
 Detail any performance, security, or usability requirements.
 Ensure these are measurable and testable.
+
 Dependencies and Limitations
 Outline any external dependencies that might affect the release.
 Identify any known limitations of the current release

@@ -15,7 +15,14 @@ Detailing the primary goals for the Sprint 1 release following SMART criteria.
   - User, Parking Spot, Booking schema
   - Ensure data persistence through MongoDB with Mongoose.
 - Integrate an interactive map for locating and navigating to parking spots.
-
+  
+## Participants and work assignment:
+- **Albert**: Setting up Firebase Social Auth for the client side (React Native) and Firebase Admin SDK for the backend.  
+- **Dianna**: Designing the user interface for the mobile and web app and implementing it in the frontend.  
+- **Emily**: Set up Cloudflare CDN for image uploads for driveways
+- **Jaehyeon**: *(Responsibility not provided—please specify)*  
+- **Thorge**: Systems design, UML documentation, Jira management, and MongoDB schema designing.
+  
 ### **Metrics for Measurement**
 - Successful user registration and login.
 - Accuracy of the interactive map in showing available spots.

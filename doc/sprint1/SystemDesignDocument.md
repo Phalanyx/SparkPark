@@ -26,7 +26,7 @@ This document outlines the system design, including key components, architecture
 
 | Component                 | Technology Used                                                   |
 | ------------------------- | ----------------------------------------------------------------- |
-| **Operating System**      | Linux (Deployment), Windows/macOS/Linux (Development)             |
+| **Platform**              | Mobile Application (IOS) and Website           |
 | **Backend**               | Node.js with Express.js                                           |
 | **Frontend**              | React.js                                                          |
 | **Database**              | MongoDB with Mongoose ORM                                         |
@@ -45,31 +45,7 @@ This document outlines the system design, including key components, architecture
 
 ### **4.1 Abstract View & Component Diagram**
 
-```
-+------------+        +-----------------+        +----------------+
-|   User     | -----> |  Frontend (UI)  | -----> | Backend (API)  |
-+------------+        +-----------------+        +----------------+
-                           |     |            |           |
-                           |     |            |           v
-                           |     |            |     +--------------+
-                           |     |            |---->| Authentication|
-                           |     |            |     +--------------+
-                           |     |            |           |
-                           |     |            |           v
-                           |     |            |     +--------------+
-                           |     |            |---->|  Booking     |
-                           |     |            |     +--------------+
-                           |     |            |           |
-                           |     |            |           v
-                           |     |            |     +--------------+
-                           |     |            |---->| Parking Spot |
-                           |     |            |     +--------------+
-                           |     |            |           |
-                           |     |            |           v
-                           |     v            |     +--------------+
-                           |-> API Requests ->|---->| Interactive Map |
-                                 (REST)       |     +--------------+
-```
+![System Design Document-2](https://github.com/user-attachments/assets/5dce640f-2461-46b9-9f55-6438f5ef2679)
 
 ### **4.2 Components & Responsibilities**
 

@@ -2,21 +2,20 @@
 
 ## **1. Introduction**
 
-- **Project Name:** [Your Project Name]
-- **Sprint:** Sprint 1
-- **Purpose:** This document outlines the system design, including key components, architecture, dependencies, and error-handling strategies for Sprint 1.
+This document outlines the system design, including key components, architecture, dependencies, and error-handling strategies for Sprint 1. This includes High-Level System Architecture as well as CRC cards. This document is as of sprint 1 one and subject to change in the future.
 
 ---
 
 ## **2. System Overview**
 
 - **Primary Features in Sprint 1:**
-  - User Management
-  - Parking Spot Management
-  - Booking System
+  - Backend Database Schemas
+    - User Management
+    - Parking Spot
+    - Booking
   - Authentication
   - Interactive Map
-- **Goal:** Provide a flexible and scalable system for managing parking spot rentals, ensuring smooth user experience and secure transactions.
+- **Goal:** Provide the basic schema for the database and implementation of user registration and login as well as an Interactive map showing the Parking Spots in the database.
 
 ---
 

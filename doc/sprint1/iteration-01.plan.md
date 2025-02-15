@@ -21,7 +21,7 @@ Albert: Setting up Firebase Social Auth for client side (react native) and Fireb
 
 Dianna: Designing the user interface for mobile and web app and implementing in frontend.
 
-Emily: 
+Emily: Set up image bucket / file storage for parking spots
 
 Jaehyeon: 
 

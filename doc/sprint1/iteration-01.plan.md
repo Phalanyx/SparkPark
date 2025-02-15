@@ -25,7 +25,7 @@ Emily: Set up image bucket / file storage for parking spots
 
 Jaehyeon: 
 
-Thorge: 
+Thorge: Designing schema for database and system design document presentation.
 
 #### Events
 Stand-Up Meetings

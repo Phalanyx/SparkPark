@@ -10,14 +10,8 @@
 In general the first sprint gave us a first experience in working on a project in a team. There where many things that did not go perfect from the beginning and a lot that can be taken away and learned from this first sprint. Additionally we all had to study for midterms during this sprint so our time to work on the project was more limited than it will be in future sprints.
 
 #### Decisions that turned out well
-List process-related (i.e. team organization) decisions that, in retrospect, turned out to be successful.
- * 2 - 4 decisions.
- * Ordered from most to least important.
- * Explain why (i.e. give a supporting argument) you consider a decision to be successful.
- * Feel free to refer/link to process artifact(s).
-
-- Defining team roles early on, so each person has a goal in mind 
-- Setting up recurring meeting times often to have a consistent pacing and communication
+- Defining team roles early on, so each person has a goal in mind. Altough this was sometimes difficult to do in early stage of development becasue of limited knowledge about the details of the project it really helped people to be able to work independently.  
+- Setting up recurring meeting times often to have a consistent pacing and communication. Keeping communication by having regular meetings and not just writing messages enabled everyone to have an idea of the other team members progress and struggles and helped us to combine and structure the independent work. 
 - Creating a shared planning document to have one central location to add ideas, process notes, and record meeting details
 
 

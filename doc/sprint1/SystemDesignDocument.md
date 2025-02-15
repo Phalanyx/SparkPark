@@ -61,40 +61,7 @@ This document outlines the system design, including key components, architecture
 
 ## **5. CRC Cards for Sprint 1**
 
-### **5.1 User Management (User Class)**
-
-- **Responsibilities:**
-  - Register, log in, and manage user profile
-  - Store user contact details and preferences
-- **Collaborators:** Authentication, Booking, Payment
-
-### **5.2 Parking Spot Management (ParkingSpot Class)**
-
-- **Responsibilities:**
-  - Store parking spot details (location, price, owner, availability)
-  - Allow users to list and modify spots
-- **Collaborators:** User, Booking, Interactive Map
-
-### **5.3 Booking System (Booking Class)**
-
-- **Responsibilities:**
-  - Process reservations
-  - Ensure availability and prevent double bookings
-- **Collaborators:** User, ParkingSpot, Payment
-
-### **5.4 Authentication Service (Auth Class)**
-
-- **Responsibilities:**
-  - Authenticate users securely (JWT-based)
-  - Handle password resets
-- **Collaborators:** User, Backend API
-
-### **5.5 Interactive Map (MapView Class)**
-
-- **Responsibilities:**
-  - Display available parking spots on a map
-  - Allow users to select and navigate to parking spots
-- **Collaborators:** ParkingSpot, Booking, External APIs (Google Maps)
+![System Design Document-3](https://github.com/user-attachments/assets/b4c2504a-9869-47bb-bcb5-088f8f93b093)
 
 ---
 

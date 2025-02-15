@@ -2,6 +2,7 @@ import React, {useEffect, useState} from "react";
 import { View, StyleSheet, Text } from "react-native";
 import Map from "./components/map";
 import Login from "./login";
+import ListingForm from "./components/ListingForm";
 
 export default function Index() {
 

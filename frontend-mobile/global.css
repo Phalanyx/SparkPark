@@ -2,3 +2,21 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer base{
+    :root {
+        --color-text-base: #145A32;
+        --color-background: #EAF2E3;
+        --color-foreground: #D5E8D4;
+        --color-highlight: #ABEBC6;
+        --color-text-sub: #82E0AA;
+    }
+    .theme-dark {
+        --color-text-base: #F2FFFE;
+        --color-background: #002611;
+        --color-foreground: #004B25;
+        --color-highlight: #58D68D;
+        --color-text-sub: #BFFEF4;
+    }
+}

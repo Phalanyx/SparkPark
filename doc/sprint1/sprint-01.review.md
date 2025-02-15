@@ -1,18 +1,13 @@
 # BIG-OH
 
- > _Note:_ This document is meant to be written during (or shortly after) your review meeting, which should happen fairly close to the due date.      
- >      
- > _Suggestion:_ Have your review meeting a day or two before the due date. This way you will have some time to go over (and edit) this document, and all team members should have a chance to make their contribution.
-
-
-## Iteration XX - Review & Retrospect
+## Iteration 01 - Review & Retrospect
 
  * When: Friday 14, 2025
  * Where: ONLINE
 
 ## Process - Reflection
 
-(Optional) Short introduction
+In general the first sprint gave us a first experience in working on a project in a team. There where many things that did not go perfect from the beginning and a lot that can be taken away and learned from this first sprint. Additionally we all had to study for midterms during this sprint so our time to work on the project was more limited than it will be in future sprints.
 
 #### Decisions that turned out well
 List process-related (i.e. team organization) decisions that, in retrospect, turned out to be successful.

@@ -23,38 +23,25 @@ In general the first sprint gave us a first experience in working on a project i
 
 #### Planned changes
 
-List any process-related changes you are planning to make (if there are any)
-
- * Ordered from most to least important.
- * Explain why you are making a change.
+The changes we wanted to make like a regular meeting schedule have already been implemented over the first sprint so right now there is nothing we want to change in our process.
 
 ## Product - Review
 
 #### Goals and/or tasks that were met/completed:
-
- * From most to least important.
- * Refer/link to artifact(s) that show that a goal/task was met/completed.
- * If a goal/task was not part of the original iteration plan, please mention it.
-As a user (spot finder or spot lister) I want to be able to signup/login. So that I can save my information, and enter it only once. (See user authentication flow artifact)
-As a parking customer I want to have a live map of available parking spots. So that I can find a parking spot suiting my needs. (See map listings component artifact)
+- As a user (spot finder or spot lister) I want to be able to signup/login. So that I can save my information, and enter it only once. (See user authentication flow artifact)
+- As a parking customer I want to have a live map of available parking spots. So that I can find a parking spot suiting my needs. (See map listings component artifact)
+- Basic database setup including schema.
 
 #### Goals and/or tasks that were planned but not met/completed:
 
- * From most to least important.
- * For each goal/task, explain why it was not met/completed.      
-   e.g. Did you change your mind, or did you just not get to it yet?
 For the following goals, we have yet to get to them and will be completing them in the next sprint. 
 - As a parking customer I want to be guaranteed that landlords are legit. So that I am guaranteed to get a parking spot when I rent one on the platform.
 - As a parking customer I want to see a picture of the parking spot on the platform. So that I know I am parking at the right spot.
 - As a customer, I want to be able to save/favourite listings so I can view them at a convenient place for the future.
 
+We did not get to finish them as our time was especially limited for this sprint. 
 
 ## Meeting Highlights
-Going into the next iteration, our main insights are:
- * 2 - 4 items
- * Short (no more than one short paragraph per item)
- * High-level concepts that should guide your work for the next iteration.
- * These concepts should help you decide on where to focus your efforts.
- * Can be related to product and/or process.
 - Ensure everyone is on the same page on what needs to be accomplished and what the big picture is, and keep up constant communication. Keeping yourself and each other accountable is as easy as sending a quick update or question to the other group members. This ensures that simple concerns can be addressed quickly and group meetings can be more concise or focused on other topics.
-- Do relatively thorough checks of potential tools and tech before committing to them, in case of unexpected hitches (paywalls on tools, unfamiliarity and learning curves). 
+- Do relatively thorough checks of potential tools and tech before committing to them, in case of unexpected hitches (paywalls on tools, unfamiliarity and learning curves).
+- More time commitment in future sprints where we have more availability. We will need to use the time we have for actually finishing our product over the semester, so if we have extra availability in future sprints we should invest this time into the current sprint.

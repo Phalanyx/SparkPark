@@ -85,19 +85,11 @@ This document outlines the system design, including key components, architecture
 
 ---
 
-## **7. Conclusion**
-
-This document outlines the system design for Sprint 1, focusing on core components and their interactions. Future iterations will expand functionality and refine the architecture based on feedback and testing.
-
----
-
-## **8. Next Steps**
+## **7. Next Steps**
 
 - Implement database schema for User, ParkingSpot, Booking, and Authentication.
 - Develop API endpoints for parking spot listing, booking, and authentication.
 - Integrate Google Maps API for real-time navigation.
 
 ---
-
-### **End of Document**
 

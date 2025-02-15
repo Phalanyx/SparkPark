@@ -46,7 +46,7 @@ None, as there was no previous release.
 
 ### **Dependencies and Limitations**
 - **Dependencies:** Google Maps API, MongoDB Atlas, Stripe (future dependency for payments).
-- **Limitations:** Initial release may have limited functionality due to early stage of development.
+- **Limitations:** Initial release may have limited functionality due to early stage of development and limited availability due to midterms.
 
 ---
 

@@ -18,9 +18,13 @@ _This entire section is optional. Note that you will have to fill it out and mor
 Describe the different roles on the team and the responsibilities associated with each role.
 
 Albert: Setting up Firebase Social Auth for client side (react native) and Firebase Admin SDK for backend.
+
 Dianna: Designing the user interface for mobile and web app and implementing in frontend.
+
 Emily: 
+
 Jaehyeon: 
+
 Thorge: 
 
 #### Events

@@ -18,29 +18,32 @@ app.get("/", async (req, res) => {
     console.log(parking_spots);
 })
 
-
-
-
 app.post("/login", async (req, res) => {
+  admin.auth().verifyIdToken(req.headers.authorization)
+  .then(async function(decodedToken: any) {
+    console.log(decodedToken);
+    const user = { uid: decodedToken.uid, email: decodedToken.email, name: decodedToken.name || "Anonymous" };
 
-    admin.auth().verifyIdToken(req.headers.authorization)
-    .then(function(decodedToken: any) {
-
-      console.log(decodedToken);
-      const user = { uid: decodedToken.uid, email: decodedToken.email }
-
-      Users.create(user).then((user: any) => {
-
-        res.status(200).json({message: "Hello World"})
+    try {
+      let existingUser = await Users.findOne({ uid: user.uid }).exec();
+      if (existingUser) {
+        console.log(existingUser);
+        console.log("User already exists:");
+        res.status(200).json(existingUser);
+      } else {
+        let newUser = await Users.create(user);
+        console.log("New user created:");
+        console.log(newUser);
+        res.status(200).json(newUser);
       }
-      ).catch((error: any) => {
-        res.status(400).json({error: error})
-      });
-    }).catch(function(error: any) {
-      res.status(400).json({error: error})
-    });
-
-}
-)
+    } catch (error) {
+      console.log(error);
+      res.status(400).json({ error: error });
+    }
+  }).catch(function(error: any) {
+    console.log(error);
+    res.status(400).json({ error: error });
+  });
+});
 
 export default app;

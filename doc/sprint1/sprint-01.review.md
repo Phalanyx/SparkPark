@@ -12,16 +12,13 @@ In general the first sprint gave us a first experience in working on a project i
 #### Decisions that turned out well
 - Defining team roles early on, so each person has a goal in mind. Altough this was sometimes difficult to do in early stage of development becasue of limited knowledge about the details of the project it really helped people to be able to work independently.  
 - Setting up recurring meeting times often to have a consistent pacing and communication. Keeping communication by having regular meetings and not just writing messages enabled everyone to have an idea of the other team members progress and struggles and helped us to combine and structure the independent work. 
-- Creating a shared planning document to have one central location to add ideas, process notes, and record meeting details
+- Creating a shared planning document to have one central location to add ideas, process notes, and record meeting details. This enabled us to have a place to put down ideas, questions and considerations we would have to make in the future. It helped us have an overview on what is coming up in development in the future.
 
 
 #### Decisions that did not turn out as well as we hoped
-List process-related (i.e. team organization) decisions that, in retrospect, were not as successful as you thought they would be.
- * 2 - 4 decisions.
- * Ordered from most to least important.
- * Feel free to refer/link to process artifact(s).
-- Not setting up a meeting schedule immediately, which caused slight lag productivity during the start of the sprint.
-- Choosing an unfamiliar tech stack caused some delay in initialization for the group, but was resolved/is able to be resolved in a timely manner. (eg. unable to complete artifacts such as image upload)
+- Not setting up a meeting schedule immediately, which caused slight lag productivity during the start of the sprint as well as having to study for midterms. In general a pronlem for all of us was limited availability especially in the first week of the sprint. This delayed the start of development and therefore limited the scope of sprint1.
+- Choosing an unfamiliar tech stack caused some delay in initialization for the group, but was resolved/is able to be resolved in a timely manner. (eg. unable to complete artifacts such as image upload).
+- Designing shema for database without full knowledge of the exact implementation. Coming up with a schema for the database was difficult as we did not know how the exact implementation of all the features would look like. This was also due to the use of technologies not everyone is familiar with yet.
 
 
 #### Planned changes

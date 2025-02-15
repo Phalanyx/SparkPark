@@ -8,14 +8,15 @@ This document outlines the system design, including key components, architecture
 
 ## **2. System Overview**
 
-- **Primary Features in Sprint 1:**
+**Primary Features in Sprint 1:**
   - Backend Database Schemas
     - User Management
     - Parking Spot
     - Booking
   - Authentication
   - Interactive Map
-- **Goal:** Provide the basic schema for the database and implementation of user registration and login as well as an Interactive map showing the Parking Spots in the database.
+    
+**Goal:** Provide the basic schema for the database and implementation of user registration and login as well as an Interactive map showing the Parking Spots in the database.
 
 ---
 

@@ -8,12 +8,6 @@
 ## Process - Reflection
 
 In general the first sprint gave us a first experience in working on a project in a team. There where many things that did not go perfect from the beginning and a lot that can be taken away and learned from this first sprint. Additionally we all had to study for midterms during this sprint so our time to work on the project was more limited than it will be in future sprints.
-## Participants and work assignment:
-- **Albert**: Setting up Firebase Social Auth for the client side (React Native) and Firebase Admin SDK for the backend.  
-- **Dianna**: Designing the user interface for the mobile and web app and implementing it in the frontend.  
-- **Emily**: Set up Cloudflare CDN for image uploads for driveways
-- **Jaehyeon**: *(Responsibility not provided—please specify)*  
-- **Thorge**: Systems design, UML documentation, Jira management, and MongoDB schema designing.  
 
 
 

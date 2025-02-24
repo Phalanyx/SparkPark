@@ -17,12 +17,12 @@ export default function Login({handleBackend}:
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
 
     const signInResult = await GoogleSignin.signIn();
-
+    
         
     if (!signInResult.data) {
         return;
     }
-
+    
     const googleCredential = auth.GoogleAuthProvider.credential(signInResult.data.idToken);
 
     auth().signInWithCredential(googleCredential).then((result) => {

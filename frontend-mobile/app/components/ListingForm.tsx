@@ -53,30 +53,38 @@ export default function ImagePickerExample() {
       return;
     }
   
-    const response = await fetch(image);
-    const blob = await response.blob();
-  
-    const formData = new FormData();
-    formData.append("file", blob, "upload.jpg");
-  
     try {
-      const uploadResponse = await fetch("http://localhost:4000/upload", {
+      const formData = new FormData();
+      const fileName = image.split("/").pop() || "upload.jpg";
+  
+      formData.append("file", {
+        uri: image,
+        name: fileName,
+        type: "image/jpeg",
+      } as unknown as Blob);
+
+      // Send to backend
+      const uploadResponse = await fetch(process.env.EXPO_PUBLIC_BACKEND + '/upload', {
         method: "POST",
-        body: formData,
+        body: formData
       });
+
+      const responseText = await uploadResponse.text();
+      console.log("Response status:", uploadResponse.status);
+      console.log("Response body:", responseText);
   
       if (!uploadResponse.ok) {
-        throw new Error("Upload failed");
+        throw new Error(`Upload failed: ${responseText}`);
       }
   
-      const data = await uploadResponse.json();
+      const data = JSON.parse(responseText);
       Alert.alert("Upload Success", `File URL: ${data.fileUrl}`);
+
     } catch (error) {
-      Alert.alert("Upload Error");
+      console.error(error);
+      Alert.alert("Upload Error", "Something went wrong.");
     }
   };
-  
-
 
   return (
     <View>

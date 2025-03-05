@@ -7,7 +7,7 @@ const Markers = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('http://localhost:4000/', { method: "GET" });
+                const response = await fetch(process.env.EXPO_PUBLIC_BACKEND + "", { method: "GET" });
                 const result = await response.json();
                 setDatas(result);
             } catch (error) {

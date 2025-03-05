@@ -1,10 +1,16 @@
 import "dotenv/config";
 import express from "express"
+import fileUpload from "express-fileupload";
+
 import Parking from "./models/greenp"
 import Users from "./models/users"
-const app = express();
-var admin = require("firebase-admin");
+import uploadRoute from "./routes/upload"; 
 
+
+const app = express();
+app.use(fileUpload());
+
+var admin = require("firebase-admin");
 var serviceAccount = require("./big-oh-firebase-adminsdk-fbsvc-385aadbde6.json");
 
 
@@ -12,14 +18,12 @@ var serviceAccount = require("./big-oh-firebase-adminsdk-fbsvc-385aadbde6.json")
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
 });
+
 app.get("/", async (req, res) => {
     const parking_spots = await Parking.find().exec();
     res.status(200).json(parking_spots)
     console.log(parking_spots);
 })
-
-
-
 
 app.post("/login", async (req, res) => {
 
@@ -39,8 +43,8 @@ app.post("/login", async (req, res) => {
     }).catch(function(error: any) {
       res.status(400).json({error: error})
     });
+})
 
-}
-)
+app.post("/upload", uploadRoute);
 
 export default app;

@@ -2,6 +2,7 @@ import  "dotenv/config"
 import app from "./app"
 import express from "express";
 import mongoose from "mongoose";
+import "./config/cloudflare";
 
 const port = process.env.PORT;
 

@@ -32,7 +32,7 @@ const uploadRoute = async (req: Request, res: Response, next: NextFunction) => {
     await s3.send(new PutObjectCommand(uploadParams));
     console.log(`Time after R2 upload: ${Date.now() - startTime}ms`);
 
-    const fileUrl = `https://${process.env.CLOUDFLARE_BUCKET_NAME}.${process.env.CLOUDFLARE_ACCOUNT_ID}.r2.cloudflarestorage.com/${fileName}`;
+    const fileUrl = `https://pub-5a69287373af4fea95d825b39ebd6b85.r2.dev/${fileName}`;
     console.log(`Total upload time: ${Date.now() - startTime}ms`);
 
     res.json({ fileUrl });

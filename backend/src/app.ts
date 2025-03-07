@@ -1,13 +1,13 @@
 import "dotenv/config";
 import express from "express"
-import Parking from "./models/greenp"
+import { Parking, Listing } from "./models/greenp";
 import Users from "./models/users"
 const app = express();
+app.use(express.json());
+
 var admin = require("firebase-admin");
 
 var serviceAccount = require("./big-oh-firebase-adminsdk-fbsvc-385aadbde6.json");
-
-
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount)
@@ -44,6 +44,63 @@ app.post("/login", async (req, res) => {
     console.log(error);
     res.status(400).json({ error: error });
   });
+});
+
+app.post("/add-listing", async (req, res) => {
+  try {
+    const {
+      ownerId, title, description, address, location, size, images,
+      pricePerHour, pricePerDay, pricePerMonth, payAsYouGo, availability, features,
+    } = req.body;
+
+    if (!ownerId || !title || !description || !location || !address || !size || !pricePerHour || !images || images.length === 0) {
+      res.status(400).json({ message: "Missing required fields" });
+    }
+    const newListing = new Listing({
+      ownerId, title, description, address, location, size, images,
+      pricePerHour, pricePerDay, pricePerMonth, payAsYouGo, availability, features,
+    });
+
+    const savedListing = await newListing.save();
+    res.status(201).json({ message: "Listing added successfully", listing: savedListing });
+  } catch (error) {
+    res.status(500).json({ message: "Error adding listing", error });
+  }
+});
+
+// Search parking spots by size & availability
+app.get("/search-parking", async (req, res) => {
+  try {
+    const minLength = req.query.minLength ? String(req.query.minLength) : "";
+    const minWidth = req.query.minWidth ? String(req.query.minWidth) : "";
+    const date = req.query.date ? String(req.query.date) : "";
+    const time = req.query.time ? String(req.query.time) : "";
+
+    if (!minLength || !minWidth || !date || !time) {
+      res.status(400).json({ message: "Missing required filters" });
+    }
+
+    const carLength = parseFloat(minLength);
+    const carWidth = parseFloat(minWidth);
+    const queryDate = new Date(date);
+    const queryTime = time;
+
+    const parkingSpots = await Listing.find({
+      "size.length": { $gte: carLength },
+      "size.width": { $gte: carWidth },
+      "availability": {
+        $elemMatch: {
+          date: queryDate,
+          availableFrom: { $lte: queryTime },
+          availableUntil: { $gte: queryTime },
+        },
+      },
+    });
+
+    res.status(200).json(parkingSpots);
+  } catch (error) {
+    res.status(500).json({ message: "Error searching for parking spots", error });
+  }
 });
 
 export default app;

@@ -1,4 +1,4 @@
-
+import { FeatureCollection } from "./isochroneTypes";
 
 export async function getIsochrones(lat: number, lon: number) {
 
@@ -16,9 +16,12 @@ export async function getIsochrones(lat: number, lon: number) {
                 range: [3600] // time
             }),
         }
-    );
-    const data = await resp.json();
-
+    );    
+    const data:FeatureCollection = await resp.json();
+    if (!data || !data.features) {
+        return [];
+    }
+    
     return data.features[0].geometry.coordinates;
 }
 

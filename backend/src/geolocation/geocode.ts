@@ -16,7 +16,6 @@ export async function getGeocode(address: string) {
 
     const data = await resp.json();
 
-
     return data;
   }
 

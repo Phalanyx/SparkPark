@@ -31,7 +31,7 @@ parameters
 
 ---
 
-## **Release Scope** FILL THIS IN
+## **Release Scope** 
 ### **Included Features**
 1. **Parking Views** - Added markers and visible data about each marker regarding price of parking, measurements, etc.
 2. **Geospatial Queries** - A user is now able to find all available parking spots near a point of interest, within an isochrone of 20 minutes walking distance.

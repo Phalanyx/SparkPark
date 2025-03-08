@@ -5,6 +5,8 @@ import { Marker } from 'react-native-maps';
 import { TextInput } from 'react-native';
 import Search from '../components/Search';
 
+
+
 const Map = () => {
     const [datas, setDatas] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
@@ -53,9 +55,9 @@ const Map = () => {
                 {datas.map((data: any, index: number) => (
                     <Marker
                         key={index}
-                        coordinate={{ latitude: data.lat, longitude: data.lng }}
+                        coordinate={{ latitude: data.location.coordinates[1], longitude: data.location.coordinates[0] }}
                         title={data.address}
-                        description={data.rate}
+                        description={data.pricePerHour.toString()}
                     />
                 ))}
             </MapView>

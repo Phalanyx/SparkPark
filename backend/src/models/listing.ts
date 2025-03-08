@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const ListingSchema = new mongoose.Schema({
   ownerId: { type: String, ref: "User", required: true },
   title: { type: String, required: true },
@@ -30,7 +31,7 @@ const ListingSchema = new mongoose.Schema({
 ListingSchema.index({ location: "2dsphere" }); // Enables geospatial queries
 
 
-const Listing = mongoose.model("Listing", ListingSchema);
+const Listing = mongoose.model("listings", ListingSchema);
 
 export default Listing;
 

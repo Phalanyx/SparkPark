@@ -15,14 +15,13 @@ _This entire section is optional. Note that you will have to fill it out and mor
 
 #### Roles & responsibilities
 
+Albert: Adding Geospatial search functionalits, provide info about auth.
 
-Albert: 
-
-Dianna: 
+Dianna: Revising and converting design into Figma for interactive prototype and styling (Head of Design)
 
 Emily: Creating backend API for frontend to Cloudflare routing
 
-Jaehyeon:
+Jaehyeon: Frontend for adding and displaying listings. (Provide Setup help)
 
 Thorge: Creating backend functionality for creating and fetching and searching Listings based on 
 parameters

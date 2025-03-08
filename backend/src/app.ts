@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express"
-import Parking from "./models/greenp"
+
+import Listing from "./models/listing"
 import georoutes from "./geolocation"
 import auth from "./auth"
 import listing from "./listing"
@@ -19,9 +20,8 @@ app.use("/", listing);
 
 app.get("/", async (req, res) => {
 
-    const parking_spots = await Parking.find();     
-
-
+    const parking_spots = await Listing.find();     
+    
     res.status(200).json(parking_spots)
 
 })

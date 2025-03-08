@@ -2,7 +2,7 @@ import { Router } from "express";
 import middleware from ".././auth/middleware";
 import { getIsochrones } from "./isochrones";
 import { getGeocode } from "./geocode";
-import Parking from "../models/greenp";
+import Listing from "../models/listing";
 
 const router = Router();
 
@@ -27,7 +27,7 @@ router.post("/isochrones", async (req, res) => {
 
 
 
-    const points = await Parking.find({
+    const points = await Listing.find({
         location: {
             $geoWithin: {
                 $geometry: {

@@ -18,7 +18,7 @@ Detailing the primary goals for the Sprint 2 release following SMART criteria.
   
 ## Participants and work assignment: FILL IN THIS PART
 - **Albert**:
-- **Dianna**:
+- **Dianna**: Revising and converting design into Figma for interactive prototype and styling
 - **Emily**: Creating backend API for frontend to Cloudflare routing
 - **Jaehyeon**: 
 - **Thorge**: Creating backend functionality for creating and fetching and searching Listings based on 

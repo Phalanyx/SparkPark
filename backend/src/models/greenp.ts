@@ -62,6 +62,6 @@ const ParkingSchema = new mongoose.Schema({
 
 
 
-const Parking = mongoose.model("Parking", ParkingSchema);
+const Parking = mongoose.model("greenp", ParkingSchema);
 
 export default Parking;

@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ActivityIndicator } from 'react-native';
 import MapView from 'react-native-maps';
 import { Marker } from 'react-native-maps';
+import { TextInput } from 'react-native';
+import Search from '../components/Search';
 
 const Map = () => {
     const [datas, setDatas] = useState<any[]>([]);
@@ -45,6 +47,9 @@ const Map = () => {
                     longitudeDelta: 0.0421,
                 }}
             >
+                <View className="mt-20">
+                    <Search setData={setDatas}/>
+                </View>
                 {datas.map((data: any, index: number) => (
                     <Marker
                         key={index}

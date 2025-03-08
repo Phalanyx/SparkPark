@@ -20,7 +20,7 @@ Detailing the primary goals for the Sprint 2 release following SMART criteria.
 - **Albert**: Added geospatial query integration and worked on Authentication middleware + routing for backend
 - **Dianna**: Revising and converting design into Figma for interactive prototype and styling
 - **Emily**: Creating backend API for frontend to Cloudflare routing
-- **Jaehyeon**: 
+- **Jaehyeon**: Implementing the frontend for adding new listings and searching them
 - **Thorge**: Creating backend functionality for creating and fetching and searching Listings based on 
 parameters
   

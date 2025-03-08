@@ -20,7 +20,7 @@ Albert:
 
 Dianna: 
 
-Emily: 
+Emily: Creating backend API for frontend to Cloudflare routing
 
 Jaehyeon:
 

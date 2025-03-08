@@ -21,7 +21,8 @@ Detailing the primary goals for the Sprint 2 release following SMART criteria.
 - **Dianna**:
 - **Emily**:
 - **Jaehyeon**: 
-- **Thorge**: 
+- **Thorge**: Creating backend functionality for creating and fetching and searching Listings based on 
+parameters
   
 ### **Metrics for Measurement**
 - Successful user registration and login.

@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const ListingSchema = new mongoose.Schema({
-  ownerId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  ownerId: { type: String, ref: "User", required: true },
   title: { type: String, required: true },
   description: { type: String, required: true },
   address: { type: String, required: true },

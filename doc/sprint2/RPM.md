@@ -16,7 +16,7 @@ Detailing the primary goals for the Sprint 2 release following SMART criteria.
   - Ensure data persistence through MongoDB with Mongoose.
 - Integrate an interactive map for locating and navigating to parking spots.
   
-## Participants and work assignment: FILL IN THIS PART
+## Participants and work assignment:
 - **Albert**: Added geospatial query integration and worked on Authentication middleware + routing for backend
 - **Dianna**: Revising and converting design into Figma for interactive prototype and styling
 - **Emily**: Creating backend API for frontend to Cloudflare routing

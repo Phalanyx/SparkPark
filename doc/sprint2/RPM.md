@@ -33,9 +33,9 @@ parameters
 
 ## **Release Scope** FILL THIS IN
 ### **Included Features**
-1. **feat1** - 
-2. **feat2** - 
-3. **feat3**
+1. **Parking Views** - Added markers and visible data about each marker regarding price of parking, measurements, etc.
+2. **Geospatial Queries** - A user is now able to find all available parking spots near a point of interest, within an isochrone of 20 minutes walking distance.
+3. **Added Listing uploads** - A user is now able to upload a parking spot that they would like to rent out.
 
 ### **Excluded Features**
 - Adding and Managing Parking Spots (UI and API wise): will be included in later release

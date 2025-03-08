@@ -10,13 +10,19 @@ import Search from '../components/Search';
 const Map = () => {
     const [datas, setDatas] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
+    const [center, setCenter] = useState<any>({
+        latitude: 43.65107,
+        longitude: -79.347015,
+    });
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 const response = await fetch('http://localhost:4000/', { method: "GET" });
                 const result = await response.json();
+                console.log(result);
                 setDatas(result);
+
             } catch (error) {
                 setDatas([]);
                 console.error('There was an error making the request!', error);
@@ -43,14 +49,13 @@ const Map = () => {
                 followsUserLocation={true}
                 provider={undefined}
                 initialRegion={{
-                    latitude: 43.65107,
-                    longitude: -79.347015,
+                    ...center,
                     latitudeDelta: 0.0922,
                     longitudeDelta: 0.0421,
                 }}
             >
                 <View className="mt-20">
-                    <Search setData={setDatas}/>
+                    <Search setData={setDatas} setCenter={setCenter}/>
                 </View>
                 {datas.map((data: any, index: number) => (
                     <Marker

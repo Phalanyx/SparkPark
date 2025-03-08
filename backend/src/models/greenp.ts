@@ -52,6 +52,15 @@ const ParkingSchema = new mongoose.Schema({
   streetview_yaw: { type: String, required: true },
   streetview_pitch: { type: String, required: true },
   streetview_zoom: { type: String, required: true },
+  location: {
+    type: { type: String, emum: ['Point'], required: true },
+    coordinates: { type: [Number], required: true },
+  }
 });
 
-export default mongoose.model('greenp', ParkingSchema);
+
+
+
+const Parking = mongoose.model("greenp", ParkingSchema);
+
+export default Parking;

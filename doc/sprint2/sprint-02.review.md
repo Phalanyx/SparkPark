@@ -7,44 +7,62 @@
 
 ## Process - Reflection
 
-In general the first sprint gave us a first experience in working on a project in a team. There where many things that did not go perfect from the beginning and a lot that can be taken away and learned from this first sprint. Additionally we all had to study for midterms during this sprint so our time to work on the project was more limited than it will be in future sprints.
+During this sprint we started to make the first real progress in the actual developing as the 
+last sprint mostly focused on basic setup of project environment. Generally this sprint worked 
+out well we managed to achieve most of our goals. Still we think there is room for improvements 
+in terms of organization and the actual volume of tasks we get done. 
 
 
 
 
 #### Decisions that turned out well
-- Defining team roles early on, so each person has a goal in mind. Altough this was sometimes difficult to do in early stage of development becasue of limited knowledge about the details of the project it really helped people to be able to work independently.
-- Setting up recurring meeting times often to have a consistent pacing and communication. Keeping communication by having regular meetings and not just writing messages enabled everyone to have an idea of the other team members progress and struggles and helped us to combine and structure the independent work.
-- Creating a shared planning document to have one central location to add ideas, process notes, and record meeting details. This enabled us to have a place to put down ideas, questions and considerations we would have to make in the future. It helped us have an overview on what is coming up in development in the future.
+- Having frequent standups at fixed times. This gave everyone the chance to catch up with other 
+  team members progress as well as the chance to discuss what to work on next and especially how 
+  to do this. This was especially important in this sprint as the distribution of tasks let to 
+  dependencies between different team members tasks.
+- Using direct, private channels for specific questions or requests just concerning two people. 
+  This confronted everyone only with the information important to them and kept the team channel 
+  clean for the topics and questions concerning everyone. This made our communication more 
+  efficient in general.
+- Referring to the design documents for both UI and system design for implementing features. 
+  This lead to a more consistent design of our application in the end and made it easier for 
+  people to collaborate.
 
 
 #### Decisions that did not turn out as well as we hoped
-- Not setting up a meeting schedule immediately, which caused slight lag productivity during the start of the sprint as well as having to study for midterms. In general a pronlem for all of us was limited availability especially in the first week of the sprint. This delayed the start of development and therefore limited the scope of sprint1.
-- Choosing an unfamiliar tech stack caused some delay in initialization for the group, but was resolved/is able to be resolved in a timely manner. (eg. unable to complete artifacts such as image upload).
-- Designing shema for database without full knowledge of the exact implementation. Coming up with a schema for the database was difficult as we did not know how the exact implementation of all the features would look like. This was also due to the use of technologies not everyone is familiar with yet.
+- We forgot to close the first sprint on our Jira. This had major implications for our Jira 
+  tracking for the second sprint as we only figured that out towards the end of the sprint. This 
+  messed up our burndown chart as well as some of our planning on Jira. 
+- Using a lot of different technologies setup by different people. We have a lot of different 
+  access tokens for auth, db, image upload etc. This was a bt messy as there was a lot of 
+  communication needed for everyone to setup and sign in to all these services to get the 
+  project running on their device.
+- Merging of backend routing functionality. We split the work on backend functionality and had 
+  to merge all these changes back to develop. We made a mistake in the merging which lead to a 
+  lengthy debugging process.
 
 
 #### Planned changes
 
-The changes we wanted to make like a regular meeting schedule have already been implemented over the first sprint so right now there is nothing we want to change in our process.
+We will setup the Jira for sprint03 in our initial meeting where we also plan the third sprint. 
+This will ensure we have correct tracking of our progress and speed for the following sprints.
 
 ## Product - Review
 
 #### Goals and/or tasks that were met/completed:
-- As a user (spot finder or spot lister) I want to be able to signup/login. So that I can save my information, and enter it only once. (See user authentication flow artifact)
-- As a parking customer I want to have a live map of available parking spots. So that I can find a parking spot suiting my needs. (See map listings component artifact)
-- Basic database setup including schema.
-
+- Adding Listings from Frontend to Database 
+- Retrieving Listings belonging to a User
+- Retrieving User Info
+- Fetching parking spots based on availability and size
+- Geospatial search of Parking Spots
+- uploading images to listing
 #### Goals and/or tasks that were planned but not met/completed:
-
-For the following goals, we have yet to get to them and will be completing them in the next sprint.
-- As a parking customer I want to be guaranteed that landlords are legit. So that I am guaranteed to get a parking spot when I rent one on the platform.
-- As a parking customer I want to see a picture of the parking spot on the platform. So that I know I am parking at the right spot.
-- As a customer, I want to be able to save/favourite listings so I can view them at a convenient place for the future.
-
-We did not get to finish them as our time was especially limited for this sprint.
+- User ratings in user profile. We did not get to focus on the user profiles yet as our focus 
+  was on the listings first as this functionality is more important for our app.
 
 ## Meeting Highlights
-- Ensure everyone is on the same page on what needs to be accomplished and what the big picture is, and keep up constant communication. Keeping yourself and each other accountable is as easy as sending a quick update or question to the other group members. This ensures that simple concerns can be addressed quickly and group meetings can be more concise or focused on other topics.
-- Do relatively thorough checks of potential tools and tech before committing to them, in case of unexpected hitches (paywalls on tools, unfamiliarity and learning curves).
-- More time commitment in future sprints where we have more availability. We will need to use the time we have for actually finishing our product over the semester, so if we have extra availability in future sprints we should invest this time into the current sprint.
+- Being more careful when merging and also when working on the same files. We should try to 
+  avoid work on the same files whenever possible and be more careful when resolving merge 
+  conflicts to ensure smoother pull requests.
+- Communicating especially one on one wherever possible speeds up response times and makes 
+  development more efficient.

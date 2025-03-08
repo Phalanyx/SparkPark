@@ -38,8 +38,8 @@ router.post("/isochrones", async (req, res) => {
         }
         
     })
-
-    res.status(200).json(points);
+    console.log({ points, lat, lon })
+    res.status(200).json({ points : points, lat : lat, lon : lon});
 }
 catch(e){
     console.log(e)

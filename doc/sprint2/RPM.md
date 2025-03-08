@@ -88,7 +88,7 @@ Our thoughts on what could be important for full organizational development.
 
 ---
 
-This document serves as a structured release plan for Sprint 1, ensuring clear goals, scope, and expectations for all team members.
+This document serves as a structured release plan for Sprint 2, ensuring clear goals, scope, and expectations for all team members.
 
 
 

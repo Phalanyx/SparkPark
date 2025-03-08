@@ -16,11 +16,11 @@ _This entire section is optional. Note that you will have to fill it out and mor
 #### Roles & responsibilities
 
 
-Albert: Setting up Firebase Social Auth for client side (react native) and Firebase Admin SDK for backend.
+Albert: 
 
-Dianna: Designing the user interface for mobile and web app and implementing in frontend.
+Dianna: 
 
-Emily: Set up image bucket / file storage for parking spots
+Emily: 
 
 Jaehyeon:
 

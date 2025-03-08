@@ -101,22 +101,13 @@ availability, size and distance.
 - As a user I want to find a fitting parking spot based on search criteria
 - As a user I want to be able to upload images to my listing
 - As a user I want to be able to see my user info
+- As a user I want to be able to see other users ratings
 
 
 #### Artifacts
 
-1. User Authentication Flow
-   Artifact: Authentication API endpoints and React Native screens.
-   Purpose: Securely handle user registration, login, and session management.
-   Description:
-   Express Backend: Implement Firebase Social Auth and Custom claim tokens.
-   React Native: Build screens for registration, login, and password recovery.
-   Deliverables:
-   API endpoints/Middleware
-   React Native screens for authentication flows.
-   Why It Matters: Ensures secure user access and session persistence across app usage.
 
-2. Map Listings Component
+1. Map Listings Component
    Artifact: React Native component using a mapping library.
    Purpose: Display listings on an interactive map for users to explore.
    Description:
@@ -126,7 +117,7 @@ availability, size and distance.
    Functional map component with markers and listing details on tap.
    Why It Matters: Provides users with a visual way to browse listings, enhancing user engagement.
 
-3. CRUD for Listings
+2. CRUD for Listings
    Artifact: Express API for listing operations.
    Purpose: Enable adding, updating, and deleting listings.
    Description:
@@ -136,7 +127,7 @@ availability, size and distance.
    API documentation for CRUD operations.
    Why It Matters: Allows users to manage their listings efficiently and ensures data consistency.
 
-4. Image Upload Feature
+3. Image Upload Feature
    Artifact: React Native image upload component.
    Purpose: Let users upload images for their listings.
    Description:
@@ -146,7 +137,7 @@ availability, size and distance.
    Component for image selection and upload.
    Why It Matters: Enhances listing quality by allowing visual content.
 
-5. Listing Viewing Component
+4. Listing Viewing Component
    Artifact: React Native screen for listing details.
    Purpose: Display detailed information about a listing.
    Description:
@@ -155,8 +146,8 @@ availability, size and distance.
    Deliverables:
    Listing detail screen with all relevant information.
    Why It Matters: Provides users with all the details they need to interact with a listing.
-
-6. Wireframe Mock-Up
+5. 
+5. Wireframe Mock-Up
    Artifact: Wireframe prototype of app flow.
    Purpose: Visualize end-to-end user experience.
    Description:

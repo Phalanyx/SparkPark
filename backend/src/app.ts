@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express"
-import { Parking, Listing } from "./models/greenp";
+import Parking from "./models/greenp"
+import Listing from "./models/listings"
 import Users from "./models/users"
 import georoutes from "./geolocation"
 import auth from "./auth"

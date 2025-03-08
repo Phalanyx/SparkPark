@@ -2,7 +2,7 @@ import { Router } from "express";
 import middleware from ".././auth/middleware";
 import { getIsochrones } from "./isochrones";
 import { getGeocode } from "./geocode";
-import { Parking } from "../models/greenp";
+import Parking from "../models/greenp";
 
 const router = Router();
 

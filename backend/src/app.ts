@@ -4,20 +4,18 @@ import { Parking, Listing } from "./models/greenp";
 import Users from "./models/users"
 import georoutes from "./geolocation"
 import auth from "./auth"
-
+import { admin } from "./auth";
 const app = express();
 app.use(express.json());
 
-var admin = require("firebase-admin");
+
 
 app.use("/geolocation", georoutes);
 app.use("/auth", auth);
 
 
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
+
 
 app.get("/", async (req, res) => {
 

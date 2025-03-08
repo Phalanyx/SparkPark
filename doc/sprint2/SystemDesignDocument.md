@@ -63,7 +63,7 @@ based on user preferences and location.
 
 ---
 
-## **5. CRC Cards for Sprint 1**
+## **5. CRC Cards for Sprint 2**
 
 ![System Design Document-3](https://github.com/user-attachments/assets/b4c2504a-9869-47bb-bcb5-088f8f93b093)
 

@@ -120,4 +120,51 @@ app.get("/search-parking", async (req, res) => {
   }
 });
 
+// GET: Fetch all listings of the logged-in user
+app.get("/user-listings", async (req, res) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    res.status(401).json({ message: "Authorization token required" });
+  }
+
+  try {
+    // Verify Firebase token and get user ID
+    const decodedToken = await admin.auth().verifyIdToken(authHeader);
+    const ownerId = decodedToken.uid;
+
+    // Find listings where ownerId matches
+    const userListings = await Listing.find({ ownerId });
+
+    res.status(200).json(userListings);
+
+  } catch (error) {
+    console.error("Error fetching user listings:", error);
+    res.status(500).json({ message: "Error fetching user listings", error });
+  }
+});
+
+// Fetch user info by userId (No authentication required)
+app.get("/user-info", async (req, res) => {
+  const { userId } = req.body;
+
+  if (!userId) {
+    res.status(400).json({ message: "Missing required userId" });
+  }
+
+  try {
+    // Find user info from the database
+    const userInfo = await Users.findOne({ uid: userId });
+
+    if (!userInfo) {
+      res.status(404).json({ message: "User not found" });
+    }
+
+    res.status(200).json(userInfo);
+
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    res.status(500).json({ message: "Error fetching user info", error });
+  }
+});
 export default app;

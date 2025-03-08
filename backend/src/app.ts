@@ -47,23 +47,40 @@ app.post("/login", async (req, res) => {
 });
 
 app.post("/add-listing", async (req, res) => {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader) {
+    res.status(401).json({ message: "Authorization token required" });
+  }
+
   try {
+    // Verify Firebase token and get the user ID
+    const decodedToken = await admin.auth().verifyIdToken(authHeader);
+    const ownerId = decodedToken.uid;
+
+    // Extract listing details from the request body
     const {
-      ownerId, title, description, address, location, size, images,
+      title, description, address, location, size, images,
       pricePerHour, pricePerDay, pricePerMonth, payAsYouGo, availability, features,
     } = req.body;
 
-    if (!ownerId || !title || !description || !location || !address || !size || !pricePerHour || !images || images.length === 0) {
+    // Check for required fields
+    if (!title || !description || !location || !address || !size || !pricePerHour || !images || images.length === 0) {
       res.status(400).json({ message: "Missing required fields" });
     }
+
+    // Create a new listing with the authenticated user as the owner
     const newListing = new Listing({
       ownerId, title, description, address, location, size, images,
       pricePerHour, pricePerDay, pricePerMonth, payAsYouGo, availability, features,
     });
 
+    // Save the listing to the database
     const savedListing = await newListing.save();
     res.status(201).json({ message: "Listing added successfully", listing: savedListing });
+
   } catch (error) {
+    console.error("Error adding listing:", error);
     res.status(500).json({ message: "Error adding listing", error });
   }
 });

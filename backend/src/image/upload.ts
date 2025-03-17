@@ -12,12 +12,10 @@ const uploadRoute = async (req: Request, res: Response, next: NextFunction) => {
     res.status(400).json({ error: "No file uploaded" });
     return;
   }
-  console.log(`Time after validation: ${Date.now() - startTime}ms`);
 
   const file = req.files.file as fileUpload.UploadedFile;
   const timestamp = Date.now();
   const fileName = `${timestamp}-${file.name}`;
-  console.log(`Time after preparation: ${Date.now() - startTime}ms`);
 
   try {
     const uploadParams = {

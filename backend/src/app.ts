@@ -1,16 +1,18 @@
 import "dotenv/config";
 import express from "express"
+import fileUpload from "express-fileupload";
 
 import Listing from "./models/listing"
 import georoutes from "./geolocation"
 import auth from "./auth"
 import listing from "./listing"
+import uploadRoute from "./image/upload"; 
 
 const app = express();
 app.use(express.json());
+app.use(fileUpload());
 
-
-
+app.post("/upload", uploadRoute);
 app.use("/geolocation", georoutes);
 app.use("/auth", auth);
 app.use("/", listing);

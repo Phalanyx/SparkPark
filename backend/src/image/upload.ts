@@ -1,4 +1,3 @@
-// In routes/upload.ts
 import { Request, Response, NextFunction } from "express";
 import fileUpload from "express-fileupload";
 import s3 from "../config/cloudflare";

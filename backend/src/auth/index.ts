@@ -6,7 +6,7 @@ router.use("/", login);
 router.use(middleware);
 export var admin = require("firebase-admin");
 
-var serviceAccount = require("../big-oh-firebase-adminsdk-fbsvc-385aadbde6.json");
+var serviceAccount = require("../../big-oh-firebase-adminsdk-fbsvc-385aadbde6.json");
 
 
 

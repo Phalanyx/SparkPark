@@ -1,4 +1,4 @@
-name: main CI
+name: Backend CD
 
 on:
   push:
@@ -26,8 +26,20 @@ jobs:
 
       - name: build and publish backend
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/backend:${{ env.BRANCH_NAME }} .
-          docker push ${{ secrets.DOCKER_USERNAME }}/backend:${{ env.BRANCH_NAME }}
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/c01:${{ env.BRANCH_NAME }} .
+          docker push ${{ secrets.DOCKER_USERNAME }}/c01:${{ env.BRANCH_NAME }}
+
+
+    deploy:
+      needs: build
+      runs-on: aws-ec2
+      steps:
+        - name: Pull image from docker hub
+          run: docker pull ${{ secrets.DOCKER_USERNAME }}/c01:${{ env.BRANCH_NAME }}
+        - name: remove old
+          run: docker rm -f c01 || true
+        - name: Run new
+          run: docker run -d -p ${{ vars.PORT }}:${{ vars.PORT }} --name c01 ${{ secrets.DOCKER_USERNAME }}/c01:latest
 
 
 

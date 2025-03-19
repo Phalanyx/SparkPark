@@ -35,7 +35,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Pull image from docker hub
-        run: docker pull ${{ secrets.DOCKER_USERNAME }}/c01:${{ env.BRANCH_NAME }}
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/c01:latest
       - name: remove old
         run: docker rm -f c01 || true
       - name: Run new

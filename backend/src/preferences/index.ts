@@ -18,7 +18,8 @@ router.post("/add", async (req, res) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
         if (!token) {
-            return res.status(401).json({ message: "Authorization token required" });
+            res.status(401).json({ message: "Authorization token required" });
+            return;
         }
 
         // Verify Firebase token and get user ID
@@ -57,7 +58,8 @@ router.post("/add", async (req, res) => {
             });
 
             await preferences.save();
-            return res.status(201).json({ message: "Preferences added successfully", preferences });
+            res.status(201).json({ message: "Preferences added successfully", preferences });
+            return;
         }
 
         // Update existing preferences
@@ -90,7 +92,8 @@ router.get("/get", async (req, res) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
         if (!token) {
-            return res.status(401).json({ message: "Authorization token required" });
+            res.status(401).json({ message: "Authorization token required" });
+            return;
         }
 
         // Verify Firebase token and get user ID
@@ -101,7 +104,8 @@ router.get("/get", async (req, res) => {
         const preferences = await Preferences.findOne({ userId });
 
         if (!preferences) {
-            return res.status(404).json({ message: "No preferences found for this user" });
+            res.status(404).json({ message: "No preferences found for this user" });
+            return;
         }
 
         res.status(200).json(preferences);
@@ -120,7 +124,8 @@ router.delete("/delete", async (req, res) => {
     try {
         const token = req.headers.authorization?.split(" ")[1];
         if (!token) {
-            return res.status(401).json({ message: "Authorization token required" });
+            res.status(401).json({ message: "Authorization token required" });
+            return;
         }
 
         // Verify Firebase token and get user ID
@@ -130,7 +135,8 @@ router.delete("/delete", async (req, res) => {
         const deletedPreferences = await Preferences.findOneAndDelete({ userId });
 
         if (!deletedPreferences) {
-            return res.status(404).json({ message: "No preferences found to delete" });
+            res.status(404).json({ message: "No preferences found to delete" });
+            return;
         }
 
         res.status(200).json({ message: "Preferences deleted successfully" });

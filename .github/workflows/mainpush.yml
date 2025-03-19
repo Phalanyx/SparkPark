@@ -19,6 +19,8 @@ jobs:
           BRANCH_NAME=${GITHUB_REF#refs/heads/}
           if [ "$BRANCH_NAME" == "main" ]; then
             BRANCH_NAME="latest"
+          else 
+            BRANCH_NAME="dev"
           fi
           echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
 

@@ -34,6 +34,9 @@ jobs:
     needs: build
     runs-on: self-hosted
     steps:
+
+      - name: Login to docker hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
       - name: Pull image from docker hub
         run: docker pull ${{ secrets.DOCKER_USERNAME }}/c01:latest
       - name: remove old

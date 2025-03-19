@@ -1,5 +1,5 @@
 # Use the official Node.js image from Docker Hub
-FROM node:latest
+FROM node:20-alpine
 
 
 WORKDIR /usr/src/app

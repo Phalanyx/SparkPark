@@ -24,7 +24,7 @@ jobs:
 
       - name: build and publish backend
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/backend:${{ env.BRANCH_NAME }} 
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/backend:${{ env.BRANCH_NAME }} .
           docker push ${{ secrets.DOCKER_USERNAME }}/backend:${{ env.BRANCH_NAME }}
 
 

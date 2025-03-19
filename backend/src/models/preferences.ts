@@ -28,6 +28,6 @@ const PreferencesSchema = new mongoose.Schema({
     updatedAt: { type: Date, default: Date.now }
 });
 
-const Preferences = mongoose.model("preferences", PreferencesSchema);
+const Preferences = mongoose.model("Preferences", PreferencesSchema);
 
 export default Preferences;

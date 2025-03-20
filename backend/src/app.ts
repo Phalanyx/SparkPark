@@ -8,6 +8,7 @@ import auth from "./auth"
 import listing from "./listing"
 import uploadRoute from "./image/upload";
 import preferencesRoutes from "./preferences"
+import userRoutes from "./user";
 
 const app = express();
 app.use(express.json());
@@ -17,7 +18,8 @@ app.post("/upload", uploadRoute);
 app.use("/geolocation", georoutes);
 app.use("/auth", auth);
 app.use("/", listing);
-app.use("/preferences", preferencesRoutes)
+app.use("/preferences", preferencesRoutes);
+app.use("/user", userRoutes);
 
 
 

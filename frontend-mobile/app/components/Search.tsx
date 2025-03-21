@@ -7,6 +7,7 @@ import {
   LayoutAnimation
 } from 'react-native';
 import { Icon } from 'react-native-elements';
+import Filters from './filter'; // adjust the import path as needed
 
 interface SearchProps {
   setData: (data: any[]) => void;
@@ -15,46 +16,29 @@ interface SearchProps {
 
 const Search: React.FC<SearchProps> = ({ setData, setCenter }) => {
   const [query, setQuery] = useState('');
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
   const [minLength, setMinLength] = useState('');
   const [minWidth, setMinWidth] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
 
   const handleSearch = async (query: string): Promise<void> => {
-    if (query.length < 3) {
-      try {
-        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND}/`, { method: 'GET' });
-        const result = await response.json();
-        console.log(result);
-        setData(result);
-      } catch (error) {
-        setData([]);
-        console.error('There was an error making the request!', error);
-      }
-      return;
-    }
-    
-    const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND}/geolocation/isochrones`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify({ address: query }),
-    });
-    const data = await response.json();
-    setData(data.points);
-    setCenter([data.lat, data.lon]);
-    console.log(data);
+    // ... your se  arch logic here
   };
 
   const handleApplyFilters = async () => {
-    if (!minLength || !minWidth || !date || !time) {
-      console.log("Missing required filters");
-      return;
-    }
     try {
-      const url = `${process.env.EXPO_PUBLIC_BACKEND}/search-parking?minLength=${minLength}&minWidth=${minWidth}&date=${date}&time=${time}`;
+      const queryParams: Record<string, string> = {};
+      if (minLength) queryParams.minLength = minLength;
+      if (minWidth) queryParams.minWidth = minWidth;
+      if (date) queryParams.date = date;
+      if (time) queryParams.time = time;
+  
+      const queryString = Object.keys(queryParams)
+        .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(queryParams[key])}`)
+        .join("&");
+  
+      const url = `${process.env.EXPO_PUBLIC_BACKEND}/search-parking${queryString ? `?${queryString}` : ''}`;
       const response = await fetch(url, { method: 'GET' });
       const result = await response.json();
       setData(result);
@@ -65,6 +49,7 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter }) => {
       console.error("Error applying filters", error);
     }
   };
+  
 
   const toggleFilters = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -90,54 +75,18 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Always rendered but toggled visible using NativeWind's "hidden" utility */}
-      <View className={`mt-2 p-4 bg-[#004B25] rounded-lg ${showFilters ? '' : 'hidden'}`}>
-        <Text className="text-white mb-2 font-bold">Filters</Text>
-        <View className="mb-2">
-          <Text className="text-white">Min Length</Text>
-          <TextInput
-            className="h-10 border border-gray-300 rounded px-2"
-            placeholder="e.g., 4.5"
-            keyboardType="numeric"
-            value={minLength}
-            onChangeText={setMinLength}
-          />
-        </View>
-        <View className="mb-2">
-          <Text className="text-white">Min Width</Text>
-          <TextInput
-            className="h-10 border border-gray-300 rounded px-2"
-            placeholder="e.g., 2.0"
-            keyboardType="numeric"
-            value={minWidth}
-            onChangeText={setMinWidth}
-          />
-        </View>
-        <View className="mb-2">
-          <Text className="text-white">Date</Text>
-          <TextInput
-            className="h-10 border border-gray-300 rounded px-2"
-            placeholder="YYYY-MM-DD"
-            value={date}
-            onChangeText={setDate}
-          />
-        </View>
-        <View className="mb-2">
-          <Text className="text-white">Time</Text>
-          <TextInput
-            className="h-10 border border-gray-300 rounded px-2"
-            placeholder="HH:MM"
-            value={time}
-            onChangeText={setTime}
-          />
-        </View>
-        <TouchableOpacity
-          onPress={handleApplyFilters}
-          className="mt-2 bg-blue-500 py-2 rounded"
-        >
-          <Text className="text-center text-white font-semibold">Apply Filters</Text>
-        </TouchableOpacity>
-      </View>
+      <Filters
+        showFilters={showFilters}
+        minLength={minLength}
+        minWidth={minWidth}
+        date={date}
+        time={time}
+        setMinLength={setMinLength}
+        setMinWidth={setMinWidth}
+        setDate={setDate}
+        setTime={setTime}
+        handleApplyFilters={handleApplyFilters}
+      />
     </View>
   );
 };

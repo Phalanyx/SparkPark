@@ -15,6 +15,8 @@ const Map = () => {
         longitude: -79.347015,
     });
 
+    //
+
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -57,14 +59,16 @@ const Map = () => {
                 <View className="mt-20">
                     <Search setData={setDatas} setCenter={setCenter}/>
                 </View>
-                {datas.map((data: any, index: number) => (
-                    <Marker
+                {datas.map((data: any, index: number) => {
+                    console.log(data.address)
+                    console.log(data.location.coordinates)
+                    return <Marker
                         key={index}
                         coordinate={{ latitude: data.location.coordinates[1], longitude: data.location.coordinates[0] }}
                         title={data.address}
                         description={data.pricePerHour.toString()}
                     />
-                ))}
+                })}
             </MapView>
         </View>
     );

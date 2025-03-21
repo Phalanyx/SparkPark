@@ -1,62 +1,101 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, ScrollView, Alert, Switch } from 'react-native';
+import React, { useState, useEffect, useCallback } from 'react';
+import { 
+  View, 
+  Text, 
+  TextInput, 
+  Button, 
+  ScrollView, 
+  Alert, 
+  Switch, 
+  TouchableOpacity, 
+  Modal, 
+  Image 
+} from 'react-native';
 import auth from '@react-native-firebase/auth';
-import { Redirect } from "expo-router";
-
-//43.65107, -79.347015
-//12x20
-//https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.summerwood.com%2Fproducts%2Fgarages%2Furban-garage%2F276992&psig=AOvVaw3lRu1FWhoB__F2fBmHmxAH&ust=1741493954196000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCJii_NXQ-YsDFQAAAAAdAAAAABAJ
-//2025-04-01 09:00 17:00, 2025-04-02 10:00 16:00
+import { useRouter, Redirect } from "expo-router";
+import { LinearGradient } from 'expo-linear-gradient';
+import { launchImageLibrary } from 'react-native-image-picker'; 
+import { FontAwesome } from '@expo/vector-icons'; 
+import ImagePickerModal from '../components/ListingForm';
 
 const AddListingForm = () => {
+  // Step navigation state
+  const [currentStep, setCurrentStep] = useState(0);
+
+  // Step 0 fields
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
+  const [images, setImages] = useState<string[]>([]);
+
+  // Step 1 fields
+  // Break out the address into subfields
+  const [country, setCountry] = useState('');
+  const [street, setStreet] = useState('');
+  const [aptSuite, setAptSuite] = useState('');
+  const [cityInput, setCityInput] = useState('');
+  const [province, setProvince] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  
+  // Single string for final address (used in the backend payload)
   const [address, setAddress] = useState('');
+
+  // Keep location if you still want to store lat/lng
   const [location, setLocation] = useState('');
-  const [size, setSize] = useState('');
-  const [images, setImages] = useState([]);
+
+  // Pricing fields
   const [pricePerHour, setPricePerHour] = useState('');
   const [pricePerDay, setPricePerDay] = useState('');
   const [pricePerMonth, setPricePerMonth] = useState('');
   const [payAsYouGo, setPayAsYouGo] = useState(false);
+
+  // Step 2 fields
   const [availability, setAvailability] = useState('');
   const [features, setFeatures] = useState('');
 
-  // If the user is not logged in, navigate to the Profile page immediately.
+  // Size / category data from step 0
+  const [selectedCategory, setSelectedCategory] = useState<string>('MEDIUM');
+  const [noHeightLimit, setNoHeightLimit] = useState(false);
+  const [length, setLength] = useState('');
+  const [width, setWidth] = useState('');
+  const [height, setHeight] = useState('');
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const [unitSystem, setUnitSystem] = useState<'imperial' | 'metric'>('imperial');
 
-    useEffect(() => {
-        
-        const unsubscribe = auth().onAuthStateChanged(user => {
-        if (!user) {
-            // Redirect to login page if not authenticated
-            <Redirect href="/login" />;
-        }
-        });
-    
-        return () => unsubscribe();
-    }, []);
+  const sizeGuideData = [
+    { minSize: '10.0 x 4.5', category: 'X-LARGE', examples: 'RV, bus, large truck' },
+    { minSize: '6.5 x 3.0',  category: 'LARGE',   examples: 'Van, minivans, pickup' },
+    { minSize: '5.5 x 2.7',  category: 'MEDIUM',  examples: 'Small/crossover SUV' },
+    { minSize: '5.0 x 2.5',  category: 'SMALL',   examples: 'Sedan, 2-seater truck' },
+    { minSize: '3.5 x 1.8',  category: 'X-SMALL', examples: 'Motorcycle, scooter, etc.' },
+  ];
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const unsubscribe = auth().onAuthStateChanged(user => {
+      if (!user) {
+        router.push('/map');
+      }
+    });
+    return unsubscribe;
+  }, [router]);
 
   const handleSubmit = async () => {
     try {
-      // Get the Firebase auth token
       const token = await auth().currentUser?.getIdToken(false);
-      if (!token) {
-        Alert.alert('Error', 'User not authenticated');
-        return <Redirect href="/login"/>;
-      }
+      // if (!token) { ... }
 
-      // Build the payload to match your backend schema
       const payload = {
         title,
         description,
+        // We store the final, concatenated address in `address`:
         address,
         location: {
           type: 'Point',
-          coordinates: location.split(',').map(coord => parseFloat(coord.trim()))
-        },
-        size: {
-          length: parseFloat(size.split('x')[0]),
-          width: parseFloat(size.split('x')[1])
+          coordinates: location
+            .split(',')
+            .map(coord => parseFloat(coord.trim()))
         },
         images: images.map(img => img.trim()),
         pricePerHour: parseFloat(pricePerHour),
@@ -71,18 +110,20 @@ const AddListingForm = () => {
             availableUntil: parts[2]
           };
         }),
-        features: features.split(',').map(feature => feature.trim())
+        features: features.split(',').map(feature => feature.trim()),
       };
 
-      // Submit the listing to the backend
-      const response = await fetch(process.env.EXPO_PUBLIC_BACKEND + '/add-listing', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(payload)
-      });
+      const response = await fetch(
+        process.env.EXPO_PUBLIC_BACKEND + '/add-listing',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+          body: JSON.stringify(payload)
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {
@@ -96,77 +137,531 @@ const AddListingForm = () => {
     }
   };
 
-  return (
-    <ScrollView>
-      <View className='p-12 mt-10'>
-        <Text>Title</Text>
-        <TextInput value={title} onChangeText={setTitle} placeholder="Enter title" />
+  const toggleType = (type: string) => {
+    if (selectedTypes.includes(type)) {
+      setSelectedTypes(selectedTypes.filter(t => t !== type));
+    } else {
+      setSelectedTypes([...selectedTypes, type]);
+    }
+  };
 
-        <Text>Description</Text>
-        <TextInput value={description} onChangeText={setDescription} placeholder="Enter description" />
+  // Example of how you might handle picking images
+  const handleAddImage = useCallback(() => {
+    launchImageLibrary(
+      { mediaType: 'photo', selectionLimit: 0 }, 
+      (response) => {
+        if (!response.didCancel && !response.errorCode && response.assets) {
+          const uris = response.assets.map((asset) => asset.uri || '');
+          setImages((prev) => [...prev, ...uris]);
+        }
+      }
+    );
+  }, []);
 
-        <Text>Address</Text>
-        <TextInput value={address} onChangeText={setAddress} placeholder="Enter address" />
+  // You can still use your geocode logic if you want
+  const handleGeocodeAddress = async () => {
+    if (!address) {
+      Alert.alert('Please enter an address');
+      return;
+    }
+    try {
+      const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND}/geolocation/geocode`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({ address }),
+      });
+      const data = await response.json();
+      if (data && data.coordinates) {
+        setLocation(`${data.coordinates[0]}, ${data.coordinates[1]}`);
+      } else {
+        Alert.alert('Error', 'Could not geocode address');
+      }
+    } catch (error) {
+      console.error(error);
+      Alert.alert('Error', 'Failed to geocode address');
+    }
+  };
 
-        <Text>Location (longitude, latitude)</Text>
-        <TextInput value={location} onChangeText={setLocation} placeholder="e.g., -122.4194, 37.7749" />
-
-        <Text>Size (length x width)</Text>
-        <TextInput value={size} onChangeText={setSize} placeholder="e.g., 20x15" />
-
-        <Text>Images (comma separated URLs)</Text>
-        <TextInput
-          value={images.join(', ')}
-          onChangeText={(text) => setImages(text.split(',').map(item => item.trim()))}
-          placeholder="Enter image URLs separated by commas"
-        />
-
-        <Text>Price Per Hour</Text>
-        <TextInput
-          value={pricePerHour}
-          onChangeText={(text) => setPricePerHour(text.replace(/[^0-9.]/g, ''))}
-          keyboardType="numeric"
-          placeholder="Enter price per hour"
-        />
-
-        <Text>Price Per Day</Text>
-        <TextInput
-          value={pricePerDay}
-          onChangeText={(text) => setPricePerDay(text.replace(/[^0-9.]/g, ''))}
-          keyboardType="numeric"
-          placeholder="Enter price per day (optional)"
-        />
-
-        <Text>Price Per Month</Text>
-        <TextInput
-          value={pricePerMonth}
-          onChangeText={(text) => setPricePerMonth(text.replace(/[^0-9.]/g, ''))}
-          keyboardType="numeric"
-          placeholder="Enter price per month (optional)"
-        />
-
-        <Text>Pay As You Go</Text>
-        <Switch value={payAsYouGo} onValueChange={setPayAsYouGo} />
-
-        <Text>
-          Availability (format: YYYY-MM-DD HH:MM HH:MM, separate multiple entries with commas)
-        </Text>
-        <TextInput
-          value={availability}
-          onChangeText={setAvailability}
-          placeholder="e.g., 2025-04-01 09:00 17:00, 2025-04-02 10:00 16:00"
-        />
-
-        <Text>Features (comma separated)</Text>
-        <TextInput
-          value={features}
-          onChangeText={setFeatures}
-          placeholder="e.g., WiFi, Parking, AC"
-        />
-
-        <Button title="Add Listing" onPress={handleSubmit} />
+  interface StepNavigationProps {
+    onBack?: () => void;
+    onNext: () => void;
+    showBack?: boolean;
+  }
+  
+  const StepNavigation: React.FC<StepNavigationProps> = ({
+    onBack,
+    onNext,
+    showBack = false,
+  }) => {
+    return (
+      <View className="flex-row mt-4 justify-center">
+        {showBack && (
+          <TouchableOpacity
+            onPress={onBack}
+            className="w-1/4 mr-2 p-4 rounded-md items-center bg-[#064c4f]"
+          >
+            <Text className="text-white font-semibold">Back</Text>
+          </TouchableOpacity>
+        )}
+  
+        <TouchableOpacity
+          onPress={onNext}
+          className={`p-4 rounded-md items-center bg-[#064c4f] ${
+            showBack ? 'flex-1 ml-2' : 'w-full'
+          }`}
+        >
+          <Text className="text-white font-semibold">Save and Continue</Text>
+        </TouchableOpacity>
       </View>
-    </ScrollView>
+    );
+  };
+
+  const renderStep = () => {
+    switch (currentStep) {
+      // -----------------------------------------------------------
+      // STEP 0
+      // -----------------------------------------------------------
+      case 0:
+        return (
+          <View className="p-12 mt-10">
+            <Text className='text-3xl text-white'>Let's pave your space...</Text>
+            <Text className='text-xl mt-3 text-white'>Name your parking space*</Text>
+            <TextInput 
+              value={title} 
+              onChangeText={setTitle} 
+              placeholder="Some Name..." 
+              className='text-white'
+              placeholderTextColor="#99AAB5"
+            />
+
+            <Text className="text-xl text-white mt-3">
+              What kind of space is it?
+            </Text>
+            <Text className="text-sm text-gray-300">
+              (Select all applicable)
+            </Text>
+
+            {/* Pill buttons for space types */}
+            <View className="flex-row flex-wrap mt-3 gap-2">
+              {['Garage', 'Driveway', 'Street parking'].map(type => (
+                <TouchableOpacity
+                  key={type}
+                  onPress={() => toggleType(type)}
+                  className={`px-4 py-2 rounded-full ${
+                    selectedTypes.includes(type) ? 'bg-[#48BB78]' : 'bg-[#2F4858]'
+                  }`}
+                >
+                  <Text className="text-white">{type}</Text>
+                </TouchableOpacity>
+              ))}
+
+              {/* “Other (enter below)” pill */}
+              <TouchableOpacity
+                onPress={() => toggleType('Other')}
+                className={`px-4 py-2 rounded-full ${
+                  selectedTypes.includes('Other') ? 'bg-[#48BB78]' : 'bg-[#2F4858]'
+                }`}
+              >
+                <Text className="text-white">Other (enter below)</Text>
+              </TouchableOpacity>
+            </View>
+
+            {selectedTypes.includes('Other') && (
+              <View className="mt-4">
+                <TextInput
+                  value={description}
+                  onChangeText={setDescription}
+                  placeholder="a spaceship..."
+                  placeholderTextColor="#99AAB5"
+                  className="bg-[#2F4858] text-white p-3 rounded-md"
+                />
+              </View>
+            )}
+
+            <View className="my-4 h-[1px] w-full bg-gray-300" />
+
+            <Text className="text-xl text-white mt-3">How big is it?</Text>
+            <Text className="text-sm text-gray-300">
+              (Select a size category or manually type in dimensions)
+            </Text>
+
+            {/* Example size categories */}
+            <View className="flex-row flex-wrap mt-4 gap-2">
+              {sizeGuideData.map((row, index) => (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => setSelectedCategory(row.category)}
+                  className={`px-4 py-2 rounded-full border ${
+                    selectedCategory === row.category
+                      ? 'bg-[#48BB78] border-[#48BB78]'
+                      : 'bg-[#2F4858] border-gray-400'
+                  }`}
+                >
+                  <Text className="text-white">{row.category}</Text>
+                </TouchableOpacity>
+              ))}
+
+              {/* "Manually Type In" chip */}
+              <TouchableOpacity
+                onPress={() => setSelectedCategory('manual')}
+                className={`px-4 py-2 rounded-full border ${
+                  selectedCategory === 'manual'
+                    ? 'bg-[#48BB78] border-[#48BB78]'
+                    : 'bg-[#2F4858] border-gray-400'
+                }`}
+              >
+                <Text className="text-white">Manually Type In</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* If user selected a known category, show that info */}
+            {selectedCategory !== 'manual' && sizeGuideData.find(r => r.category === selectedCategory) && (
+              <View className="mt-4 p-4 bg-[#2F4858] rounded-md">
+                <Text className="text-white">
+                  Dimensions: {
+                    sizeGuideData.find(r => r.category === selectedCategory)?.minSize
+                  } meters
+                </Text>
+                <Text className="text-gray-300 text-sm mt-1">
+                  {
+                    sizeGuideData.find(r => r.category === selectedCategory)?.examples
+                  }
+                </Text>
+              </View>
+            )}
+
+            {/* If user selected manual input */}
+            {selectedCategory === 'manual' && (
+              <View className="mt-4">
+                <Text className="text-white mb-1">Length</Text>
+                <TextInput
+                  value={length}
+                  onChangeText={setLength}
+                  keyboardType="numeric"
+                  placeholder="e.g. 20.0"
+                  placeholderTextColor="#99AAB5"
+                  className="bg-[#2F4858] text-white p-3 rounded-md mb-3"
+                />
+
+                <Text className="text-white mb-1">Width</Text>
+                <TextInput
+                  value={width}
+                  onChangeText={setWidth}
+                  keyboardType="numeric"
+                  placeholder="e.g. 15.0"
+                  placeholderTextColor="#99AAB5"
+                  className="bg-[#2F4858] text-white p-3 rounded-md mb-3"
+                />
+
+                <Text className="text-white mb-1">Height</Text>
+                {noHeightLimit ? (
+                  <Text className="text-gray-300 italic mb-3">No limit</Text>
+                ) : (
+                  <TextInput
+                    value={height}
+                    onChangeText={setHeight}
+                    keyboardType="numeric"
+                    placeholder="e.g. 7.0"
+                    placeholderTextColor="#99AAB5"
+                    className="bg-[#2F4858] text-white p-3 rounded-md mb-3"
+                  />
+                )}
+
+                <TouchableOpacity
+                  onPress={() => {
+                    setNoHeightLimit(prev => !prev);
+                    setHeight('');
+                  }}
+                >
+                  <Text className="text-[#48BB78] underline">
+                    {noHeightLimit ? 'Use a specific height' : 'No height limit'}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            )}
+
+            {/* Size Guide Modal Button */}
+            <TouchableOpacity
+              onPress={() => setShowSizeGuide(true)}
+              className="mt-4 border border-gray-300 rounded-md px-4 py-2 w-32"
+            >
+              <Text className="text-white text-center">Size Guide</Text>
+            </TouchableOpacity>
+
+            {/* Size Guide Modal */}
+            <Modal visible={showSizeGuide} transparent animationType="fade">
+              <View className="flex-1 bg-black bg-opacity-60 justify-center items-center">
+                <View className="bg-[#2F4858] w-5/6 p-4 rounded-md">
+                  <Text className="text-lg text-white mb-2">Size Guide</Text>
+                  <ScrollView>
+                    {/* Table Header */}
+                    <View className="flex-row">
+                      <View className="flex-1 p-2 border border-gray-400">
+                        <Text className="text-white font-bold">Minimum Size</Text>
+                      </View>
+                      <View className="flex-1 p-2 border border-gray-400">
+                        <Text className="text-white font-bold">Category</Text>
+                      </View>
+                      <View className="flex-1 p-2 border border-gray-400">
+                        <Text className="text-white font-bold">Examples</Text>
+                      </View>
+                    </View>
+
+                    {/* Render table rows from sizeGuideData */}
+                    {sizeGuideData.map((row, index) => (
+                      <View className="flex-row" key={index}>
+                        <View className="flex-1 p-2 border border-gray-400">
+                          <Text className="text-white">{row.minSize}</Text>
+                        </View>
+                        <View className="flex-1 p-2 border border-gray-400">
+                          <Text className="text-white">{row.category}</Text>
+                        </View>
+                        <View className="flex-1 p-2 border border-gray-400">
+                          <Text className="text-white">{row.examples}</Text>
+                        </View>
+                      </View>
+                    ))}
+                  </ScrollView>
+                  <TouchableOpacity
+                    onPress={() => setShowSizeGuide(false)}
+                    className="mt-4 bg-[#48BB78] p-3 rounded-md"
+                  >
+                    <Text className="text-white text-center">Close</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </Modal>
+
+            <View className="my-6 h-[1px] w-full bg-gray-400" />
+
+            <Text className="text-xl text-white mt-3">What does it look like?</Text>
+            <Text className="text-sm text-gray-300">
+              (Upload images of the parking space and surroundings)
+            </Text>
+
+            <View className='flex flex-row gap-1 mt-4 flex-wrap '>
+              <ImagePickerModal setImages={setImages} images={images} />
+              {images.map((uri, index) => (
+                <Image
+                  key={index}
+                  source={{ uri }}
+                  style={{ width: 60, height: 60, borderRadius: 8 }}
+                />
+              ))}
+            </View>
+
+            <StepNavigation
+              onBack={() => setCurrentStep(prev => prev - 1)}
+              onNext={() => setCurrentStep(prev => prev + 1)}
+              showBack={currentStep > 0}
+            />
+          </View>
+        );
+
+      // -----------------------------------------------------------
+      // STEP 1 (UPDATED)
+      // -----------------------------------------------------------
+      case 1:
+        return (
+          <View className="p-12 mt-10">
+            {/* Title */}
+            <Text className="text-3xl text-white mb-4">Pinning it down...</Text>
+
+            {/* "Where is it?" */}
+            <Text className="text-xl text-white">Where is it?</Text>
+            <Text className="text-sm text-gray-300 mb-4">
+              (Enter the exact location details of your space)
+            </Text>
+
+            {/* Country */}
+            <Text className="text-white mb-1">Country</Text>
+            <TextInput
+              value={country}
+              onChangeText={setCountry}
+              placeholder="e.g. Canada"
+              placeholderTextColor="#99AAB5"
+              className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
+            />
+
+            {/* Street address */}
+            <Text className="text-white mb-1">Street address</Text>
+            <TextInput
+              value={street}
+              onChangeText={setStreet}
+              placeholder="123 Main St"
+              placeholderTextColor="#99AAB5"
+              className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
+            />
+
+            {/* Apt / Suite (optional) */}
+            <Text className="text-white mb-1">Apt, suite (optional)</Text>
+            <TextInput
+              value={aptSuite}
+              onChangeText={setAptSuite}
+              placeholder="Apt 101"
+              placeholderTextColor="#99AAB5"
+              className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
+            />
+
+            {/* City */}
+            <Text className="text-white mb-1">City</Text>
+            <TextInput
+              value={cityInput}
+              onChangeText={setCityInput}
+              placeholder="e.g. Toronto"
+              placeholderTextColor="#99AAB5"
+              className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
+            />
+
+            {/* Province / State */}
+            <Text className="text-white mb-1">Province / State</Text>
+            <TextInput
+              value={province}
+              onChangeText={setProvince}
+              placeholder="Ontario"
+              placeholderTextColor="#99AAB5"
+              className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
+            />
+
+            {/* Postal Code */}
+            <Text className="text-white mb-1">Postal Code</Text>
+            <TextInput
+              value={postalCode}
+              onChangeText={setPostalCode}
+              placeholder="M4B 1B3"
+              placeholderTextColor="#99AAB5"
+              className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
+            />
+            
+            {/*
+              TODO: make reqeust to geocoding route to get lat lon and center the map around
+              TODO: make a refresh thing on the map that makes a new request when user clicks on
+          
+            */}
+            <View className="bg-[#2F4858] rounded-md h-40 justify-center items-center">
+              <Text className="text-white">[Map Placeholder]</Text>
+            </View>
+
+
+
+            {/* Pricing */}
+            <Text className="text-xl text-white mt-6">What will the pricing be?</Text>
+            <Text className="text-sm text-gray-300 mb-4">
+              (Enter what you will charge for the space)
+            </Text>
+
+            <Text className="text-white mb-1">Hourly</Text>
+            <TextInput
+              value={pricePerHour}
+              onChangeText={(text) =>
+                setPricePerHour(text.replace(/[^0-9.]/g, ''))
+              }
+              keyboardType="numeric"
+              placeholder="$70"
+              placeholderTextColor="#99AAB5"
+              className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
+            />
+
+            <Text className="text-white mb-1">Daily (optional)</Text>
+            <TextInput
+              value={pricePerDay}
+              onChangeText={(text) =>
+                setPricePerDay(text.replace(/[^0-9.]/g, ''))
+              }
+              keyboardType="numeric"
+              placeholder="$100"
+              placeholderTextColor="#99AAB5"
+              className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
+            />
+
+            <Text className="text-white mb-1">Monthly (optional)</Text>
+            <TextInput
+              value={pricePerMonth}
+              onChangeText={(text) =>
+                setPricePerMonth(text.replace(/[^0-9.]/g, ''))
+              }
+              keyboardType="numeric"
+              placeholder="$500"
+              placeholderTextColor="#99AAB5"
+              className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
+            />
+
+            <View className="flex-row items-center mb-4">
+              <Text className="text-white mr-3">Pay As You Go</Text>
+              <Switch
+                value={payAsYouGo}
+                onValueChange={setPayAsYouGo}
+              />
+            </View>
+
+   
+
+            <StepNavigation
+              onBack={() => setCurrentStep((prev) => prev - 1)}
+              onNext={() => {
+                const combinedAddress = [
+                  street,
+                  aptSuite ? aptSuite : '',
+                  cityInput,
+                  province,
+                  postalCode,
+                  country,
+                ]
+                  .filter(Boolean)
+                  .join(', ');
+                setAddress(combinedAddress);
+
+                setCurrentStep((prev) => prev + 1);
+              }}
+              showBack={currentStep > 0}
+            />
+          </View>
+        );
+
+      // -----------------------------------------------------------
+      // STEP 2
+      // -----------------------------------------------------------
+      case 2:
+        return (
+          <View className="p-12 mt-10">
+            <Text>
+              Availability (format: YYYY-MM-DD HH:MM HH:MM, separate multiple entries with commas)
+            </Text>
+            <TextInput
+              value={availability}
+              onChangeText={setAvailability}
+              placeholder="e.g., 2025-04-01 09:00 17:00, 2025-04-02 10:00 16:00"
+            />
+
+            <Text>Features (comma separated)</Text>
+            <TextInput
+              value={features}
+              onChangeText={setFeatures}
+              placeholder="e.g., WiFi, EV Charger, Security Camera"
+            />
+
+            <Button 
+              title="Submit Listing" 
+              onPress={handleSubmit} 
+            />
+          </View>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <LinearGradient
+      colors={['#1d434f', '#2e6165']} // Customize these colors as needed
+      style={{ flex: 1 }}
+    >
+      <ScrollView>
+        {renderStep()}
+      </ScrollView>
+    </LinearGradient>
   );
 };
 

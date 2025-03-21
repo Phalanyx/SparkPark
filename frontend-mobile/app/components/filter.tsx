@@ -27,7 +27,7 @@ const Filters: React.FC<FiltersProps> = ({
   handleApplyFilters,
 }) => {
   return (
-    <View className={`mt-2 p-4 bg-[#004B25] rounded-lg ${showFilters ? '' : 'hidden'}`}>
+    <View className={`mt-2 p-4 bg-[#1d434f] rounded-lg ${showFilters ? '' : 'hidden'}`}>
       <Text className="text-white mb-2 font-bold">Filters</Text>
       <View className='flex flex-wrap flex-row'>
       <View className="mb-2 w-1/4">
@@ -72,7 +72,7 @@ const Filters: React.FC<FiltersProps> = ({
 
       <TouchableOpacity
         onPress={handleApplyFilters}
-        className="mt-2 bg-blue-500 py-2 rounded"
+        className="mt-2 bg-[#0a2d38] py-2 rounded"
       >
         <Text className="text-center text-white font-semibold">Apply Filters</Text>
       </TouchableOpacity>

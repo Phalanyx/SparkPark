@@ -29,7 +29,6 @@ const AddListingForm = () => {
   const [images, setImages] = useState<string[]>([]);
 
   // Step 1 fields
-  // Break out the address into subfields
   const [country, setCountry] = useState('');
   const [street, setStreet] = useState('');
   const [aptSuite, setAptSuite] = useState('');
@@ -40,7 +39,7 @@ const AddListingForm = () => {
   // Single string for final address (used in the backend payload)
   const [address, setAddress] = useState('');
 
-  // Keep location if you still want to store lat/lng
+  // Location for storing lat/lng
   const [location, setLocation] = useState('');
 
   // Pricing fields
@@ -70,6 +69,7 @@ const AddListingForm = () => {
     { minSize: '3.5 x 1.8',  category: 'X-SMALL', examples: 'Motorcycle, scooter, etc.' },
   ];
 
+
   const router = useRouter();
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const AddListingForm = () => {
 
       const payload = {
         title,
-        description,
+        description: JSON.stringify(selectedTypes),
         // We store the final, concatenated address in `address`:
         address,
         location: {
@@ -96,6 +96,10 @@ const AddListingForm = () => {
           coordinates: location
             .split(',')
             .map(coord => parseFloat(coord.trim()))
+        },
+        size :{
+          length: length,
+          width:width
         },
         images: images.map(img => img.trim()),
         pricePerHour: parseFloat(pricePerHour),
@@ -112,6 +116,7 @@ const AddListingForm = () => {
         }),
         features: features.split(',').map(feature => feature.trim()),
       };
+      console.log(payload);
 
       const response = await fetch(
         process.env.EXPO_PUBLIC_BACKEND + '/add-listing',
@@ -158,7 +163,7 @@ const AddListingForm = () => {
     );
   }, []);
 
-  // You can still use your geocode logic if you want
+  // Existing geocode logic (if you still need it)
   const handleGeocodeAddress = async () => {
     if (!address) {
       Alert.alert('Please enter an address');
@@ -174,13 +179,32 @@ const AddListingForm = () => {
       });
       const data = await response.json();
       if (data && data.coordinates) {
-        setLocation(`${data.coordinates[0]}, ${data.coordinates[1]}`);
       } else {
         Alert.alert('Error', 'Could not geocode address');
       }
     } catch (error) {
       console.error(error);
       Alert.alert('Error', 'Failed to geocode address');
+    }
+  };
+
+  // New function to call the isochrones endpoint
+  const handleSearch = async (query: string): Promise<void> => {
+    console.log("hi");
+    try {
+      const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND}/geolocation/isochrones`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({ address: query }),
+      });
+      const data = await response.json();
+      // Save the returned points (e.g., lon/lat) into state
+      setLocation(`${data.lat}, ${data.lon}`);
+      console.log(data);
+    } catch (error) {
+      console.error("Error in handleSearch", error);
     }
   };
 
@@ -289,20 +313,24 @@ const AddListingForm = () => {
 
             {/* Example size categories */}
             <View className="flex-row flex-wrap mt-4 gap-2">
-              {sizeGuideData.map((row, index) => (
-                <TouchableOpacity
-                  key={index}
-                  onPress={() => setSelectedCategory(row.category)}
-                  className={`px-4 py-2 rounded-full border ${
-                    selectedCategory === row.category
-                      ? 'bg-[#48BB78] border-[#48BB78]'
-                      : 'bg-[#2F4858] border-gray-400'
-                  }`}
-                >
-                  <Text className="text-white">{row.category}</Text>
-                </TouchableOpacity>
-              ))}
-
+            {sizeGuideData.map((row, index) => (
+              <TouchableOpacity
+                key={index}
+                onPress={() => {
+                  setSelectedCategory(row.category);
+                  const [len, wid] = row.minSize.split('x').map(s => s.trim());
+                  setLength(len);
+                  setWidth(wid);
+                }}
+                className={`px-4 py-2 rounded-full border ${
+                  selectedCategory === row.category
+                    ? 'bg-[#48BB78] border-[#48BB78]'
+                    : 'bg-[#2F4858] border-gray-400'
+                }`}
+              >
+                <Text className="text-white">{row.category}</Text>
+              </TouchableOpacity>
+            ))}
               {/* "Manually Type In" chip */}
               <TouchableOpacity
                 onPress={() => setSelectedCategory('manual')}
@@ -464,18 +492,26 @@ const AddListingForm = () => {
       // STEP 1 (UPDATED)
       // -----------------------------------------------------------
       case 1:
+        // Compute the combined address from the address fields
+        const combinedAddress = [
+          street,
+          aptSuite,
+          cityInput,
+          province,
+          postalCode,
+          country,
+        ]
+          .filter(Boolean)
+          .join(', ');
         return (
           <View className="p-12 mt-10">
-            {/* Title */}
             <Text className="text-3xl text-white mb-4">Pinning it down...</Text>
 
-            {/* "Where is it?" */}
             <Text className="text-xl text-white">Where is it?</Text>
             <Text className="text-sm text-gray-300 mb-4">
               (Enter the exact location details of your space)
             </Text>
 
-            {/* Country */}
             <Text className="text-white mb-1">Country</Text>
             <TextInput
               value={country}
@@ -485,7 +521,6 @@ const AddListingForm = () => {
               className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
             />
 
-            {/* Street address */}
             <Text className="text-white mb-1">Street address</Text>
             <TextInput
               value={street}
@@ -495,7 +530,6 @@ const AddListingForm = () => {
               className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
             />
 
-            {/* Apt / Suite (optional) */}
             <Text className="text-white mb-1">Apt, suite (optional)</Text>
             <TextInput
               value={aptSuite}
@@ -505,7 +539,6 @@ const AddListingForm = () => {
               className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
             />
 
-            {/* City */}
             <Text className="text-white mb-1">City</Text>
             <TextInput
               value={cityInput}
@@ -515,7 +548,6 @@ const AddListingForm = () => {
               className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
             />
 
-            {/* Province / State */}
             <Text className="text-white mb-1">Province / State</Text>
             <TextInput
               value={province}
@@ -525,7 +557,6 @@ const AddListingForm = () => {
               className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
             />
 
-            {/* Postal Code */}
             <Text className="text-white mb-1">Postal Code</Text>
             <TextInput
               value={postalCode}
@@ -534,19 +565,29 @@ const AddListingForm = () => {
               placeholderTextColor="#99AAB5"
               className="bg-[#2F4858] text-white p-3 rounded-md mb-4"
             />
-            
-            {/*
-              TODO: make reqeust to geocoding route to get lat lon and center the map around
-              TODO: make a refresh thing on the map that makes a new request when user clicks on
-          
-            */}
-            <View className="bg-[#2F4858] rounded-md h-40 justify-center items-center">
+
+            {/* Display the combined address and add the Geocode button */}
+            <View className="mt-4">
+              <Text className="text-white">
+                Combined Address: {combinedAddress}
+              </Text>
+              <TouchableOpacity
+                onPress={() => handleSearch(combinedAddress)}
+                className="mt-2 bg-[#48BB78] p-3 rounded-md"
+              >
+                <Text className="text-white text-center">Geocode</Text>
+              </TouchableOpacity>
+              {location && (
+                <Text className="text-white mt-2">
+                  Coordinates: {location}
+                </Text>
+              )}
+            </View>
+
+            <View className="bg-[#2F4858] rounded-md h-40 justify-center items-center mt-4">
               <Text className="text-white">[Map Placeholder]</Text>
             </View>
 
-
-
-            {/* Pricing */}
             <Text className="text-xl text-white mt-6">What will the pricing be?</Text>
             <Text className="text-sm text-gray-300 mb-4">
               (Enter what you will charge for the space)
@@ -596,23 +637,11 @@ const AddListingForm = () => {
               />
             </View>
 
-   
-
             <StepNavigation
               onBack={() => setCurrentStep((prev) => prev - 1)}
               onNext={() => {
-                const combinedAddress = [
-                  street,
-                  aptSuite ? aptSuite : '',
-                  cityInput,
-                  province,
-                  postalCode,
-                  country,
-                ]
-                  .filter(Boolean)
-                  .join(', ');
+                // Set the final address to be used in the payload
                 setAddress(combinedAddress);
-
                 setCurrentStep((prev) => prev + 1);
               }}
               showBack={currentStep > 0}
@@ -621,7 +650,7 @@ const AddListingForm = () => {
         );
 
       // -----------------------------------------------------------
-      // STEP 2
+      // STEP 2 
       // -----------------------------------------------------------
       case 2:
         return (
@@ -645,6 +674,11 @@ const AddListingForm = () => {
             <Button 
               title="Submit Listing" 
               onPress={handleSubmit} 
+            />
+            <StepNavigation
+              onBack={() => setCurrentStep(prev => prev - 1)}
+              onNext={() => setCurrentStep(prev => prev + 1)}
+              showBack={currentStep > 0}
             />
           </View>
         );

@@ -4,14 +4,21 @@ import {
   TextInput,
   Text,
   TouchableOpacity,
-  LayoutAnimation
+  LayoutAnimation,
+  NativeSyntheticEvent,
+  TextInputSubmitEditingEventData
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import Filters from './filter'; // adjust the import path as needed
 
+interface Coordinates {
+  latitude: number;
+  longitude: number;
+}
+
 interface SearchProps {
   setData: (data: any[]) => void;
-  setCenter: (data: any[]) => void;
+  setCenter: (center: Coordinates) => void;
 }
 
 const Search: React.FC<SearchProps> = ({ setData, setCenter }) => {
@@ -22,8 +29,27 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter }) => {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
 
+  interface IsochroneResponse {
+    points: any[];
+    // add other properties if needed
+  }
+  
   const handleSearch = async (query: string): Promise<void> => {
-    // ... your se  arch logic here
+    console.log("hi");
+    try {
+      const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND}/geolocation/isochrones`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({ address: query }),
+      });
+      const data = (await response.json()) as IsochroneResponse;
+      setData(data.points);
+      console.log(data);
+    } catch (error) {
+      console.error("Error in handleSearch", error);
+    }
   };
 
   const handleApplyFilters = async () => {
@@ -33,23 +59,25 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter }) => {
       if (minWidth) queryParams.minWidth = minWidth;
       if (date) queryParams.date = date;
       if (time) queryParams.time = time;
-  
+
       const queryString = Object.keys(queryParams)
         .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(queryParams[key])}`)
         .join("&");
-  
+
       const url = `${process.env.EXPO_PUBLIC_BACKEND}/search-parking${queryString ? `?${queryString}` : ''}`;
       const response = await fetch(url, { method: 'GET' });
-      const result = await response.json();
+      const result = (await response.json()) as any[];
       setData(result);
       if (result && result.length > 0 && result[0].location) {
-        setCenter([result[0].location.lat, result[0].location.lon]);
+        setCenter({
+          latitude: result[0].location.lat,
+          longitude: result[0].location.lon,
+        });
       }
     } catch (error) {
       console.error("Error applying filters", error);
     }
   };
-  
 
   const toggleFilters = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -58,14 +86,16 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter }) => {
 
   return (
     <View className="p-2">
-      <View className="flex-row items-center">
+      <View className="flex-row items-center bg-[#1d434f] rounded-lg">
         <TextInput
-          className="h-12 border pl-2 bg-[#004B25] rounded-lg text-white flex-1"
+          className="h-12 pl-2  text-white flex-1"
           placeholder="Search"
           placeholderTextColor="#aaa"
           value={query}
           onChangeText={setQuery}
-          onSubmitEditing={(e) => handleSearch(e.nativeEvent.text)}
+          onSubmitEditing={(
+            e: NativeSyntheticEvent<TextInputSubmitEditingEventData>
+          ) => handleSearch(e.nativeEvent.text)}
         />
         <TouchableOpacity
           onPress={toggleFilters}

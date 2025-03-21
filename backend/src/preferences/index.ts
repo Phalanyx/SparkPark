@@ -145,3 +145,45 @@ router.delete("/delete", async (req, res) => {
         res.status(500).json({ message: "Error deleting preferences", error });
     }
 });
+
+/**
+ * @route   PUT /preferences/change
+ * @desc    Update existing user preferences partially
+ * @access  Private (Requires Authentication)
+ */
+router.put("/change", async (req, res) => {
+    try {
+        const token = req.headers.authorization?.split(" ")[1];
+        if (!token) {
+            res.status(401).json({ message: "Authorization token required" });
+            return;
+        }
+
+        const decodedToken = await admin.auth().verifyIdToken(token);
+        const userId = decodedToken.uid;
+
+        const updateFields = req.body;
+
+        if (Object.keys(updateFields).length === 0) {
+            res.status(400).json({ message: "At least one preference field must be provided." });
+            return;
+        }
+
+        const updatedPreferences = await Preferences.findOneAndUpdate(
+            { userId },
+            updateFields,
+            { new: true, runValidators: true }
+        );
+
+        if (!updatedPreferences) {
+            res.status(404).json({ message: "Preferences not found for this user." });
+            return;
+        }
+
+        res.status(200).json({ message: "Preferences updated successfully", preferences: updatedPreferences });
+
+    } catch (error) {
+        console.error("Error changing preferences:", error);
+        res.status(500).json({ message: "Error updating preferences", error });
+    }
+});

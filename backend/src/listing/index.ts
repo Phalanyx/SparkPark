@@ -58,6 +58,7 @@ router.post("/add-listing", async (req, res) => {
   });
   
   // Search parking spots by size & availability
+  // Search parking spots by size & availability
   router.get("/search-parking", async (req, res) => {
     try {
       const minLength = req.query.minLength ? String(req.query.minLength) : "";
@@ -65,34 +66,51 @@ router.post("/add-listing", async (req, res) => {
       const date = req.query.date ? String(req.query.date) : "";
       const time = req.query.time ? String(req.query.time) : "";
   
-      if (!minLength || !minWidth || !date || !time) {
-        res.status(400).json({ message: "Missing required filters" });
-        return;
+      const queryObj: Record<string, any> = {};
+  
+      // Add length filter if provided
+      if (minLength) {
+        const carLength = parseFloat(minLength);
+        queryObj["size.length"] = { $gte: carLength };
       }
-  
-      const carLength = parseFloat(minLength);
-      const carWidth = parseFloat(minWidth);
-      const queryDate = new Date(date);
-      const queryTime = time;
-  
-      const parkingSpots = await Listing.find({
-        "size.length": { $gte: carLength },
-        "size.width": { $gte: carWidth },
-        "availability": {
+      // Add width filter if provided
+      if (minWidth) {
+        const carWidth = parseFloat(minWidth);
+        queryObj["size.width"] = { $gte: carWidth };
+      }
+      // Add availability filter based on provided date and time
+      if (date && time) {
+        const queryDate = new Date(date);
+        queryObj["availability"] = {
           $elemMatch: {
             date: queryDate,
-            availableFrom: { $lte: queryTime },
-            availableUntil: { $gte: queryTime },
+            availableFrom: { $lte: time },
+            availableUntil: { $gte: time },
           },
-        },
-      });
+        };
+      } else if (date) {
+        const queryDate = new Date(date);
+        queryObj["availability"] = {
+          $elemMatch: {
+            date: queryDate,
+          },
+        };
+      } else if (time) {
+        queryObj["availability"] = {
+          $elemMatch: {
+            availableFrom: { $lte: time },
+            availableUntil: { $gte: time },
+          },
+        };
+      }
   
+      const parkingSpots = await Listing.find(queryObj);
       res.status(200).json(parkingSpots);
-      return;
     } catch (error) {
       res.status(500).json({ message: "Error searching for parking spots", error });
     }
   });
+
   
   // GET: Fetch all listings of the logged-in user
 router.get("/user-listings", async (req, res) => {
@@ -105,7 +123,13 @@ router.get("/user-listings", async (req, res) => {
     }
 
     // Verify Firebase token and get user ID
-    const decodedToken = await admin.auth().verifyIdToken(authHeader);
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      res.status(401).json({ message: "Authorization token required" });
+      return;
+    }
+
+    const token = authHeader.split(" ")[1]; // Extract the token part
+    const decodedToken = await admin.auth().verifyIdToken(token);
     const ownerId = decodedToken.uid;
 
     // Find listings where ownerId matches

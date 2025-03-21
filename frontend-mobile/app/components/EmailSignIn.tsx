@@ -28,6 +28,7 @@ export default function AuthForm({ handleBackend, mode }: AuthFormProps) {
         .signInWithEmailAndPassword(email, password)
         .then((user) => {
           user.user.getIdToken().then((token) => {
+            console.log(token);
             handleBackend(token);
           });
         })
@@ -54,6 +55,7 @@ export default function AuthForm({ handleBackend, mode }: AuthFormProps) {
         .createUserWithEmailAndPassword(email, password)
         .then((user) => {
           user.user.getIdToken().then((token) => {
+            console.log(token);
             handleBackend(token);
           });
         })

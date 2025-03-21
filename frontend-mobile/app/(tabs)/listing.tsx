@@ -55,8 +55,8 @@ const AddListingForm = () => {
   // Size / category data from step 0
   const [selectedCategory, setSelectedCategory] = useState<string>('MEDIUM');
   const [noHeightLimit, setNoHeightLimit] = useState(false);
-  const [length, setLength] = useState('');
-  const [width, setWidth] = useState('');
+  const [length, setLength] = useState('5.5');
+  const [width, setWidth] = useState('2.7');
   const [height, setHeight] = useState('');
   const [showSizeGuide, setShowSizeGuide] = useState(false);
   const [unitSystem, setUnitSystem] = useState<'imperial' | 'metric'>('imperial');
@@ -95,6 +95,7 @@ const AddListingForm = () => {
           type: 'Point',
           coordinates: location
             .split(',')
+            .reverse()
             .map(coord => parseFloat(coord.trim()))
         },
         size :{
@@ -677,7 +678,7 @@ const AddListingForm = () => {
             />
             <StepNavigation
               onBack={() => setCurrentStep(prev => prev - 1)}
-              onNext={() => setCurrentStep(prev => prev + 1)}
+              onNext={() => setCurrentStep(prev => prev)}
               showBack={currentStep > 0}
             />
           </View>

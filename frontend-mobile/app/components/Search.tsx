@@ -4,62 +4,75 @@ import {
   TextInput,
   Text,
   TouchableOpacity,
-  LayoutAnimation
+  LayoutAnimation,
+  NativeSyntheticEvent,
+  TextInputSubmitEditingEventData
 } from 'react-native';
 import { Icon } from 'react-native-elements';
+import Filters from './filter'; // adjust the import path as needed
+
+interface Coordinates {
+  latitude: number;
+  longitude: number;
+}
 
 interface SearchProps {
   setData: (data: any[]) => void;
-  setCenter: (data: any[]) => void;
+  setCenter: (center: Coordinates) => void;
 }
 
 const Search: React.FC<SearchProps> = ({ setData, setCenter }) => {
   const [query, setQuery] = useState('');
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(true);
   const [minLength, setMinLength] = useState('');
   const [minWidth, setMinWidth] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
 
+  interface IsochroneResponse {
+    points: any[];
+    // add other properties if needed
+  }
+  
   const handleSearch = async (query: string): Promise<void> => {
-    if (query.length < 3) {
-      try {
-        const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND}/`, { method: 'GET' });
-        const result = await response.json();
-        console.log(result);
-        setData(result);
-      } catch (error) {
-        setData([]);
-        console.error('There was an error making the request!', error);
-      }
-      return;
+    console.log("hi");
+    try {
+      const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND}/geolocation/isochrones`, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        method: 'POST',
+        body: JSON.stringify({ address: query }),
+      });
+      const data = (await response.json()) as IsochroneResponse;
+      setData(data.points);
+      console.log(data);
+    } catch (error) {
+      console.error("Error in handleSearch", error);
     }
-    
-    const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND}/geolocation/isochrones`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      method: 'POST',
-      body: JSON.stringify({ address: query }),
-    });
-    const data = await response.json();
-    setData(data.points);
-    setCenter([data.lat, data.lon]);
-    console.log(data);
   };
 
   const handleApplyFilters = async () => {
-    if (!minLength || !minWidth || !date || !time) {
-      console.log("Missing required filters");
-      return;
-    }
     try {
-      const url = `${process.env.EXPO_PUBLIC_BACKEND}/search-parking?minLength=${minLength}&minWidth=${minWidth}&date=${date}&time=${time}`;
+      const queryParams: Record<string, string> = {};
+      if (minLength) queryParams.minLength = minLength;
+      if (minWidth) queryParams.minWidth = minWidth;
+      if (date) queryParams.date = date;
+      if (time) queryParams.time = time;
+
+      const queryString = Object.keys(queryParams)
+        .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(queryParams[key])}`)
+        .join("&");
+
+      const url = `${process.env.EXPO_PUBLIC_BACKEND}/search-parking${queryString ? `?${queryString}` : ''}`;
       const response = await fetch(url, { method: 'GET' });
-      const result = await response.json();
+      const result = (await response.json()) as any[];
       setData(result);
       if (result && result.length > 0 && result[0].location) {
-        setCenter([result[0].location.lat, result[0].location.lon]);
+        setCenter({
+          latitude: result[0].location.lat,
+          longitude: result[0].location.lon,
+        });
       }
     } catch (error) {
       console.error("Error applying filters", error);
@@ -73,14 +86,16 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter }) => {
 
   return (
     <View className="p-2">
-      <View className="flex-row items-center">
+      <View className="flex-row items-center bg-[#1d434f] rounded-lg">
         <TextInput
-          className="h-12 border pl-2 bg-[#004B25] rounded-lg text-white flex-1"
+          className="h-12 pl-2  text-white flex-1"
           placeholder="Search"
           placeholderTextColor="#aaa"
           value={query}
           onChangeText={setQuery}
-          onSubmitEditing={(e) => handleSearch(e.nativeEvent.text)}
+          onSubmitEditing={(
+            e: NativeSyntheticEvent<TextInputSubmitEditingEventData>
+          ) => handleSearch(e.nativeEvent.text)}
         />
         <TouchableOpacity
           onPress={toggleFilters}
@@ -90,54 +105,18 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter }) => {
         </TouchableOpacity>
       </View>
 
-      {/* Always rendered but toggled visible using NativeWind's "hidden" utility */}
-      <View className={`mt-2 p-4 bg-[#004B25] rounded-lg ${showFilters ? '' : 'hidden'}`}>
-        <Text className="text-white mb-2 font-bold">Filters</Text>
-        <View className="mb-2">
-          <Text className="text-white">Min Length</Text>
-          <TextInput
-            className="h-10 border border-gray-300 rounded px-2"
-            placeholder="e.g., 4.5"
-            keyboardType="numeric"
-            value={minLength}
-            onChangeText={setMinLength}
-          />
-        </View>
-        <View className="mb-2">
-          <Text className="text-white">Min Width</Text>
-          <TextInput
-            className="h-10 border border-gray-300 rounded px-2"
-            placeholder="e.g., 2.0"
-            keyboardType="numeric"
-            value={minWidth}
-            onChangeText={setMinWidth}
-          />
-        </View>
-        <View className="mb-2">
-          <Text className="text-white">Date</Text>
-          <TextInput
-            className="h-10 border border-gray-300 rounded px-2"
-            placeholder="YYYY-MM-DD"
-            value={date}
-            onChangeText={setDate}
-          />
-        </View>
-        <View className="mb-2">
-          <Text className="text-white">Time</Text>
-          <TextInput
-            className="h-10 border border-gray-300 rounded px-2"
-            placeholder="HH:MM"
-            value={time}
-            onChangeText={setTime}
-          />
-        </View>
-        <TouchableOpacity
-          onPress={handleApplyFilters}
-          className="mt-2 bg-blue-500 py-2 rounded"
-        >
-          <Text className="text-center text-white font-semibold">Apply Filters</Text>
-        </TouchableOpacity>
-      </View>
+      <Filters
+        showFilters={showFilters}
+        minLength={minLength}
+        minWidth={minWidth}
+        date={date}
+        time={time}
+        setMinLength={setMinLength}
+        setMinWidth={setMinWidth}
+        setDate={setDate}
+        setTime={setTime}
+        handleApplyFilters={handleApplyFilters}
+      />
     </View>
   );
 };

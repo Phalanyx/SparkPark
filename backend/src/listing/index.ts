@@ -105,7 +105,13 @@ router.get("/user-listings", async (req, res) => {
     }
 
     // Verify Firebase token and get user ID
-    const decodedToken = await admin.auth().verifyIdToken(authHeader);
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      res.status(401).json({ message: "Authorization token required" });
+      return;
+    }
+
+    const token = authHeader.split(" ")[1]; // Extract the token part
+    const decodedToken = await admin.auth().verifyIdToken(token);
     const ownerId = decodedToken.uid;
 
     // Find listings where ownerId matches

@@ -15,8 +15,7 @@ router.post("/isochrones", async (req, res) => {
     try{
     const { address } = req.body;
     const geocode: any = await getGeocode(address);
-    let lat = geocode.features[0].geometry.coordinates[1];
-    let lon = geocode.features[0].geometry.coordinates[0];
+    const { lat, lon } = getLatLon(geocode);
     if (!lat || !lon) {
         res.status(400).json({ error: "Invalid address" });
         return;
@@ -25,7 +24,10 @@ router.post("/isochrones", async (req, res) => {
     
     const isochrone = await getIsochrones(lat, lon);
 
-
+    if (!verifyIsochrone(isochrone)) {
+        res.status(400).json({ error: "Invalid isochrone" });
+        return;
+    }
 
     const points = await Listing.find({
         location: {
@@ -50,5 +52,35 @@ catch(e){
 
 }
 );
+
+export function getLatLon(geocode: any){
+    try {
+        let lat = geocode.features[0].geometry.coordinates[1];
+        let lon = geocode.features[0].geometry.coordinates[0];
+        return { lat, lon };
+    } catch (error) {
+        return { lat: null, lon: null };
+    }
+}
+
+export function verifyIsochrone(isochrone: any){
+    return (
+        Array.isArray(isochrone) &&
+        isochrone.length > 0 &&
+        isochrone.every(
+            (polygon: any) =>
+                Array.isArray(polygon) &&
+                polygon.length > 0 &&
+                polygon.every(
+                    (coordinate: any) =>
+                        Array.isArray(coordinate) &&
+                        coordinate.length === 2 &&
+                        typeof coordinate[0] === "number" &&
+                        typeof coordinate[1] === "number"
+                )
+        )
+    );
+}
+
 
 export default router;

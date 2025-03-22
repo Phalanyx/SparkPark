@@ -6,6 +6,9 @@
  testing suite that test the different components of our backend for the expected behaviour. We 
  included scripts to attach authentication tokens to the request wherever necessary to improve 
  the testing workflow. 
+
+ <img width="1318" alt="image" src="https://github.com/user-attachments/assets/fcce4c28-120d-4405-bf81-6e69114986ea" />
+
  
 ## Frontend
 We tested the frontend for performance and reliability using the included expo dev-tools.

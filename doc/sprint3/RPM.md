@@ -35,7 +35,7 @@ parameters
 ### **Included Features**
 1. **Parking Filters** - Added the ability to filter listings based on parameters (filters, address)
 2. **Profile page** - Added profile page
-3. **Listing detail** - A user is now able to click the marker and have details show
+3. **Listing details** - A user is now able to click the marker and have details show
 
 
 ### **Excluded Features**

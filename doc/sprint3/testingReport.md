@@ -2,7 +2,7 @@
 
 ## Evidence of System Responsiveness
 
-The tests were conducted simultaneously with the backend database populated with a significant amount of data.
+We build a JMeter testing suite for testing responsiveness of our backend. The tests were conducted simultaneously with the backend database populated with a significant amount of data.
 
 ### Part 1: Simple GET Request (Less Work-Intensive)
 This test focused on a simple GET route that involved fetching user listings without intensive processing.

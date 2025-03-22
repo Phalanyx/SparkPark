@@ -6,8 +6,8 @@
 
 ## Iteration 02
 
-* Start date: Feb 15
-* End date: Mar 7 
+* Start date: Mar 8
+* End date: Mar 21
 
 ## Process
 

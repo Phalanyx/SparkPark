@@ -52,7 +52,7 @@ Provide the enhanced functionality for adding listings, searching/retrieving lis
 
 ### **4.1 Abstract View & Component Diagram**
 
-(Currently missing - Update with latest architecture diagram)
+![System Design Document-2](https://github.com/user-attachments/assets/5dce640f-2461-46b9-9f55-6438f5ef2679)
 
 ### **4.2 Components & Responsibilities**
 
@@ -107,4 +107,3 @@ Provide the enhanced functionality for adding listings, searching/retrieving lis
 
 
 ![System Design Document-3](https://github.com/user-attachments/assets/b4c2504a-9869-47bb-bcb5-088f8f93b093)
-![System Design Document-2](https://github.com/user-attachments/assets/5dce640f-2461-46b9-9f55-6438f5ef2679)

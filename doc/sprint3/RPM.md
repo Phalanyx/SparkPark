@@ -10,10 +10,10 @@
 Detailing the primary goals for the Sprint 3 release following SMART criteria.
 
 ### **Specific Goals**
-- Implementing functionality to add listings to backend from fronend (CRUD)
-- Implementing Geospatial search in listings to retrieve them based on location
-- Implementing parameter based search to retreive listings based on preferences
-- implementing image upload
+- Implementing functionality to view listings by filters
+- Implementing listing forms with image upload 
+- Implementing details shown for map markers
+- implementing frontend UI
   
 ## Participants and work assignment:
 - **Albert**: Added geospatial query integration and worked on Authentication middleware + routing for backend

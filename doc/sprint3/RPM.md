@@ -16,11 +16,11 @@ Detailing the primary goals for the Sprint 3 release following SMART criteria.
 - implementing frontend UI
   
 ## Participants and work assignment:
-- **Albert**: Added geospatial query integration and worked on Authentication middleware + routing for backend
-- **Dianna**: Revising and converting design into Figma for interactive prototype and styling
-- **Emily**: Fixed image routing and implemented bookings schema
-- **Jaehyeon**: Implementing the frontend UI, profile page, and ability to filter listings
-- **Thorge**: Creating backend functionality for creating and fetching and searching Listings based on 
+- **Albert:** Testing, CI/CD integration.
+- **Dianna:** Finalizing design for frontend and app logo.
+- **Emily:** Ensuring security against SQL injection, authentication requirements.
+- **Jaehyeon:** Frontend implementation for user profiles, custom filtering in the app.
+- **Thorge:** Backend functionality, JMeter testing, implementing preference-based auto-suggestions.
 parameters
   
 ### **Metrics for Measurement**

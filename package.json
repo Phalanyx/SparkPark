@@ -1,0 +1,24 @@
+{
+  "name": "your-project-name",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node backend/app.js",
+    "test": "npm run test:frontend && npm run test:backend",
+    "test:backend": "jest --config ./backend/jest.backend.config.js",
+    "test:frontend": "jest --config ./frontend/jest.expo.config.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "firebase-admin": "^10.0.0",
+    "mongoose": "^6.0.0"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.5.2",
+    "jest": "^27.5.1",
+    "jest-expo": "^44.0.1",
+    "supertest": "^6.1.6",
+    "ts-jest": "^27.1.5"
+  }
+}

@@ -70,7 +70,8 @@ Provide the enhanced functionality for adding listings, searching/retrieving lis
 
 ## **5. CRC Cards for Sprint 3**
 
-(Update diagrams to reflect new components like Preferences Management and Recommendation System)
+![System Design Document-3](https://github.com/user-attachments/assets/b4c2504a-9869-47bb-bcb5-088f8f93b093)
+
 
 ---
 
@@ -103,7 +104,3 @@ Provide the enhanced functionality for adding listings, searching/retrieving lis
 
 ---
 
-
-
-
-![System Design Document-3](https://github.com/user-attachments/assets/b4c2504a-9869-47bb-bcb5-088f8f93b093)

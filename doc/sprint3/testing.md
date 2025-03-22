@@ -12,6 +12,9 @@ We tested the frontend for performance and reliability using the included expo d
 Performance of our app is good as of the third sprint. The app is responsive and does not use 
 too many resources.
 
+<img width="263" alt="frontendTest" src="https://github.com/user-attachments/assets/84b3dac6-403d-49a7-9bec-58461bf21287" />
+
+
 ## Integration Tests
 
 ---

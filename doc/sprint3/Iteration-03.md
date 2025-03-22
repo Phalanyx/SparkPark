@@ -4,10 +4,10 @@
 > It does not really make sense for you to edit this document much (if at all) while working on the project - Instead, at the end of the planning phase, you can refer back to this document and decide which parts of your plan you are happy with and which parts you would like to change.
 
 
-## Iteration 03
+## Iteration 02
 
-* Start date: Feb 8
-* End date: Mar 21 
+* Start date: Feb 15
+* End date: Mar 7 
 
 ## Process
 
@@ -106,25 +106,28 @@ availability, size and distance.
 #### Artifacts
 
 
-1. Map Listings Component
+1. Filter component to have custom search/filtering
+   Artifact: 
+   Purpose: Enable custom searching for specific user needs and preferences.
+   Description:
+   Filter by pricing, distance/address, and other details of listings.
+   Use MongoDB for storing listing data (title, description, location, etc.).
+   Deliverables:
+   Functional filter search component in app.
+   Why It Matters: Allows users search for preferred listings among available options.
+
+
+2. Map Listings Markers Component
    Artifact: React Native component using a mapping library.
-   Purpose: Display listings on an interactive map for users to explore.
+   Purpose: Display details with the listings on an interactive map for users to explore.
    Description:
    Use React Native Maps or similar library to render markers for each listing.
    Fetch listing data from Express backend via REST API.
+   Availability, pricing, and other details are available to the user upon clicking the markers.
    Deliverables:
    Functional map component with markers and listing details on tap.
    Why It Matters: Provides users with a visual way to browse listings, enhancing user engagement.
 
-2. CRUD for Listings
-   Artifact: Express API for listing operations.
-   Purpose: Enable adding, updating, and deleting listings.
-   Description:
-   Create API endpoints (/listings, /listings/:id).
-   Use MongoDB for storing listing data (title, description, location, etc.).
-   Deliverables:
-   API documentation for CRUD operations.
-   Why It Matters: Allows users to manage their listings efficiently and ensures data consistency.
 
 3. Image Upload Feature
    Artifact: React Native image upload component.
@@ -135,23 +138,25 @@ availability, size and distance.
    Deliverables:
    Component for image selection and upload.
    Why It Matters: Enhances listing quality by allowing visual content.
+the listing forms, uploading image, as well as converting the given address to coords
 
-4. Listing Viewing Component
-   Artifact: React Native screen for listing details.
-   Purpose: Display detailed information about a listing.
+4. Listing Uploading Form Component
+   Artifact: React Native screens for uploading a new listing and backend functionality.
+   Purpose: Add details about a new listing and upload images for hosts to submit.
    Description:
-   Fetch listing data from Express backend.
-   Show images, description, location, and contact info.
+   Add entry to backend with new listing details (address into coordinates, description, availability information, etc.).
+   Store images, description, location, and contact info.
    Deliverables:
    Listing detail screen with all relevant information.
    Why It Matters: Provides users with all the details they need to interact with a listing.
-5. 
-5. Wireframe Mock-Up
-   Artifact: Wireframe prototype of app flow.
-   Purpose: Visualize end-to-end user experience.
+   
+5. High-fidelity prototype of app
+   Artifact: High-fidelity prototype of app flow.
+   Purpose: Visualize end-to-end user experience to be implemented.
    Description:
-   Create a visual wireframe prototype showing authentication, map listings, CRUD, and profile flows.
+   Create an official design for visual frontend components for the app’s authentication, map listings, CRUD, and profile flows.
    Deliverables:
-   Prototype images shared with the team.
-   Why It Matters: Helps align the team on the app's flow and user experience.
+   Prototype shared with the team.
+   Why It Matters: Helps provide exact design appearance and flow of frontend components to be implemented.
+
    This plan ensures all core features are implemented this sprint, with clear deliverables and artifacts to guide development.

@@ -1,0 +1,66 @@
+name: Backend CD
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Login to docker hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: get branch name
+        run: |
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          if [ "$BRANCH_NAME" == "main" ]; then
+            BRANCH_NAME="latest"
+          else 
+            BRANCH_NAME="dev"
+          fi
+          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
+
+      - name: build and publish backend
+        run: |
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/c01:${{ env.BRANCH_NAME }} .
+          docker push ${{ secrets.DOCKER_USERNAME }}/c01:${{ env.BRANCH_NAME }}
+
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+
+      - name: Login to docker hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+      - name: Pull image from docker hub
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/c01:latest
+      - name: remove old
+        run: docker rm -f c01 || true
+      - name: Run new
+        run: docker run -d -p ${{ vars.PORT }}:${{ vars.PORT }} --name c01 ${{ secrets.DOCKER_USERNAME }}/c01:latest
+
+
+
+
+
+
+
+    # - name: Create env
+    #   run: |
+    #     cd backend
+    #     echo "PORT=${{ vars.PORT }}" >> .env
+    #     echo "MONGO_DB_STRING=${{ vars.MONGO_DB_STRING }}" >> .env
+    #     echo "GEOCODE_URL=${{ vars.GEOCODE_URL }}" >> .env
+    #     echo "OPEN_ROUTE_KEY=${{ secrets.OPEN_ROUTE_KEY }}" >> .env
+    #     echo "ISOCHRONE_URL=${{ vars.ISOCHRONE_URL }}" >> .env
+    #     echo "CLOUDFLARE_ACCOUNT_ID=${{ secrets.CLOUDFLARE_ACCOUNT_ID }}" >> .env
+    #     echo "CLOUDFLARE_ACCESS_KEY=${{ secrets.CLOUDFLARE_ACCESS_KEY }}" >> .env
+    #     echo "CLOUDFLARE_SECRET_KEY=${{ secrets.CLOUDFLARE_SECRET_KEY }}" >> .env
+    #     echo "CLOUDFLARE_BUCKET_NAME=${{ vars.CLOUDFLARE_BUCKET_NAME }}" >> .env
+    #     echo "FIREBASE_ID=${{ secrets.FIREBASE_ID }}" >> .env
+    #     echo "FIREBASE_KEY=${{ secrets.FIREBASE_KEY }}" >> .env

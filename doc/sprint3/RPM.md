@@ -18,27 +18,28 @@ Detailing the primary goals for the Sprint 3 release following SMART criteria.
 ## Participants and work assignment:
 - **Albert**: Added geospatial query integration and worked on Authentication middleware + routing for backend
 - **Dianna**: Revising and converting design into Figma for interactive prototype and styling
-- **Emily**: Creating backend API for frontend to Cloudflare routing
-- **Jaehyeon**: Implementing the frontend for adding new listings and searching them
+- **Emily**: Fixed image routing and implemented bookings schema
+- **Jaehyeon**: Implementing the frontend UI, profile page, and ability to filter listings
 - **Thorge**: Creating backend functionality for creating and fetching and searching Listings based on 
 parameters
   
 ### **Metrics for Measurement**
 - Succesfull adding of Listings
-- Correct retreiveing of Listings based on parameters like size and availability
-- Correct geospatial search in listings
+- Correct retrieval of listings based on filters 
+- Correct marker details
 - User feedback on ease of use and feature completeness.
 
 ---
 
 ## **Release Scope** 
 ### **Included Features**
-1. **Parking Views** - Added markers and visible data about each marker regarding price of parking, measurements, etc.
-2. **Geospatial Queries** - A user is now able to find all available parking spots near a point of interest, within an isochrone of 20 minutes walking distance.
-3. **Added Listing uploads** - A user is now able to upload a parking spot that they would like to rent out.
+1. **Parking Filters** - Added the ability to filter listings based on parameters (filters, address)
+2. **Profile page** - Added profile page
+3. **Listing detail** - A user is now able to click the marker and have details show
+
 
 ### **Excluded Features**
-- User profiles: not important to core functionality
+- User profile functionality: not important to core functionality
 - Booking a Parking Spot: will be included in later release
 - Payment Processing: will be included in later release
 - Push Notifications: optional feature at this point

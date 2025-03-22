@@ -5,7 +5,7 @@
  testing suite which test the functionality of all the backend routes. We now have a large
  testing suite that test the different components of our backend for the expected behaviour. We 
  included scripts to attach authentication tokens to the request wherever necessary to improve 
- the testing workflow.
+ the testing workflow. 
  
 ## Frontend
 We tested the frontend for performance and reliability using the included expo dev-tools.

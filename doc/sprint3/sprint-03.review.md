@@ -7,11 +7,12 @@
 
 ## Process - Reflection
 
-During this sprint we started to make the first real progress in the actual developing as the 
-last sprint mostly focused on basic setup of project environment. Generally this sprint worked 
-out well we managed to achieve most of our goals. Still we think there is room for improvements 
-in terms of organization and the actual volume of tasks we get done. 
-
+During this sprint we continued working toward implementing important functionalities, such  
+as the filtering/custom searching and viewing details. We also implemented an improved user  
+experience with design and visual components. We still had some issues with the project  
+environment but are figuring out how to avoid them. We worked well in the sprint, but there  
+are improvements that can be made to the productivity of the sprint by maintaining the task  
+volume completed.
 
 
 
@@ -30,9 +31,6 @@ in terms of organization and the actual volume of tasks we get done.
 
 
 #### Decisions that did not turn out as well as we hoped
-- We forgot to close the first sprint on our Jira. This had major implications for our Jira 
-  tracking for the second sprint as we only figured that out towards the end of the sprint. This 
-  messed up our burndown chart as well as some of our planning on Jira. 
 - Using a lot of different technologies setup by different people. We have a lot of different 
   access tokens for auth, db, image upload etc. This was a bt messy as there was a lot of 
   communication needed for everyone to setup and sign in to all these services to get the 
@@ -44,8 +42,9 @@ in terms of organization and the actual volume of tasks we get done.
 
 #### Planned changes
 
-We will setup the Jira for sprint03 in our initial meeting where we also plan the third sprint. 
-This will ensure we have correct tracking of our progress and speed for the following sprints.
+We will more proactively update and maintain the Jira backlog to keep the task volume consistent.  
+This will allow us to complete the user stories on an planned schedule and deliver a polished  
+product on time.
 
 ## Product - Review
 

@@ -23,7 +23,7 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/c01:latest
 
 
-  deploy-and-test:
+  deploy:
     needs: build
     runs-on: self-hosted
     steps:
@@ -46,10 +46,16 @@ jobs:
           
 
 
+  test:
+    needs: deploy
+    runs-on: self-hosted
+    steps:
       - name: Run tests
         run: |
           docker exec c01 npm install -g newman
           docker exec c01 newman run tests/postman/backend.postman_collection.json --env-var "base_url=http://localhost:${{ vars.PORT }}"
+
+
 
 
 

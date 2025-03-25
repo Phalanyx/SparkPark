@@ -2,7 +2,9 @@ name: Backend CD
 
 on:
   pull_request:
-    branches: [ "main" ]
+    branches: [ "**" ]
+  push:
+    branches: [ "**" ]
 
 jobs:
   build:
@@ -45,6 +47,22 @@ jobs:
         run: docker run -d -p ${{ vars.PORT }}:${{ vars.PORT }} --name c01 ${{ secrets.DOCKER_USERNAME }}/c01:latest
 
 
+  test:
+    runs-on: self-hosted
+    needs: deploy
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman Tests
+        run: |
+          # Wait a few seconds for the application to be fully started
+          sleep 5
+          newman run backend/tests/postman/backend.postman_collection.json \
+            --env-var "base_url=${{ secrets.BACKEND_URL }}"
 
 
 

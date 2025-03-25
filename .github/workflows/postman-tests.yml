@@ -1,0 +1,25 @@
+name: Postman Tests
+
+on:
+  workflow_run:
+    workflows: ["Backend CD"]
+    types:
+      - completed
+
+jobs:
+  test:
+    runs-on: self-hosted
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Postman Tests
+        run: |
+          # Wait a few seconds for the application to be fully started
+          sleep 5
+          newman run backend/tests/postman/collection.json \
+            --env-var "base_url=http://localhost:${{ vars.PORT }}" 

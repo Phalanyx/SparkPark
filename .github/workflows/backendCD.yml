@@ -16,20 +16,11 @@ jobs:
       - name: Login to docker hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
-      - name: get branch name
-        run: |
-          BRANCH_NAME=${GITHUB_REF#refs/heads/}
-          if [ "$BRANCH_NAME" == "main" ]; then
-            BRANCH_NAME="latest"
-          else 
-            BRANCH_NAME="dev"
-          fi
-          echo "BRANCH_NAME=$BRANCH_NAME" >> $GITHUB_ENV
 
       - name: build and publish backend
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/c01:${{ env.BRANCH_NAME }} .
-          docker push ${{ secrets.DOCKER_USERNAME }}/c01:${{ env.BRANCH_NAME }}
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/c01:latest .
+          docker push ${{ secrets.DOCKER_USERNAME }}/c01:latest
 
 
   deploy-and-test:
@@ -56,12 +47,9 @@ jobs:
           # Wait for container to be ready
           sleep 5
           
-          # Copy test files into container
-          docker cp backend/tests/postman c01:/app/tests/
-          
           # Install Newman and run tests inside container
           docker exec c01 npm install -g newman
-          docker exec c01 newman run /app/tests/postman/backend.postman_collection.json --env-var "base_url=http://localhost:${{ vars.PORT }}"
+          docker exec c01 newman run tests/postman/backend.postman_collection.json --env-var "base_url=http://localhost:${{ vars.PORT }}"
 
 
 

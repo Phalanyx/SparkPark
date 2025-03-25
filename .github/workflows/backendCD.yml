@@ -65,7 +65,7 @@ jobs:
       - name: Run container
         run: |
           # Start the container
-          docker run -d -p --env-file .env ${{ vars.PORT }}:${{ vars.PORT }} --name c01 ${{ secrets.DOCKER_USERNAME }}/c01:latest
+          docker run -d --env-file .env -p${{ vars.PORT }}:${{ vars.PORT }} --name c01 ${{ secrets.DOCKER_USERNAME }}/c01:latest
           
 
 

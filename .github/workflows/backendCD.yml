@@ -32,37 +32,36 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/c01:${{ env.BRANCH_NAME }}
 
 
-  deploy:
+  deploy-and-test:
     needs: build
     runs-on: self-hosted
-    steps:
-
-      - name: Login to docker hub
-        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
-      - name: Pull image from docker hub
-        run: docker pull ${{ secrets.DOCKER_USERNAME }}/c01:latest
-      - name: remove old
-        run: docker rm -f c01 || true
-      - name: Run new
-        run: docker run -d -p ${{ vars.PORT }}:${{ vars.PORT }} --name c01 ${{ secrets.DOCKER_USERNAME }}/c01:latest
-
-
-  test:
-    runs-on: self-hosted
-    needs: deploy
     steps:
       - name: Checkout source
         uses: actions/checkout@v3
 
-      - name: Install Newman
-        run: npm install -g newman
-
-      - name: Run Postman Tests
+      - name: Login to docker hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+      
+      - name: Pull image from docker hub
+        run: docker pull ${{ secrets.DOCKER_USERNAME }}/c01:latest
+      
+      - name: remove old
+        run: docker rm -f c01 || true
+      
+      - name: Run container and tests
         run: |
-          # Wait a few seconds for the application to be fully started
+          # Start the container
+          docker run -d -p ${{ vars.PORT }}:${{ vars.PORT }} --name c01 ${{ secrets.DOCKER_USERNAME }}/c01:latest
+          
+          # Wait for container to be ready
           sleep 5
-          newman run backend/tests/postman/backend.postman_collection.json \
-            --env-var "base_url=${{ secrets.BACKEND_URL }}"
+          
+          # Copy test files into container
+          docker cp backend/tests/postman c01:/app/tests/
+          
+          # Install Newman and run tests inside container
+          docker exec c01 npm install -g newman
+          docker exec c01 newman run /app/tests/postman/backend.postman_collection.json --env-var "base_url=http://localhost:${{ vars.PORT }}"
 
 
 

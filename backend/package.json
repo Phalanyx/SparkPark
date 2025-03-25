@@ -6,7 +6,7 @@
     "test": "jest",
     "dev": "nodemon src/server.ts",
     "build": "tsc --outDir out",
-    "start": "node out/src/server.js"
+    "start": "ls && node out/src/server.js"
   },
   "keywords": [],
   "author": "",

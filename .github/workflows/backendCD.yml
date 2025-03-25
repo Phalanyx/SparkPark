@@ -44,10 +44,10 @@ jobs:
           # Start the container
           docker run -d -p ${{ vars.PORT }}:${{ vars.PORT }} --name c01 ${{ secrets.DOCKER_USERNAME }}/c01:latest
           
-          # Wait for container to be ready
-          sleep 5
-          
-          # Install Newman and run tests inside container
+
+
+      - name: Run tests
+        run: |
           docker exec c01 npm install -g newman
           docker exec c01 newman run tests/postman/backend.postman_collection.json --env-var "base_url=http://localhost:${{ vars.PORT }}"
 

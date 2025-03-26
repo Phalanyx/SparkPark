@@ -20,7 +20,7 @@ app.use("/auth", auth);
 app.use("/", listing);
 app.use("/preferences", preferencesRoutes);
 app.use("/user", userRoutes);
-app.use("/booking", bookingRoutes);
+app.use("/bookings", bookingRoutes);
 
 
 

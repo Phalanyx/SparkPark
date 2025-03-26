@@ -15,14 +15,19 @@ router.post("/create", async (req, res) => {
   try {
     const token = req.headers.authorization?.split(" ")[1];
 
+    let userId = "2iFn07CYG9aiNbLnqcsbET6kYqL2"
+
     if (!token) {
-      res.status(401).json({ message: "Authorization token required" });
-      return;
+        console.log("No token provided, using default user ID")
     }
 
     // Verify Firebase token and get user ID
-    const decodedToken = await admin.auth().verifyIdToken(token);
-    const userId = decodedToken.uid;
+    else {
+        const decodedToken = await admin.auth().verifyIdToken(token);
+        userId = decodedToken.uid;
+    }
+
+
 
 
     
@@ -54,15 +59,18 @@ router.post("/create", async (req, res) => {
     // Check if the time slot is available
     const isAvailable = listing.availability.some(slot => {
       const slotDate = new Date(slot.date);
-      const slotStart = new Date(`${slotDate.toISOString().split('T')[0]}T${slot.availableFrom}`);
-      const slotEnd = new Date(`${slotDate.toISOString().split('T')[0]}T${slot.availableUntil}`);
-      
+      const datePart = slotDate.toISOString().split('T')[0]; // Extract YYYY-MM-DD
+
+      const slotStart = new Date(`${datePart}T${slot.availableFrom}:00.000Z`);
+      const slotEnd = new Date(`${datePart}T${slot.availableUntil}:00.000Z`);
+
       return (
         bookingStart >= slotStart &&
         bookingEnd <= slotEnd &&
-        slotDate.toDateString() === bookingStart.toDateString()
+        slotDate.toUTCString().replace(/^.*, (\d{2} \w{3} \d{4}) .*$/, "$1") === bookingStart.toUTCString().replace(/^.*, (\d{2} \w{3} \d{4}) .*$/, "$1")
       );
     });
+
 
     if (!isAvailable) {
       res.status(400).json({ message: "Selected time slot is not available" });
@@ -99,11 +107,11 @@ router.post("/create", async (req, res) => {
 
     // Save the booking
     const savedBooking = await newBooking.save();
-
+    
     // Update listing availability
     const updatedAvailability = listing.availability.map(slot => {
       const slotDate = new Date(slot.date);
-      if (slotDate.toDateString() === bookingStart.toDateString()) {
+      if (slotDate.toUTCString().replace(/^.*, (\d{2} \w{3} \d{4}) .*$/, "$1") === bookingStart.toUTCString().replace(/^.*, (\d{2} \w{3} \d{4}) .*$/, "$1")) {
         const slotStart = new Date(`${slotDate.toISOString().split('T')[0]}T${slot.availableFrom}`);
         const slotEnd = new Date(`${slotDate.toISOString().split('T')[0]}T${slot.availableUntil}`);
         

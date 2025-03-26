@@ -1,0 +1,35 @@
+name: Expo iOS Prebuild
+
+on:
+  push:
+    branches: [ "**" ]
+
+
+jobs:
+  prebuild:
+    name: Expo iOS Prebuild
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        working-directory: frontend-mobile
+        run: npm install
+
+      - name: Run Expo prebuild for iOS
+        working-directory: frontend-mobile
+        run: npx expo prebuild --platform ios
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-build
+          path: frontend-mobile/ios/

@@ -1,0 +1,506 @@
+{
+	"info": {
+		"_postman_id": "fc2ee61d-4be3-4afe-8c35-58766b267325",
+		"name": "backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39463580",
+		"_collection_link": "https://c01team.postman.co/workspace/c01~b4f3bc8e-b4ac-4e76-b4b6-86331f84ba64/collection/39463580-fc2ee61d-4be3-4afe-8c35-58766b267325?action=share&source=collection_link&creator=39463580"
+	},
+	"item": [
+		{
+			"name": "geoqueries",
+			"item": [
+				{
+					"name": "All Toronto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"Toronto Union Station\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/geolocation/isochrones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"geolocation",
+								"isochrones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "No address",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/geolocation/isochrones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"geolocation",
+								"isochrones"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "not near any driveways",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"Mexico City\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/geolocation/isochrones",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"geolocation",
+								"isochrones"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "listings",
+			"item": [
+				{
+					"name": "post listing unauthorized",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"alberts driveway\",\n  \"description\": \"Covered parking downtown\",\n  \"address\": \"123 albert St\",\n  \"location\": {\n    \"type\": \"Point\",\n    \"coordinates\": [-89.3832, 43.6532]\n  },\n  \"size\": {\n    \"length\": 5.5,\n    \"width\": 2.5\n  },\n  \"images\": [\n    \"https://example.com/image1.jpg\",\n    \"https://example.com/image2.jpg\"\n  ],\n  \"pricePerHour\": 5,\n  \"pricePerDay\": 30,\n  \"pricePerMonth\": 200,\n  \"payAsYouGo\": false,\n  \"availability\": [\n    { \"date\": \"2025-03-10\", \"availableFrom\": \"08:00\", \"availableUntil\": \"20:00\" }\n  ],\n  \"features\": [\"EV Charger\", \"Covered\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/add-listing",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"add-listing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search parking spot",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/search-parking?minLength=4.5&minWidth=2&date=2025-03-10&time=10:00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"search-parking"
+							],
+							"query": [
+								{
+									"key": "minLength",
+									"value": "4.5"
+								},
+								{
+									"key": "minWidth",
+									"value": "2"
+								},
+								{
+									"key": "date",
+									"value": "2025-03-10"
+								},
+								{
+									"key": "time",
+									"value": "10:00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get listings unauthorized",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/listings/user-listings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"listings",
+								"user-listings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get listings authorized",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6IjMwYjIyMWFiNjU2MTdiY2Y4N2VlMGY4NDYyZjc0ZTM2NTIyY2EyZTQiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYmlnLW9oIiwiYXVkIjoiYmlnLW9oIiwiYXV0aF90aW1lIjoxNzQyNTA1NjE1LCJ1c2VyX2lkIjoiMkEyeExBSVZibGFicmJMSmJtUWtGUGtVRlU5MiIsInN1YiI6IjJBMnhMQUlWYmxhYnJiTEpibVFrRlBrVUZVOTIiLCJpYXQiOjE3NDI1MDU2MTUsImV4cCI6MTc0MjUwOTIxNSwiZW1haWwiOiJ0aG9yZ2UuaGFtcHJlY2h0QGljbG91ZC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGhvcmdlLmhhbXByZWNodEBpY2xvdWQuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.1aaEzlA4nnLkoj4scbPB3pjaKxwmHkFojDRinH-Io9S2EtXFD5BptWF9XfSoJDZKWEAfWrOQl9R-cY_ue4WidU-sPEV9XdOOnS9faZeHr9UZjOHmWaWS8-kSM2yxFv-JuzAPqF2S8asmYF5VOohgw1vZadaMaNdhnzkI1Qlc2I-HwREgTq8bB2ZDu8s6lflp9l4hSvpLsmWUvsEtjKdl7Ih-VV8dS9bFyNfNaPXloHLchs9Sb14uI5qUZ3l6AcT7UykvGG7MfBedz-s6cXAwIu4aUaKjoccSTUNMJSqu1KWhEFJQNgyXBFvyiDatT4tFTH9YiF9W6rGP1suOfCxC4A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/user-listings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"user-listings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "post listing authorized",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Rooftop Parking Downtown\",\n  \"description\": \"Scenic rooftop parking with skyline views\",\n  \"address\": \"100 Main St\",\n  \"location\": {\n    \"type\": \"Point\",\n    \"coordinates\": [-79.3800, 43.6400]\n  },\n  \"size\": {\n    \"length\": 5.0,\n    \"width\": 2.3\n  },\n  \"images\": [\n    \"https://example.com/image15.jpg\",\n    \"https://example.com/image16.jpg\"\n  ],\n  \"pricePerHour\": 6,\n  \"pricePerDay\": 38,\n  \"pricePerMonth\": 280,\n  \"payAsYouGo\": true,\n  \"availability\": [\n    { \"date\": \"2025-03-17\", \"availableFrom\": \"07:00\", \"availableUntil\": \"23:00\" }\n  ],\n  \"features\": [\"Scenic View\", \"Close to Downtown\"]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/add-listing",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"add-listing"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get best parking spot",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImEwODA2N2Q4M2YwY2Y5YzcxNjQyNjUwYzUyMWQ0ZWZhNWI2YTNlMDkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYmlnLW9oIiwiYXVkIjoiYmlnLW9oIiwiYXV0aF90aW1lIjoxNzQyNTAxNzUyLCJ1c2VyX2lkIjoiMkEyeExBSVZibGFicmJMSmJtUWtGUGtVRlU5MiIsInN1YiI6IjJBMnhMQUlWYmxhYnJiTEpibVFrRlBrVUZVOTIiLCJpYXQiOjE3NDI1MDE3NTIsImV4cCI6MTc0MjUwNTM1MiwiZW1haWwiOiJ0aG9yZ2UuaGFtcHJlY2h0QGljbG91ZC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGhvcmdlLmhhbXByZWNodEBpY2xvdWQuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.FwZZ2Ba-PJtZvECAN9pPXqr4qfBic9Q5N_HY4Nd1F_g4eKwTicVzbZkZhxtK4A71SHi-vp6Dm-12Wv4rCQ6FmIwdLrbrHth3idj0u9jfcwF0Hl0cZ5__Tmb5tgaAeQurwcWM19T5g6qtFTXjTfQrUH78hIisZZW2mKY9HsNF_7NxgTxNvVyJkfubEQfWsY3Gjl0YK4EhCv50O53glkx1j4-lUEcR94WtioVWjhImEChs2pOtHhxa5v10Szm03pJtgM_7ftieak6x-v9eRnhYvRm45NH03vGgUdesPaQ5jN25nAGEU9pZgSEogNpIHo8SxbC5s8wF7chT_9xuD9FUCQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"latitude\": \"43.65107\",\n  \"longitude\": \"-79.347015\",\n  \"date\": \"2025-03-20\",\n  \"time\": \"10:00\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/best-parking-spot",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"best-parking-spot"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"pm.request.headers.upsert({",
+							"    key: \"Authorization\",",
+							"    value: \"Bearer \" + pm.environment.get(\"firebaseClientToken\")",
+							"});",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "preferences",
+			"item": [
+				{
+					"name": "add preferences authorized",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImEwODA2N2Q4M2YwY2Y5YzcxNjQyNjUwYzUyMWQ0ZWZhNWI2YTNlMDkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYmlnLW9oIiwiYXVkIjoiYmlnLW9oIiwiYXV0aF90aW1lIjoxNzQyNTAxNzUyLCJ1c2VyX2lkIjoiMkEyeExBSVZibGFicmJMSmJtUWtGUGtVRlU5MiIsInN1YiI6IjJBMnhMQUlWYmxhYnJiTEpibVFrRlBrVUZVOTIiLCJpYXQiOjE3NDI1MDE3NTIsImV4cCI6MTc0MjUwNTM1MiwiZW1haWwiOiJ0aG9yZ2UuaGFtcHJlY2h0QGljbG91ZC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGhvcmdlLmhhbXByZWNodEBpY2xvdWQuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.FwZZ2Ba-PJtZvECAN9pPXqr4qfBic9Q5N_HY4Nd1F_g4eKwTicVzbZkZhxtK4A71SHi-vp6Dm-12Wv4rCQ6FmIwdLrbrHth3idj0u9jfcwF0Hl0cZ5__Tmb5tgaAeQurwcWM19T5g6qtFTXjTfQrUH78hIisZZW2mKY9HsNF_7NxgTxNvVyJkfubEQfWsY3Gjl0YK4EhCv50O53glkx1j4-lUEcR94WtioVWjhImEChs2pOtHhxa5v10Szm03pJtgM_7ftieak6x-v9eRnhYvRm45NH03vGgUdesPaQ5jN25nAGEU9pZgSEogNpIHo8SxbC5s8wF7chT_9xuD9FUCQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"preferredSpotSize\": { \"length\": 4.5, \"width\": 2.0 },\n  \"maxPricePerHour\": 20,\n  \"maxPricePerDay\": 100,\n  \"maxPricePerMonth\": 400,\n  \"preferredSearchRadius\": 5,\n  \"coveredParking\": true,\n  \"EVCharging\": false,\n  \"securityFeatures\": true,\n  \"payAsYouGoPreferred\": true,\n  \"defaultParkingDuration\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/preferences/add",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"preferences",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retrieve preferences",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImEwODA2N2Q4M2YwY2Y5YzcxNjQyNjUwYzUyMWQ0ZWZhNWI2YTNlMDkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYmlnLW9oIiwiYXVkIjoiYmlnLW9oIiwiYXV0aF90aW1lIjoxNzQyNTAxNzUyLCJ1c2VyX2lkIjoiMkEyeExBSVZibGFicmJMSmJtUWtGUGtVRlU5MiIsInN1YiI6IjJBMnhMQUlWYmxhYnJiTEpibVFrRlBrVUZVOTIiLCJpYXQiOjE3NDI1MDE3NTIsImV4cCI6MTc0MjUwNTM1MiwiZW1haWwiOiJ0aG9yZ2UuaGFtcHJlY2h0QGljbG91ZC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGhvcmdlLmhhbXByZWNodEBpY2xvdWQuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.FwZZ2Ba-PJtZvECAN9pPXqr4qfBic9Q5N_HY4Nd1F_g4eKwTicVzbZkZhxtK4A71SHi-vp6Dm-12Wv4rCQ6FmIwdLrbrHth3idj0u9jfcwF0Hl0cZ5__Tmb5tgaAeQurwcWM19T5g6qtFTXjTfQrUH78hIisZZW2mKY9HsNF_7NxgTxNvVyJkfubEQfWsY3Gjl0YK4EhCv50O53glkx1j4-lUEcR94WtioVWjhImEChs2pOtHhxa5v10Szm03pJtgM_7ftieak6x-v9eRnhYvRm45NH03vGgUdesPaQ5jN25nAGEU9pZgSEogNpIHo8SxbC5s8wF7chT_9xuD9FUCQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/preferences/get",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"preferences",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "retrieve preferences unauthorized",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImEwODA2N2Q4M2YwY2Y5YzcxNjQyNjUwYzUyMWQ0ZWZhNWI2YTNlMDkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYmlnLW9oIiwiYXVkIjoiYmlnLW9oIiwiYXV0aF90aW1lIjoxNzQyNTAxNzUyLCJ1c2VyX2lkIjoiMkEyeExBSVZibGFicmJMSmJtUWtGUGtVRlU5MiIsInN1YiI6IjJBMnhMQUlWYmxhYnJiTEpibVFrRlBrVUZVOTIiLCJpYXQiOjE3NDI1MDE3NTIsImV4cCI6MTc0MjUwNTM1MiwiZW1haWwiOiJ0aG9yZ2UuaGFtcHJlY2h0QGljbG91ZC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGhvcmdlLmhhbXByZWNodEBpY2xvdWQuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.FwZZ2Ba-PJtZvECAN9pPXqr4qfBic9Q5N_HY4Nd1F_g4eKwTicVzbZkZhxtK4A71SHi-vp6Dm-12Wv4rCQ6FmIwdLrbrHth3idj0u9jfcwF0Hl0cZ5__Tmb5tgaAeQurwcWM19T5g6qtFTXjTfQrUH78hIisZZW2mKY9HsNF_7NxgTxNvVyJkfubEQfWsY3Gjl0YK4EhCv50O53glkx1j4-lUEcR94WtioVWjhImEChs2pOtHhxa5v10Szm03pJtgM_7ftieak6x-v9eRnhYvRm45NH03vGgUdesPaQ5jN25nAGEU9pZgSEogNpIHo8SxbC5s8wF7chT_9xuD9FUCQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/preferences/get",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"preferences",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete preferences",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImEwODA2N2Q4M2YwY2Y5YzcxNjQyNjUwYzUyMWQ0ZWZhNWI2YTNlMDkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYmlnLW9oIiwiYXVkIjoiYmlnLW9oIiwiYXV0aF90aW1lIjoxNzQyNTAxNzUyLCJ1c2VyX2lkIjoiMkEyeExBSVZibGFicmJMSmJtUWtGUGtVRlU5MiIsInN1YiI6IjJBMnhMQUlWYmxhYnJiTEpibVFrRlBrVUZVOTIiLCJpYXQiOjE3NDI1MDE3NTIsImV4cCI6MTc0MjUwNTM1MiwiZW1haWwiOiJ0aG9yZ2UuaGFtcHJlY2h0QGljbG91ZC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGhvcmdlLmhhbXByZWNodEBpY2xvdWQuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.FwZZ2Ba-PJtZvECAN9pPXqr4qfBic9Q5N_HY4Nd1F_g4eKwTicVzbZkZhxtK4A71SHi-vp6Dm-12Wv4rCQ6FmIwdLrbrHth3idj0u9jfcwF0Hl0cZ5__Tmb5tgaAeQurwcWM19T5g6qtFTXjTfQrUH78hIisZZW2mKY9HsNF_7NxgTxNvVyJkfubEQfWsY3Gjl0YK4EhCv50O53glkx1j4-lUEcR94WtioVWjhImEChs2pOtHhxa5v10Szm03pJtgM_7ftieak6x-v9eRnhYvRm45NH03vGgUdesPaQ5jN25nAGEU9pZgSEogNpIHo8SxbC5s8wF7chT_9xuD9FUCQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/preferences/get",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"preferences",
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change preferences",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJSUzI1NiIsImtpZCI6ImEwODA2N2Q4M2YwY2Y5YzcxNjQyNjUwYzUyMWQ0ZWZhNWI2YTNlMDkiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL3NlY3VyZXRva2VuLmdvb2dsZS5jb20vYmlnLW9oIiwiYXVkIjoiYmlnLW9oIiwiYXV0aF90aW1lIjoxNzQyNTAxNzUyLCJ1c2VyX2lkIjoiMkEyeExBSVZibGFicmJMSmJtUWtGUGtVRlU5MiIsInN1YiI6IjJBMnhMQUlWYmxhYnJiTEpibVFrRlBrVUZVOTIiLCJpYXQiOjE3NDI1MDE3NTIsImV4cCI6MTc0MjUwNTM1MiwiZW1haWwiOiJ0aG9yZ2UuaGFtcHJlY2h0QGljbG91ZC5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsImZpcmViYXNlIjp7ImlkZW50aXRpZXMiOnsiZW1haWwiOlsidGhvcmdlLmhhbXByZWNodEBpY2xvdWQuY29tIl19LCJzaWduX2luX3Byb3ZpZGVyIjoicGFzc3dvcmQifX0.FwZZ2Ba-PJtZvECAN9pPXqr4qfBic9Q5N_HY4Nd1F_g4eKwTicVzbZkZhxtK4A71SHi-vp6Dm-12Wv4rCQ6FmIwdLrbrHth3idj0u9jfcwF0Hl0cZ5__Tmb5tgaAeQurwcWM19T5g6qtFTXjTfQrUH78hIisZZW2mKY9HsNF_7NxgTxNvVyJkfubEQfWsY3Gjl0YK4EhCv50O53glkx1j4-lUEcR94WtioVWjhImEChs2pOtHhxa5v10Szm03pJtgM_7ftieak6x-v9eRnhYvRm45NH03vGgUdesPaQ5jN25nAGEU9pZgSEogNpIHo8SxbC5s8wF7chT_9xuD9FUCQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"maxPricePerDay\": 20,\n    \"EVCharging\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:4000/preferences/change",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"preferences",
+								"change"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": []
+		}
+	]
+}

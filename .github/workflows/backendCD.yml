@@ -76,7 +76,17 @@ jobs:
           docker exec c01 npm install -g newman
           docker exec c01 newman run tests/postman/backend.postman_collection.json --env-var "base_url=http://localhost:${{ vars.PORT }}"
 
+  cleanup:
+    needs: test
+    runs-on: self-hosted
+    if: failure()
+    steps:
+      - name: Stop and remove container
+        run: |
+          docker stop c01 || true
+          docker rm c01 || true
 
+      
 
 
 

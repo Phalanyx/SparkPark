@@ -24,10 +24,15 @@ const BookingSchema = new mongoose.Schema({
     color: String
   },
   
+  // Payment information
+  paymentId: { type: String },
+  paymentMethod: { type: String },
+  userEmail: { type: String },
+  
   // Payment status
   paymentStatus: {
     type: String,
-    enum: ["pending", "paid", "refunded"],
+    enum: ["pending", "completed", "failed", "refunded"],
     default: "pending"
   },
   

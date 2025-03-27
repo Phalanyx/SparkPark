@@ -16,7 +16,12 @@ export default function Login({handleBackend}:
 
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
 
+
+
+
+
     const signInResult = await GoogleSignin.signIn();
+
     
         
     if (!signInResult.data) {

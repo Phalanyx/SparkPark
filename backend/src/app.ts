@@ -10,6 +10,7 @@ import uploadRoute from "./image/upload";
 import preferencesRoutes from "./preferences"
 import userRoutes from "./user";
 import bookingRoutes from "./booking";
+import paymentsRoutes from "./payments";
 const app = express();
 app.use(express.json());
 app.use(fileUpload());
@@ -21,7 +22,7 @@ app.use("/", listing);
 app.use("/preferences", preferencesRoutes);
 app.use("/user", userRoutes);
 app.use("/bookings", bookingRoutes);
-
+app.use("/payments", paymentsRoutes);
 
 
 app.get("/", async (req, res) => {

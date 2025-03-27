@@ -101,6 +101,7 @@ const Map = () => {
         <View className='mt-[41.5vh]'>
              <ListingCard data={displayData}/>
         </View>
+
       </MapView>
     </View>
   );

@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-
+import PaymentButton from './Payment';
 interface ProfileData {
   name?: string;
   email?: string;
@@ -63,6 +63,8 @@ export default function ProfileScreen({ data, handleLogout }: ProfileScreenProps
           {/* Main content container - white background */}
           <View className="flex-1 bg-white rounded-t-3xl px-4 py-6">
             {/* GENERAL SETTINGS */}
+
+            <PaymentButton amount={100} />
             <Text className="text-lg font-bold mb-3">General Settings</Text>
             <TouchableOpacity className="flex-row items-center justify-between py-3 border-b border-gray-200">
               <Text className="text-base">Personal information</Text>

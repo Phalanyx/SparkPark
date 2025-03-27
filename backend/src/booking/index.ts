@@ -41,6 +41,7 @@ router.post("/create", async (req, res) => {
 
     // Validate required fields
     if (!listingId || !startTime || !endTime) {
+      console.log("Missing required fields");
       res.status(400).json({ message: "Missing required fields" });
       return;
     }
@@ -48,6 +49,7 @@ router.post("/create", async (req, res) => {
     // Find the listing
     const listing = await Listing.findById(listingId);
     if (!listing) {
+      console.log("Listing not found");
       res.status(404).json({ message: "Listing not found" });
       return;
     }
@@ -73,6 +75,7 @@ router.post("/create", async (req, res) => {
 
 
     if (!isAvailable) {
+        console.log("Selected time slot is not available");
       res.status(400).json({ message: "Selected time slot is not available" });
       return;
     }
@@ -107,6 +110,13 @@ router.post("/create", async (req, res) => {
 
     // Save the booking
     const savedBooking = await newBooking.save();
+    
+    // For payment integration - include payment info in the response
+    const paymentInfo = {
+      bookingId: savedBooking._id,
+      amount: Math.round(totalPrice * 100), // Convert to cents for Stripe
+      currency: "cad"
+    };
     
     // Update listing availability
     const updatedAvailability = listing.availability.map(slot => {
@@ -156,14 +166,14 @@ router.post("/create", async (req, res) => {
     }).filter(Boolean).flat();
 
     // Update the listing with new availability
-
     listing.availability = updatedAvailability as any;
     await listing.save();
-
+    console.log("Booking created successfully");
     res.status(201).json({
       message: "Booking created successfully",
       booking: savedBooking,
-      updatedListing: listing
+      updatedListing: listing,
+      paymentInfo // Include payment info in the response
     });
 
   } catch (error) {

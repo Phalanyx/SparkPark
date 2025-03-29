@@ -17,6 +17,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { launchImageLibrary } from 'react-native-image-picker'; 
 import { FontAwesome } from '@expo/vector-icons'; 
 import ImagePickerModal from '../components/ListingForm';
+import MapView, { Marker } from 'react-native-maps';
+import Step2AvailabilityAndFeatures from '../components/step2';
+
 
 const AddListingForm = () => {
   // Step navigation state
@@ -585,9 +588,24 @@ const AddListingForm = () => {
               )}
             </View>
 
-            <View className="bg-[#2F4858] rounded-md h-40 justify-center items-center mt-4">
-              <Text className="text-white">[Map Placeholder]</Text>
-            </View>
+            {location ? (
+              <MapView
+                style={{ width: '100%', height: 150, marginTop: 10, borderRadius: 8 }}
+                region={{
+                  latitude: parseFloat(location.split(',')[0]),
+                  longitude: parseFloat(location.split(',')[1]),
+                  latitudeDelta: 0.01,
+                  longitudeDelta: 0.01,
+                }}
+              >
+                <Marker coordinate={{latitude: parseFloat(location.split(',')[0]), longitude:parseFloat(location.split(',')[1])}} />
+              </MapView>
+            ) : (
+              <View className="bg-[#2F4858] rounded-md h-40 justify-center items-center mt-4">
+                <Text className="text-white">No location found. Please geocode address.</Text>
+              </View>
+            )}
+
 
             <Text className="text-xl text-white mt-6">What will the pricing be?</Text>
             <Text className="text-sm text-gray-300 mb-4">
@@ -655,33 +673,11 @@ const AddListingForm = () => {
       // -----------------------------------------------------------
       case 2:
         return (
-          <View className="p-12 mt-10">
-            <Text>
-              Availability (format: YYYY-MM-DD HH:MM HH:MM, separate multiple entries with commas)
-            </Text>
-            <TextInput
-              value={availability}
-              onChangeText={setAvailability}
-              placeholder="e.g., 2025-04-01 09:00 17:00, 2025-04-02 10:00 16:00"
-            />
-
-            <Text>Features (comma separated)</Text>
-            <TextInput
-              value={features}
-              onChangeText={setFeatures}
-              placeholder="e.g., WiFi, EV Charger, Security Camera"
-            />
-
-            <Button 
-              title="Submit Listing" 
-              onPress={handleSubmit} 
-            />
-            <StepNavigation
-              onBack={() => setCurrentStep(prev => prev - 1)}
-              onNext={() => setCurrentStep(prev => prev)}
-              showBack={currentStep > 0}
-            />
-          </View>
+          <Step2AvailabilityAndFeatures
+            handleSubmit={handleSubmit}
+            currentStep={currentStep}
+            setCurrentStep={setCurrentStep}
+          />
         );
       default:
         return null;

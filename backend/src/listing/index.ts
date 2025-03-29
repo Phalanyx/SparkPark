@@ -305,3 +305,27 @@ router.get("/best-parking-spot", async (req: Request, res: Response) => {
     res.status(500).json({ message: "Error fetching best parking spot", error });
   }
 });
+
+// GET: Fetch a listing by its ID (No authentication required)
+router.get("/listing/:id", async (req: Request, res: Response) => {
+  const listingId = req.params.id;
+  console.log(listingId)
+  if (!listingId) {
+    res.status(400).json({ message: "Listing ID is required" });
+    return;
+  }
+
+  try {
+    const listing = await Listing.findById(listingId);
+    console.log(listing)
+    if (!listing) {
+      res.status(404).json({ message: "Listing not found" });
+      return;
+    }
+
+    res.status(200).json(listing);
+  } catch (error) {
+    console.error("Error fetching listing details:", error);
+    res.status(500).json({ message: "Error fetching listing details", error });
+  }
+});

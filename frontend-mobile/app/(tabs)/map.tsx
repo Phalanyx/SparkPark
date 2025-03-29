@@ -165,7 +165,11 @@ const Map = () => {
                 setData={(data) => setDatas(Array.isArray(data) ? data : [])}
                 setCenter={setCenter}
             />
-          </View>
+          );
+        })}
+        <View className='mt-[41.5vh]'>
+             <ListingCard data={displayData} visible={!!displayData}/>
+        </View>
 
           {/* Auto-Suggest Button */}
           {!displayData && (

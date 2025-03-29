@@ -23,12 +23,19 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name='listings'
+        name='listing'
         options={{
           title: "Create Listings",
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="plus" color={color} />,
         }}
       />
-      </Tabs>
+      <Tabs.Screen
+        name='booking'
+        options={{
+          title: "Booking",
+          tabBarIcon: ({ color }) => <FontAwesome size={28} name="calendar" color={color} />,
+        }}
+      />
+    </Tabs>
   );
 }

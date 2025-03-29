@@ -7,7 +7,7 @@ PODS:
     - AppAuth/Core
   - boost (1.84.0)
   - DoubleConversion (1.1.6)
-  - EXConstants (17.0.5):
+  - EXConstants (17.0.8):
     - ExpoModulesCore
   - EXImageLoader (5.0.0):
     - ExpoModulesCore
@@ -76,29 +76,29 @@ PODS:
   - ExpoWebBrowser (14.0.2):
     - ExpoModulesCore
   - FBLazyVector (0.76.6)
-  - Firebase/Auth (11.7.0):
+  - Firebase/Auth (11.10.0):
     - Firebase/CoreOnly
-    - FirebaseAuth (~> 11.7.0)
-  - Firebase/CoreOnly (11.7.0):
-    - FirebaseCore (~> 11.7.0)
+    - FirebaseAuth (~> 11.10.0)
+  - Firebase/CoreOnly (11.10.0):
+    - FirebaseCore (~> 11.10.0)
   - FirebaseAppCheckInterop (11.10.0)
-  - FirebaseAuth (11.7.0):
+  - FirebaseAuth (11.10.0):
     - FirebaseAppCheckInterop (~> 11.0)
     - FirebaseAuthInterop (~> 11.0)
-    - FirebaseCore (~> 11.7.0)
-    - FirebaseCoreExtension (~> 11.7.0)
+    - FirebaseCore (~> 11.10.0)
+    - FirebaseCoreExtension (~> 11.10.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 8.0)
     - GoogleUtilities/Environment (~> 8.0)
     - GTMSessionFetcher/Core (< 5.0, >= 3.4)
-    - RecaptchaInterop (~> 100.0)
+    - RecaptchaInterop (~> 101.0)
   - FirebaseAuthInterop (11.10.0)
-  - FirebaseCore (11.7.0):
-    - FirebaseCoreInternal (~> 11.7.0)
+  - FirebaseCore (11.10.0):
+    - FirebaseCoreInternal (~> 11.10.0)
     - GoogleUtilities/Environment (~> 8.0)
     - GoogleUtilities/Logger (~> 8.0)
-  - FirebaseCoreExtension (11.7.0):
-    - FirebaseCore (~> 11.7.0)
-  - FirebaseCoreInternal (11.7.0):
+  - FirebaseCoreExtension (11.10.0):
+    - FirebaseCore (~> 11.10.0)
+  - FirebaseCoreInternal (11.10.0):
     - "GoogleUtilities/NSData+zlib (~> 8.0)"
   - fmt (9.1.0)
   - glog (0.3.5)
@@ -1751,12 +1751,12 @@ PODS:
     - React-logger (= 0.76.6)
     - React-perflogger (= 0.76.6)
     - React-utils (= 0.76.6)
-  - RecaptchaInterop (100.0.0)
-  - RNFBApp (21.7.2):
-    - Firebase/CoreOnly (= 11.7.0)
+  - RecaptchaInterop (101.0.0)
+  - RNFBApp (21.12.3):
+    - Firebase/CoreOnly (= 11.10.0)
     - React-Core
-  - RNFBAuth (21.7.2):
-    - Firebase/Auth (= 11.7.0)
+  - RNFBAuth (21.12.3):
+    - Firebase/Auth (= 11.10.0)
     - React-Core
     - RNFBApp
   - RNGestureHandler (2.20.2):
@@ -2328,7 +2328,7 @@ SPEC CHECKSUMS:
   AppAuth: d4f13a8fe0baf391b2108511793e4b479691fb73
   boost: 1dca942403ed9342f98334bf4c3621f011aa7946
   DoubleConversion: f16ae600a246532c4020132d54af21d0ddb2a385
-  EXConstants: e25c3f3ef5d1cf7a6ef911ebf7a3ab94d8d06d82
+  EXConstants: fcfc75800824ac2d5c592b5bc74130bad17b146b
   EXImageLoader: e5da974e25b13585c196b658a440720c075482d5
   Expo: f160c4be97b390767b78adaae25fd9492bebb6c6
   ExpoAdapterGoogleSignIn: 6393c1ad521f880f6e467bca40baf1e5dcaea4a3
@@ -2349,13 +2349,13 @@ SPEC CHECKSUMS:
   ExpoSystemUI: 36f50ee42da3e814bffd01ee38edcf3c7cc0015d
   ExpoWebBrowser: a212e6b480d8857d3e441fba51e0c968333803b3
   FBLazyVector: be509404b5de73a64a74284edcaf73a5d1e128b1
-  Firebase: a64bf6a8546e6eab54f1c715cd6151f39d2329f4
+  Firebase: 1fe1c0a7d9aaea32efe01fbea5f0ebd8d70e53a2
   FirebaseAppCheckInterop: 9664c858489710f682766ef54e2b6741d3b62070
-  FirebaseAuth: 77e25aa24f3e1c626c5babd3338551fc1669ee0e
+  FirebaseAuth: c4146bdfdc87329f9962babd24dae89373f49a32
   FirebaseAuthInterop: 01a804fb074424fd58b92dd50dd0272277199356
-  FirebaseCore: 3227e35f4197a924206fbcdc0349325baf4f5de4
-  FirebaseCoreExtension: 206c1b399f0d103055207c16f299b28e3dbd1949
-  FirebaseCoreInternal: d6c17dafc8dc33614733a8b52df78fcb4394c881
+  FirebaseCore: 8344daef5e2661eb004b177488d6f9f0f24251b7
+  FirebaseCoreExtension: 6f357679327f3614e995dc7cf3f2d600bdc774ac
+  FirebaseCoreInternal: ef4505d2afb1d0ebbc33162cb3795382904b5679
   fmt: 10c6e61f4be25dc963c36bd73fc7b1705fe975be
   glog: 08b301085f15bcbb6ff8632a8ebaf239aae04e6a
   GoogleSignIn: d4281ab6cf21542b1cfaff85c191f230b399d2db
@@ -2425,9 +2425,9 @@ SPEC CHECKSUMS:
   React-utils: db1d54cc2deb26a17e475948a558557f5807e50e
   ReactCodegen: 2f96de87b7680e294a46fc52b4399d51ec90cb6b
   ReactCommon: 09e5005e0ea50a4e36f412990212140e5b8f1db3
-  RecaptchaInterop: 7d1a4a01a6b2cb1610a47ef3f85f0c411434cb21
-  RNFBApp: 6baf2f471f69a21a8266dc6016b9442d9bba244d
-  RNFBAuth: e85d04d8729390f9072b7a7704530d2c8c3e47a6
+  RecaptchaInterop: 11e0b637842dfb48308d242afc3f448062325aba
+  RNFBApp: 69b4ee7d34eae5f4fa9184aebce0e1659697db91
+  RNFBAuth: 76842d62315881d6752e389e85ca0bffd486bc3b
   RNGestureHandler: 1e33ee267aaf61bbab6089d32df3b38c3024e3dd
   RNGoogleSignin: 06532ae046ddafacd53ebb75e8c76d2e98fb3d16
   RNReanimated: 23d4dd74e67d9eb5648839dcaabc00be8aba6af4

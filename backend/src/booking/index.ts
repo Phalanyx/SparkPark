@@ -100,8 +100,8 @@ router.post("/create", async (req, res) => {
     const newBooking = new Booking({
       userId,
       listingId,
-      startTime: bookingStart,
-      endTime: bookingEnd,
+      startTime: bookingStart.toISOString(),
+      endTime: bookingEnd.toISOString(),
       totalPrice,
       vehicleDetails,
       status: "pending",
@@ -110,7 +110,7 @@ router.post("/create", async (req, res) => {
 
     // Save the booking
     const savedBooking = await newBooking.save();
-    
+
     // For payment integration - include payment info in the response
     const paymentInfo = {
       bookingId: savedBooking._id,
@@ -124,7 +124,7 @@ router.post("/create", async (req, res) => {
       if (slotDate.toUTCString().replace(/^.*, (\d{2} \w{3} \d{4}) .*$/, "$1") === bookingStart.toUTCString().replace(/^.*, (\d{2} \w{3} \d{4}) .*$/, "$1")) {
         const slotStart = new Date(`${slotDate.toISOString().split('T')[0]}T${slot.availableFrom}`);
         const slotEnd = new Date(`${slotDate.toISOString().split('T')[0]}T${slot.availableUntil}`);
-        
+
         // If booking takes up the entire slot, remove it
         if (bookingStart.getTime() === slotStart.getTime() && bookingEnd.getTime() === slotEnd.getTime()) {
           return null;
@@ -134,7 +134,7 @@ router.post("/create", async (req, res) => {
         if (bookingStart.getTime() === slotStart.getTime()) {
           return {
             date: slot.date,
-            availableFrom: bookingEnd.toTimeString().slice(0, 5),
+            availableFrom: bookingEnd.toISOString(),
             availableUntil: slot.availableUntil
           };
         }
@@ -144,20 +144,21 @@ router.post("/create", async (req, res) => {
           return {
             date: slot.date,
             availableFrom: slot.availableFrom,
-            availableUntil: bookingStart.toTimeString().slice(0, 5)
+            availableUntil: bookingStart.toISOString()
           };
         }
-        
+
+
         // If booking is in the middle of the slot, split it into two slots
         return [
           {
             date: slot.date,
             availableFrom: slot.availableFrom,
-            availableUntil: bookingStart.toTimeString().slice(0, 5)
+              availableUntil: bookingStart.toISOString()
           },
           {
             date: slot.date,
-            availableFrom: bookingEnd.toTimeString().slice(0, 5),
+            availableFrom: bookingEnd.toISOString(),
             availableUntil: slot.availableUntil
           }
         ];
@@ -179,5 +180,29 @@ router.post("/create", async (req, res) => {
   } catch (error) {
     console.error("Error creating booking:", error);
     res.status(500).json({ message: "Error creating booking", error });
+  }
+});
+
+
+router.get("/all", async (req, res) => {
+  try {
+    console.log("Fetching all bookings");
+    let bookings = await Booking.find();
+
+    const token = req.headers.authorization?.split(" ")[1];
+
+    let userId = "2iFn07CYG9aiNbLnqcsbET6kYqL2"
+
+    if (!token) {
+        console.log("No token provided, using default user ID")
+    }
+
+    bookings = bookings.filter((booking) => booking.userId === userId);
+
+
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.error("Error fetching bookings:", error);
+    res.status(500).json({ message: "Error fetching bookings", error });
   }
 });

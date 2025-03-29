@@ -99,7 +99,7 @@ const Map = () => {
           );
         })}
         <View className='mt-[41.5vh]'>
-             <ListingCard data={displayData}/>
+             <ListingCard data={displayData} visible={!!displayData}/>
         </View>
 
       </MapView>

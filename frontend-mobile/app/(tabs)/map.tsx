@@ -165,11 +165,7 @@ const Map = () => {
                 setData={(data) => setDatas(Array.isArray(data) ? data : [])}
                 setCenter={setCenter}
             />
-          );
-        })}
-        <View className='mt-[41.5vh]'>
-             <ListingCard data={displayData} visible={!!displayData}/>
-        </View>
+          </View>
 
           {/* Auto-Suggest Button */}
           {!displayData && (
@@ -179,12 +175,12 @@ const Map = () => {
           {/* Display ListingCard If A Marker Is Clicked */}
           {displayData && (
               <View style={styles.listingCard}>
-                <ListingCard data={displayData} />
+                <ListingCard data={displayData} visible={!!displayData} />
               </View>
           )}
 
           {/* Bottom Navigation Bar */}
-          <View style={styles.navBar} />
+          <View style={styles.navBar}></View>
         </View>
       </TouchableWithoutFeedback>
   );

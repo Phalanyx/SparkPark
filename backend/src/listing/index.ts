@@ -191,22 +191,19 @@ router.get("/best-parking-spot", async (req: Request, res: Response) => {
 
     if (!token) {
       res.status(401).json({ message: "Authorization token required" });
-      return; // Stops execution here if no token
+      return;
     }
 
-    // Verify Firebase token and get user ID
     const decodedToken = await admin.auth().verifyIdToken(token);
     const userId = decodedToken.uid;
 
-    // Fetch user preferences
     const preferences = await Preferences.findOne({ userId });
 
     if (!preferences) {
       res.status(404).json({ message: "No preferences found for this user" });
-      return; // Stops execution if no preferences found
+      return;
     }
 
-    // Extract user preferences
     const {
       preferredSpotSize,
       maxPricePerHour,
@@ -220,7 +217,6 @@ router.get("/best-parking-spot", async (req: Request, res: Response) => {
       defaultParkingDuration
     } = preferences;
 
-    // Get query parameters from request
     const latitude = req.query.latitude as string;
     const longitude = req.query.longitude as string;
     const date = req.query.date as string;
@@ -228,7 +224,7 @@ router.get("/best-parking-spot", async (req: Request, res: Response) => {
 
     if (!latitude || !longitude || !date || !time) {
       res.status(400).json({ message: "Missing required query parameters" });
-      return; // Stops execution if parameters are missing
+      return;
     }
 
     const userLatitude = parseFloat(latitude);
@@ -245,7 +241,6 @@ router.get("/best-parking-spot", async (req: Request, res: Response) => {
       return;
     }
 
-    // Build the query for parking spots
     let query: any = {
       "size.length": { $gte: preferredSpotSize.length },
       "size.width": { $gte: preferredSpotSize.width },
@@ -263,22 +258,17 @@ router.get("/best-parking-spot", async (req: Request, res: Response) => {
       }
     };
 
-    // Add optional filters based on user preferences
     query.features = [];
     if (coveredParking) query.features.push("Covered Parking");
     if (EVCharging) query.features.push("EV Charging");
     if (securityFeatures) query.features.push("Security");
-
-    if (query.features.length === 0) {
-      delete query.features; // Remove empty features filter
-    }
+    if (query.features.length === 0) delete query.features;
 
     if (payAsYouGoPreferred) {
       query.payAsYouGo = true;
     } else {
       const endTime = new Date(queryDate);
       endTime.setHours(endTime.getHours() + defaultParkingDuration);
-
       query.availability = {
         $elemMatch: {
           date: queryDate,
@@ -288,19 +278,18 @@ router.get("/best-parking-spot", async (req: Request, res: Response) => {
       };
     }
 
-    // Perform a geospatial search with filtering
     const bestSpot = await Listing.aggregate([
       {
         $geoNear: {
           near: { type: "Point", coordinates: [userLongitude, userLatitude] },
           distanceField: "distance",
-          maxDistance: preferredSearchRadius * 1000, // Convert km to meters
+          maxDistance: preferredSearchRadius * 1000,
           spherical: true
         }
       },
       { $match: query },
-      { $sort: { distance: 1, pricePerHour: 1 } }, // Sort by closest, then cheapest
-      { $limit: 1 } // Get the best match only
+      { $sort: { distance: 1, pricePerHour: 1 } },
+      { $limit: 1 }
     ]);
 
     if (!bestSpot || bestSpot.length === 0) {
@@ -308,19 +297,8 @@ router.get("/best-parking-spot", async (req: Request, res: Response) => {
       return;
     }
 
-    // Ensure response matches expected JSON format
-    const bestSpotResponse: BestSpotResponse = {
-      title: bestSpot[0].title,
-      address: bestSpot[0].address,
-      pricePerHour: bestSpot[0].pricePerHour,
-      pricePerDay: bestSpot[0].pricePerDay,
-      pricePerMonth: bestSpot[0].pricePerMonth,
-      payAsYouGo: bestSpot[0].payAsYouGo,
-      features: bestSpot[0].features,
-      distance: bestSpot[0].distance
-    };
-
-    res.status(200).json(bestSpotResponse);
+    // Send the full matching listing to the frontend
+    res.status(200).json(bestSpot[0]);
 
   } catch (error) {
     console.error("Error finding best parking spot:", error);

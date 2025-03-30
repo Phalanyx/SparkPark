@@ -205,6 +205,10 @@ router.get("/all", async (req, res) => {
     if (!token) {
         console.log("No token provided, using default user ID")
     }
+    else{
+      const decodedToken = await admin.auth().verifyIdToken(token);
+      userId = decodedToken.uid;
+    }
 
     bookings = bookings.filter((booking) => booking.userId === userId);
 

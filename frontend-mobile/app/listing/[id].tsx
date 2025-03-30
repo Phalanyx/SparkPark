@@ -189,22 +189,25 @@ export default function ListingDetail() {
 
         {/* Booking Modal */}
         {showBooking && (
-          <View className="absolute inset-0 justify-center items-center bg-black bg-opacity-50">
-            <View className="bg-white w-11/12 rounded-lg p-4">
-              <Text style={{ color: 'white' }} className="text-xl font-bold mb-4">Confirm Booking</Text>
-              <Text style={{ color: 'white' }} className="text-gray-600 mb-2">Duration: hour</Text>
-              <Text style={{ color: 'white' }} className="text-gray-600 mb-4">Total: ${listing.pricePerHour}</Text>
+          <>
+            <View className="absolute inset-0 bg-black" style={{ opacity: 0.5 }} />
+            <View className="absolute inset-0 justify-center items-center">
+              <View className="bg-[#1d434f] w-11/12 rounded-lg p-4">
+                <Text style={{ color: 'white' }} className="text-xl font-bold mb-4 text-gray-800">Confirm Booking</Text>
+                <Text style={{ color: 'white' }} className="text-gray-600 mb-2">Duration: hour</Text>
+                <Text style={{ color: 'white' }} className="text-gray-600 mb-4">Total: ${listing.pricePerHour}</Text>
 
-              <PaymentButton amount={listing.pricePerHour} />
+                <PaymentButton amount={listing.pricePerHour} />
 
-              <TouchableOpacity
-                onPress={() => setShowBooking(false)}
-                className="mt-4 bg-gray-200 py-2 rounded"
-              >
-                <Text style={{ color: 'white' }} className="text-center">Cancel</Text>
-              </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => setShowBooking(false)}
+                  className="mt-4 bg-gray-200 py-2 rounded"
+                >
+                  <Text style={{ color: 'white' }} className="text-center">Cancel</Text>
+                </TouchableOpacity>
+              </View>
             </View>
-          </View>
+          </>
         )}
       </View>
     </LinearGradient>

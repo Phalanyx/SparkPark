@@ -20,6 +20,12 @@ import ImagePickerModal from '../components/ListingForm';
 import MapView, { Marker } from 'react-native-maps';
 import Step2AvailabilityAndFeatures from '../components/step2';
 
+// Define the AvailabilitySlot type (or import it from step2.tsx if preferred)
+interface AvailabilitySlot {
+  date: string;
+  startTime: Date;
+  endTime: Date;
+}
 
 const AddListingForm = () => {
   // Step navigation state
@@ -52,8 +58,7 @@ const AddListingForm = () => {
   const [payAsYouGo, setPayAsYouGo] = useState(false);
 
   // Step 2 fields
-  const [availability, setAvailability] = useState('');
-  const [features, setFeatures] = useState('');
+  const [availabilityList, setAvailabilityList] = useState<AvailabilitySlot[]>([]);
 
   // Size / category data from step 0
   const [selectedCategory, setSelectedCategory] = useState<string>('MEDIUM');
@@ -63,6 +68,9 @@ const AddListingForm = () => {
   const [height, setHeight] = useState('');
   const [showSizeGuide, setShowSizeGuide] = useState(false);
   const [unitSystem, setUnitSystem] = useState<'imperial' | 'metric'>('imperial');
+
+  // Add features state declaration near other useState hooks
+  const [features, setFeatures] = useState<string[]>([]);
 
   const sizeGuideData = [
     { minSize: '10.0 x 4.5', category: 'X-LARGE', examples: 'RV, bus, large truck' },
@@ -110,15 +118,12 @@ const AddListingForm = () => {
         pricePerDay: pricePerDay ? parseFloat(pricePerDay) : undefined,
         pricePerMonth: pricePerMonth ? parseFloat(pricePerMonth) : undefined,
         payAsYouGo,
-        availability: availability.split(',').map(entry => {
-          const parts = entry.trim().split(' ');
-          return {
-            date: new Date(parts[0]),
-            availableFrom: parts[1],
-            availableUntil: parts[2]
-          };
-        }),
-        features: features.split(',').map(feature => feature.trim()),
+        availability: availabilityList.map(slot => ({
+          date: new Date(slot.date),
+          availableFrom: slot.startTime.toLocaleTimeString(),
+          availableUntil: slot.endTime.toLocaleTimeString(),
+        })),
+        features: features,
       };
       console.log(payload);
 
@@ -285,7 +290,7 @@ const AddListingForm = () => {
                 </TouchableOpacity>
               ))}
 
-              {/* “Other (enter below)” pill */}
+              {/* "Other (enter below)" pill */}
               <TouchableOpacity
                 onPress={() => toggleType('Other')}
                 className={`px-4 py-2 rounded-full ${
@@ -677,6 +682,10 @@ const AddListingForm = () => {
             handleSubmit={handleSubmit}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            availabilityList={availabilityList}
+            setAvailabilityList={setAvailabilityList}
+            features={features}
+            setFeatures={setFeatures} 
           />
         );
       default:

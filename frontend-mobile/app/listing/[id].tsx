@@ -288,8 +288,9 @@ export default function ListingDetail() {
               >
                 <Text className="text-center text-gray-800">Cancel</Text>
               </TouchableOpacity>
+
             </View>
-          </View>
+          </>
         )}
       </View>
     </LinearGradient>

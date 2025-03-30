@@ -164,6 +164,7 @@ const Map = () => {
             <Search
                 setData={(data) => setDatas(Array.isArray(data) ? data : [])}
                 setCenter={setCenter}
+                mapRef={mapRef}
             />
           </View>
 

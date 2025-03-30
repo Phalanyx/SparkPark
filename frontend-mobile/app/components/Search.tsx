@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   TextInput,
@@ -9,6 +9,7 @@ import {
   TextInputSubmitEditingEventData,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
+import MapView from 'react-native-maps';
 
 interface Coordinates {
   latitude: number;
@@ -18,19 +19,16 @@ interface Coordinates {
 interface SearchProps {
   setData: (data: any[]) => void;
   setCenter: (center: Coordinates) => void;
+  mapRef: React.RefObject<MapView>;
 }
 
-const Search: React.FC<SearchProps> = ({ setData, setCenter }) => {
+const Search: React.FC<SearchProps> = ({ setData, setCenter, mapRef }) => {
   const [query, setQuery] = useState('');
   const [showFilters, setShowFilters] = useState(true);
   const [minLength, setMinLength] = useState('');
   const [minWidth, setMinWidth] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
-
-  interface IsochroneResponse {
-    points: any[];
-  }
 
   const handleSearch = async (query: string): Promise<void> => {
     try {
@@ -39,8 +37,20 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter }) => {
         method: 'POST',
         body: JSON.stringify({ address: query }),
       });
-      const data = (await response.json()) as IsochroneResponse;
+      const data = (await response.json())
       setData(data.points);
+      console.log(data);
+
+      const region = {
+        latitude: data.lat,
+        longitude: data.lon,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      };
+
+      setCenter({ latitude: region.latitude, longitude: region.longitude });
+      mapRef.current?.animateToRegion(region, 1000);
+
     } catch (error) {
       console.error('Error in handleSearch', error);
     }

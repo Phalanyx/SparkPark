@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Button, TouchableOpacity, Platform } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 
 interface AvailabilitySlot {
   date: string;
@@ -13,6 +13,10 @@ interface Step2AvailabilityAndFeaturesProps {
   handleSubmit: () => void;
   currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+  availabilityList: AvailabilitySlot[];
+  setAvailabilityList: React.Dispatch<React.SetStateAction<AvailabilitySlot[]>>;
+  features: string[];
+  setFeatures: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 interface StepNavigationProps {
@@ -39,22 +43,25 @@ const Step2AvailabilityAndFeatures: React.FC<Step2AvailabilityAndFeaturesProps> 
   handleSubmit,
   currentStep,
   setCurrentStep,
+  availabilityList,
+  setAvailabilityList,
+  features,
+  setFeatures,
 }) => {
-  // Availability state
+  // Features state
+  const commonFeatures: string[] = ['WiFi', 'EV Charger', 'Security Camera'];
+  const [customFeature, setCustomFeature] = useState<string>('');
+
+  // Add missing state declarations for date and time handling
   const [selectedDate, setSelectedDate] = useState<string>('');
   const [startTime, setStartTime] = useState<Date | null>(null);
   const [endTime, setEndTime] = useState<Date | null>(null);
   const [showStartPicker, setShowStartPicker] = useState<boolean>(false);
   const [showEndPicker, setShowEndPicker] = useState<boolean>(false);
-  const [availabilityList, setAvailabilityList] = useState<AvailabilitySlot[]>([]);
-
-  // Features state
-  const commonFeatures: string[] = ['WiFi', 'EV Charger', 'Security Camera'];
-  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
-  const [customFeature, setCustomFeature] = useState<string>('');
 
   // Add the current availability slot to the list
   const addAvailability = () => {
+    console.log(selectedDate, startTime, endTime);
     if (selectedDate && startTime && endTime) {
       const newSlot: AvailabilitySlot = {
         date: selectedDate,
@@ -62,6 +69,7 @@ const Step2AvailabilityAndFeatures: React.FC<Step2AvailabilityAndFeaturesProps> 
         endTime,
       };
       setAvailabilityList([...availabilityList, newSlot]);
+      console.log(availabilityList); 
       // Reset for next entry
       setSelectedDate('');
       setStartTime(null);
@@ -69,36 +77,36 @@ const Step2AvailabilityAndFeatures: React.FC<Step2AvailabilityAndFeaturesProps> 
     }
   };
 
-  // Toggle a common feature
+  // Toggle a common feature using lifted state
   const toggleFeature = (feature: string) => {
-    if (selectedFeatures.includes(feature)) {
-      setSelectedFeatures(selectedFeatures.filter((f) => f !== feature));
+    if (features.includes(feature)) {
+      setFeatures(features.filter((f) => f !== feature));
     } else {
-      setSelectedFeatures([...selectedFeatures, feature]);
+      setFeatures([...features, feature]);
     }
   };
 
-  // Add a custom feature
+  // Add a custom feature using lifted state
   const addCustomFeature = () => {
     if (customFeature.trim() !== '') {
-      setSelectedFeatures([...selectedFeatures, customFeature.trim()]);
+      setFeatures([...features, customFeature.trim()]);
       setCustomFeature('');
     }
   };
 
   // Handlers for the DateTimePicker
-  const onChangeStartTime = (event: Event, date?: Date) => {
+  const onChangeStartTime = (event: DateTimePickerEvent, date?: Date) => {
     setShowStartPicker(Platform.OS === 'ios');
     if (date) setStartTime(date);
   };
 
-  const onChangeEndTime = (event: Event, date?: Date) => {
+  const onChangeEndTime = (event: DateTimePickerEvent, date?: Date) => {
     setShowEndPicker(Platform.OS === 'ios');
     if (date) setEndTime(date);
   };
 
   return (
-    <View className="p-3 mt-8 flex-1">
+    <View className="p-10 mt-8 flex-1">
       {/* Availability Section */}
       <Text className="text-xl text-white my-4">Set Availability</Text>
       <Calendar
@@ -121,7 +129,7 @@ const Step2AvailabilityAndFeatures: React.FC<Step2AvailabilityAndFeaturesProps> 
             mode="time"
             is24Hour={true}
             display="default"
-            onChange={() => onChangeStartTime}
+            onChange={onChangeStartTime}
           />
         )}
       </View>
@@ -139,12 +147,15 @@ const Step2AvailabilityAndFeatures: React.FC<Step2AvailabilityAndFeaturesProps> 
             mode="time"
             is24Hour={true}
             display="default"
-            onChange={() => onChangeEndTime}
+            onChange={onChangeEndTime}
           />
         )}
       </View>
 
-      <Button title="Add Availability" onPress={addAvailability} />
+      <Button title="Add Availability" onPress={() => 
+        {addAvailability()
+          console.log(availabilityList)
+        }} />
 
       {availabilityList.length > 0 && (
         <View className="mt-4">
@@ -164,7 +175,7 @@ const Step2AvailabilityAndFeatures: React.FC<Step2AvailabilityAndFeaturesProps> 
             key={index}
             onPress={() => toggleFeature(feature)}
             className={`px-4 py-2 rounded-full m-1 ${
-              selectedFeatures.includes(feature) ? 'bg-[#48BB78]' : 'bg-[#2F4858]'
+              features.includes(feature) ? 'bg-[#48BB78]' : 'bg-[#2F4858]'
             }`}
           >
             <Text className="text-white">{feature}</Text>

@@ -76,7 +76,6 @@ router.post("/create", async (req, res) => {
       const slotStart = new Date(`${datePart}T${slot.availableFrom}`);
       const slotEnd = new Date(`${datePart}T${slot.availableUntil}`);
 
-      console.log(slotStart, slotEnd)
 
       return (
         bookingStart >= slotStart &&
@@ -132,6 +131,11 @@ router.post("/create", async (req, res) => {
       currency: "cad"
     };
     // Update listing availability
+    console.log("Updating availability")
+    console.log(bookingStart, bookingEnd)
+    console.log(`${bookingStart.getUTCHours().toString().padStart(2, '0')}:${bookingStart.getUTCMinutes().toString().padStart(2, '0')}`);
+    console.log(`${bookingEnd.getUTCHours().toString().padStart(2, '0')}:${bookingEnd.getUTCMinutes().toString().padStart(2, '0')}`);
+
     const updatedAvailability = listing.availability.map(slot => {
       const slotDate = new Date(slot.date);
       if (slotDate.toUTCString().replace(/^.*, (\d{2} \w{3} \d{4}) .*$/, "$1") === bookingStart.toUTCString().replace(/^.*, (\d{2} \w{3} \d{4}) .*$/, "$1")) {
@@ -147,7 +151,7 @@ router.post("/create", async (req, res) => {
         if (bookingStart.getTime() === slotStart.getTime()) {
           return {
             date: slot.date,
-            availableFrom: `${bookingStart.getHours().toString().padStart(2, '0')}:${bookingStart.getMinutes().toString().padStart(2, '0')}`,
+            availableFrom: `${bookingStart.getUTCHours().toString().padStart(2, '0')}:${bookingStart.getUTCMinutes().toString().padStart(2, '0')}`,
             availableUntil: slot.availableUntil
           };
         }
@@ -157,7 +161,7 @@ router.post("/create", async (req, res) => {
           return {
             date: slot.date,
             availableFrom: slot.availableFrom,
-            availableUntil: `${bookingEnd.getHours().toString().padStart(2, '0')}:${bookingEnd.getMinutes().toString().padStart(2, '0')}`
+            availableUntil: `${bookingEnd.getUTCHours().toString().padStart(2, '0')}:${bookingEnd.getUTCMinutes().toString().padStart(2, '0')}`
           };
         }
 
@@ -167,11 +171,11 @@ router.post("/create", async (req, res) => {
           {
             date: slot.date,
             availableFrom: slot.availableFrom,
-            availableUntil: `${bookingStart.getHours().toString().padStart(2, '0')}:${bookingStart.getMinutes().toString().padStart(2, '0')}`
+            availableUntil: `${bookingStart.getUTCHours().toString().padStart(2, '0')}:${bookingStart.getUTCMinutes().toString().padStart(2, '0')}`
           },
           {
             date: slot.date,
-            availableFrom: `${bookingEnd.getHours().toString().padStart(2, '0')}:${bookingEnd.getMinutes().toString().padStart(2, '0')}`,
+            availableFrom: `${bookingEnd.getUTCHours().toString().padStart(2, '0')}:${bookingEnd.getUTCMinutes().toString().padStart(2, '0')}`,
             availableUntil: slot.availableUntil
           }
         ];

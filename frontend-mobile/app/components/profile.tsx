@@ -107,14 +107,6 @@ export default function ProfileScreen({ data, handleLogout }: ProfileScreenProps
               <Text className="text-base">List your new space</Text>
               <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
             </TouchableOpacity>
-            <TouchableOpacity className="flex-row items-center justify-between py-3 border-b border-gray-200">
-              <Text className="text-base">Learn about hosting</Text>
-              <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
-            </TouchableOpacity>
-            <TouchableOpacity className="flex-row items-center justify-between py-3 border-b border-gray-200 mb-4">
-              <Text className="text-base">Payout and transaction history</Text>
-              <Ionicons name="chevron-forward" size={20} color="#9ca3af" />
-            </TouchableOpacity>
 
             {/* Logout Button */}
             <View className="mt-4">

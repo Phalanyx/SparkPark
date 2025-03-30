@@ -93,7 +93,7 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter, mapRef }) => {
   };
 
   return (
-    <View className="p-2">
+    <View className="">
       {/* Search Bar */}
       <View className="flex-row items-center bg-[#1d434f] rounded-lg">
         <TextInput

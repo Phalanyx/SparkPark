@@ -203,8 +203,8 @@ const styles = StyleSheet.create({
   },
   searchContainer: {
     position: 'absolute',
-    top: 80,
-    width: '90%',
+    top: 60,
+    width: '95%',
     zIndex: 10,
   },
   listingCard: {

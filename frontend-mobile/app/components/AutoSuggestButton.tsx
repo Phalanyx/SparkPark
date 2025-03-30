@@ -16,11 +16,11 @@ const AutoSuggestButton: React.FC<AutoSuggestButtonProps> = ({ onPress }) => {
 const styles = StyleSheet.create({
     button: {
         position: 'absolute',
-        bottom: 70,
+        bottom: 30,
         alignSelf: 'center',
         backgroundColor: '#1d434f',
-        paddingVertical: 15,
-        paddingHorizontal: 30,
+        paddingVertical: 8,
+        paddingHorizontal: 15,
         borderRadius: 12,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 4 },
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
         textAlign: 'center',
-        fontSize: 18,
+        fontSize: 16,
     },
 });
 

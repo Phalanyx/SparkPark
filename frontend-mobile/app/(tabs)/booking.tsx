@@ -3,6 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import auth from '@react-native-firebase/auth';
+import { LinearGradient } from 'expo-linear-gradient';
 
 interface Booking {
   _id: string;
@@ -66,7 +67,7 @@ export default function BookingScreen() {
   };
 
   const getStatusColor = (status: string) => {
-        return 'bg-green-100 text-green-800';
+    return 'bg-green-100 text-green-800';
   };
 
   const renderBookingCard = ({ item }: { item: Booking }) => (
@@ -81,7 +82,7 @@ export default function BookingScreen() {
           </Text>
         </View>
         <View className={`px-3 py-1 rounded-full ${getStatusColor(item.status)}`}>
-          <Text className="text-xs font-medium capitalize">{"Confirmed"}</Text>
+          <Text className="text-xs font-medium capitalize">confirmed</Text>
         </View>
       </View>
 
@@ -112,9 +113,13 @@ export default function BookingScreen() {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50">
-      <View className="flex-row items-center justify-between px-4 py-3 bg-white border-b border-gray-200">
-        <Text className="text-xl font-bold text-gray-800">My Bookings</Text>
+    <LinearGradient
+    colors={['#1d434f', '#2e6165']} // Customize these colors as needed
+    style={{ flex: 1 }}
+  >
+    <SafeAreaView className="flex-1 ">
+      <View className="flex-row items-center justify-between px-4 py-3  border-b border-gray-200">
+        <Text className="text-xl font-bold text-white">My Bookings</Text>
         <TouchableOpacity onPress={fetchBookings}>
           <Ionicons name="refresh-outline" size={24} color="#1d434f" />
         </TouchableOpacity>
@@ -134,5 +139,7 @@ export default function BookingScreen() {
         />
       )}
     </SafeAreaView>
+    </LinearGradient>
+
   );
 }

@@ -39,6 +39,7 @@ router.post("/create", async (req, res) => {
       vehicleDetails
     } = req.body;
     console.log("Booking details:", req.body);
+    
     // Validate required fields
     if (!listingId || !startTime || !endTime) {
       console.log("Missing required fields");
@@ -69,8 +70,12 @@ router.post("/create", async (req, res) => {
       const slotDate = new Date(slot.date);
       const datePart = slotDate.toISOString().split('T')[0]; // Extract YYYY-MM-DD
 
-      const slotStart = new Date(`${datePart}T${slot.availableFrom}:00.000Z`);
-      const slotEnd = new Date(`${datePart}T${slot.availableUntil}:00.000Z`);
+
+      // Pad the time strings to ensure proper format (HH:mm:ss)
+      const formattedFrom = slot.availableFrom.padStart(8, '0');
+      const formattedUntil = slot.availableUntil.padStart(8, '0');
+      const slotStart = new Date(`${datePart}T${formattedFrom}.000Z`);
+      const slotEnd = new Date(`${datePart}T${formattedUntil}.000Z`);
 
 
 

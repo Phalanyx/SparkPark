@@ -5,6 +5,8 @@ import { useLocalSearchParams, Stack } from 'expo-router';
 import { LinearGradient } from 'expo-linear-gradient';
 import PaymentButton from '../components/Payment';
 import 'react-native-gesture-handler';
+import TimeSlider from '../components/TimeSlider';
+import { Calendar, DateData } from 'react-native-calendars';
 
 // Define a type for the availability slots
 interface Availability {
@@ -13,6 +15,7 @@ interface Availability {
   availableUntil: string;
   date: string;
 }
+
 
 interface Listing {
   _id: string;
@@ -39,10 +42,22 @@ export default function ListingDetail() {
   });
   const [loading, setLoading] = useState(true);
   const [showBooking, setShowBooking] = useState(false);
-
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [startTime, setStartTime] = useState(new Date().toISOString());
+  const [endTime, setEndTime] = useState(new Date(new Date().getTime() + 1 * 60 * 60 * 1000).toISOString());
+  const [amount, setAmount] = useState(0);
   useEffect(() => {
     fetchListingDetails();
   }, [id]);
+
+
+  useEffect(() => {
+    setAmount(Math.round((new Date(endTime).getTime() - new Date(startTime).getTime()) / (1000 * 60 * 60) * listing.pricePerHour * 100) / 100);
+  }, [startTime, endTime, listing.pricePerHour]);
+
+  useEffect(() => {
+    console.log("Listing availability:", listing.availability);
+  }, [listing]);
 
   const fetchListingDetails = async () => {
     try {
@@ -54,6 +69,34 @@ export default function ListingDetail() {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Create marked dates for the calendar
+  const getMarkedDates = () => {
+    const marked: { [date: string]: any } = {};
+    
+    listing.availability?.forEach(slot => {
+      const date = new Date(slot.date).toISOString().split('T')[0];
+      marked[date] = {
+        marked: true,
+        dotColor: '#48BB78',
+        textColor: '#000000',
+      };
+    });
+
+    // Mark selected date
+    const selectedDateStr = selectedDate.toISOString().split('T')[0];
+    if (marked[selectedDateStr]) {
+      marked[selectedDateStr].selected = true;
+      marked[selectedDateStr].selectedColor = '#48BB78';
+    } else {
+      marked[selectedDateStr] = {
+        selected: true,
+        selectedColor: '#48BB78',
+      };
+    }
+
+    return marked;
   };
 
   if (loading) {
@@ -186,26 +229,66 @@ export default function ListingDetail() {
             </Text>
           </TouchableOpacity>
         </View>
-
+            
         {/* Booking Modal */}
         {showBooking && (
-          <>
-            <View className="absolute inset-0 bg-black" style={{ opacity: 0.5 }} />
-            <View className="absolute inset-0 justify-center items-center">
-              <View className="bg-[#1d434f] w-11/12 rounded-lg p-4">
-                <Text style={{ color: 'white' }} className="text-xl font-bold mb-4 text-gray-800">Confirm Booking</Text>
-                <Text style={{ color: 'white' }} className="text-gray-600 mb-2">Duration: hour</Text>
-                <Text style={{ color: 'white' }} className="text-gray-600 mb-4">Total: ${listing.pricePerHour}</Text>
+          <View className="absolute inset-0 justify-center items-center bg-black bg-opacity-50">
+            <View className="bg-white w-11/12 rounded-lg p-4">
+              <Text className="text-xl font-bold mb-4 text-gray-800">Select Date & Time</Text>
+              
+              <Calendar
+                current={selectedDate.toISOString().split('T')[0]}
+                onDayPress={(day: DateData) => {
+                  setSelectedDate(new Date(day.dateString));
+                  // Reset times when date changes
+                  const newDate = new Date(day.dateString);
+                  setStartTime(newDate.toISOString());
+                  setEndTime(new Date(newDate.getTime() + 1 * 60 * 60 * 1000).toISOString());
+                }}
+                markedDates={getMarkedDates()}
+                theme={{
+                  backgroundColor: '#ffffff',
+                  calendarBackground: '#ffffff',
+                  textSectionTitleColor: '#1d434f',
+                  selectedDayBackgroundColor: '#48BB78',
+                  selectedDayTextColor: '#ffffff',
+                  todayTextColor: '#48BB78',
+                  dayTextColor: '#2d3748',
+                  textDisabledColor: '#d9d9d9',
+                  dotColor: '#48BB78',
+                  monthTextColor: '#1d434f',
+                  arrowColor: '#48BB78',
+                }}
+              />
+              
+              <TimeSlider
+                startTime={new Date(startTime)}
+                endTime={new Date(endTime)}
+                onStartTimeChange={(time) => setStartTime(time.toISOString())}
+                onEndTimeChange={(time) => setEndTime(time.toISOString())}
+                availableSlots={listing.availability || []}
+                selectedDate={selectedDate}
+              />
 
-                <PaymentButton amount={listing.pricePerHour} />
-
-                <TouchableOpacity
-                  onPress={() => setShowBooking(false)}
-                  className="mt-4 bg-gray-200 py-2 rounded"
-                >
-                  <Text style={{ color: 'white' }} className="text-center">Cancel</Text>
-                </TouchableOpacity>
+              <View className="mt-4">
+                <Text className="text-gray-600 mb-2">Duration: {Math.round((new Date(endTime).getTime() - new Date(startTime).getTime()) / (1000 * 60 * 60) * 10) / 10} hours</Text>
+                <Text className="text-gray-600 mb-4">Total: ${Math.round((new Date(endTime).getTime() - new Date(startTime).getTime()) / (1000 * 60 * 60) * listing.pricePerHour * 100) / 100}</Text>
               </View>
+
+              <PaymentButton 
+                amount={amount} 
+                drivewayId={id as string} 
+                startTime={startTime} 
+                endTime={endTime} 
+              />
+
+              <TouchableOpacity
+                onPress={() => setShowBooking(false)}
+                className="mt-4 bg-gray-200 py-2 rounded"
+              >
+                <Text className="text-center text-gray-800">Cancel</Text>
+              </TouchableOpacity>
+
             </View>
           </>
         )}

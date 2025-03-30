@@ -3,6 +3,7 @@ import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import auth from '@react-native-firebase/auth';
+
 interface Booking {
   _id: string;
   startTime: string;
@@ -22,6 +23,7 @@ export default function BookingScreen() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
   const user = auth().currentUser;
+
   useEffect(() => {
     fetchBookings();
   }, [user]);

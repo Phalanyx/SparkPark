@@ -8,8 +8,8 @@ import mongoose from "mongoose";
 // Create payment intent route
 router.post('/intent', async (req: any, res: any) => {
     try {
-        const { amount, bookingId } = req.body;
-
+        let { amount, bookingId } = req.body;
+        amount = amount * 100;
         if (!amount) {
             return res.status(400).json({ error: "Amount is required" });
         }

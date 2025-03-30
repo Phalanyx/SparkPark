@@ -38,7 +38,7 @@ router.post("/create", async (req, res) => {
       endTime,
       vehicleDetails
     } = req.body;
-
+    console.log("Booking details:", req.body);
     // Validate required fields
     if (!listingId || !startTime || !endTime) {
       console.log("Missing required fields");
@@ -57,6 +57,12 @@ router.post("/create", async (req, res) => {
     // Convert times to Date objects
     const bookingStart = new Date(startTime);
     const bookingEnd = new Date(endTime);
+    
+    // Add 20 hours to compensate for timezone
+    bookingStart.setHours(bookingStart.getHours() + 20);
+    bookingEnd.setHours(bookingEnd.getHours() + 20);
+
+    console.log(bookingStart, bookingEnd)
 
     // Check if the time slot is available
     const isAvailable = listing.availability.some(slot => {
@@ -65,6 +71,8 @@ router.post("/create", async (req, res) => {
 
       const slotStart = new Date(`${datePart}T${slot.availableFrom}:00.000Z`);
       const slotEnd = new Date(`${datePart}T${slot.availableUntil}:00.000Z`);
+
+
 
       return (
         bookingStart >= slotStart &&
@@ -96,12 +104,14 @@ router.post("/create", async (req, res) => {
       }
     }
 
+
+
     // Create new booking
     const newBooking = new Booking({
       userId,
       listingId,
-      startTime: bookingStart.toISOString(),
-      endTime: bookingEnd.toISOString(),
+      startTime: bookingStart,
+      endTime: bookingEnd,
       totalPrice,
       vehicleDetails,
       status: "pending",
@@ -117,7 +127,6 @@ router.post("/create", async (req, res) => {
       amount: Math.round(totalPrice * 100), // Convert to cents for Stripe
       currency: "cad"
     };
-    
     // Update listing availability
     const updatedAvailability = listing.availability.map(slot => {
       const slotDate = new Date(slot.date);
@@ -134,7 +143,7 @@ router.post("/create", async (req, res) => {
         if (bookingStart.getTime() === slotStart.getTime()) {
           return {
             date: slot.date,
-            availableFrom: bookingEnd.toISOString(),
+            availableFrom: bookingStart.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: false }),
             availableUntil: slot.availableUntil
           };
         }
@@ -144,7 +153,7 @@ router.post("/create", async (req, res) => {
           return {
             date: slot.date,
             availableFrom: slot.availableFrom,
-            availableUntil: bookingStart.toISOString()
+            availableUntil: bookingEnd.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: false })
           };
         }
 
@@ -154,11 +163,11 @@ router.post("/create", async (req, res) => {
           {
             date: slot.date,
             availableFrom: slot.availableFrom,
-              availableUntil: bookingStart.toISOString()
+            availableUntil: bookingStart.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: false })
           },
           {
             date: slot.date,
-            availableFrom: bookingEnd.toISOString(),
+            availableFrom: bookingEnd.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: false }),
             availableUntil: slot.availableUntil
           }
         ];

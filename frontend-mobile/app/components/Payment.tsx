@@ -25,8 +25,16 @@ const PaymentButton = ({ amount, onPaymentSuccess, onPaymentFailure, drivewayId,
   const [loading, setLoading] = useState(false);
   const [paymentId, setPaymentId] = useState<string | null>(null);
   const user = auth().currentUser;
+
+
+  useEffect(() => {
+    console.log("startTime:", startTime);
+    console.log("endTime:", endTime);
+  }, [startTime, endTime]);
+
+
   const PaymentSuccess = async () => {
-    console.log("PaymentSuccess");  
+ 
     const backendUrl = process.env.EXPO_PUBLIC_BACKEND || 'http://localhost:4000';
     let response = await fetch(`${backendUrl}/payments/success`, {
       method: 'POST',
@@ -36,7 +44,7 @@ const PaymentButton = ({ amount, onPaymentSuccess, onPaymentFailure, drivewayId,
       body: JSON.stringify({
         paymentIntentId: paymentId,
         bookingId: drivewayId || '67cbc1017a9102e1af5c8c16',
-        amount,
+        amount: amount * 100,
         email: user?.email || 'test@test.com',
         drivewayId: drivewayId || '123',
         userId: user?.uid || '123',
@@ -50,6 +58,7 @@ const PaymentButton = ({ amount, onPaymentSuccess, onPaymentFailure, drivewayId,
     response = await response.json();
     const token = await user?.getIdToken();
     console.log("BookingCreate");
+
     response = await fetch(`${backendUrl}/bookings/create`, {
       method: 'POST',
       headers: {
@@ -178,7 +187,7 @@ const PaymentButton = ({ amount, onPaymentSuccess, onPaymentFailure, drivewayId,
         loading={loading}
         className="w-full py-2"
       >
-        {loading ? 'Processing...' : `Pay $${(amount / 100).toFixed(2)}`}
+        {loading ? 'Processing...' : `Pay $${(amount).toFixed(2)}`}
       </Button>
     </View>
   );

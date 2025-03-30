@@ -1,205 +1,194 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, TextInput, Button, TouchableOpacity, Platform, ScrollView } from 'react-native';
 import { Calendar } from 'react-native-calendars';
-import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
+import DateTimePicker, { Event } from '@react-native-community/datetimepicker';
 
 interface AvailabilitySlot {
-  date: string;
-  startTime: Date;
-  endTime: Date;
+    date: string;
+    availableFrom: Date;
+    availableUntil: Date;
 }
 
 interface Step2AvailabilityAndFeaturesProps {
-  handleSubmit: () => void;
-  currentStep: number;
-  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-  availabilityList: AvailabilitySlot[];
-  setAvailabilityList: React.Dispatch<React.SetStateAction<AvailabilitySlot[]>>;
-  features: string[];
-  setFeatures: React.Dispatch<React.SetStateAction<string[]>>;
+    handleSubmit: () => void;
+    currentStep: number;
+    setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
 }
 
 interface StepNavigationProps {
-  onBack?: () => void;
-  onNext: () => void;
-  handleSubmit: () => void;
+    onBack?: () => void;
+    onNext: () => void;
+    handleSubmit: () => void;
 }
 
 const StepNavigation: React.FC<StepNavigationProps> = ({ onBack, onNext, handleSubmit }) => {
-  return (
-    <View className="flex-row justify-center mt-4">
-      <TouchableOpacity onPress={onBack} className="w-1/4 mr-2 p-4 rounded-md items-center bg-[#064c4f]">
-        <Text className="text-white font-bold">Back</Text>
-      </TouchableOpacity>
+    return (
+        <View className="flex-row justify-center mt-4">
+            <TouchableOpacity onPress={onBack} className="w-1/4 mr-2 p-4 rounded-md items-center bg-[#064c4f]">
+                <Text className="text-white font-bold">Back</Text>
+            </TouchableOpacity>
 
-      <TouchableOpacity onPress={handleSubmit} className="w-1/2 mr-2 p-4 rounded-md items-center bg-[#064c4f]">
-        <Text className="text-white font-bold">Submit Listing</Text>
-      </TouchableOpacity>
-    </View>
-  );
+            <TouchableOpacity onPress={handleSubmit} className="w-1/2 mr-2 p-4 rounded-md items-center bg-[#064c4f]">
+                <Text className="text-white font-bold">Submit Listing</Text>
+            </TouchableOpacity>
+        </View>
+    );
 };
 
 const Step2AvailabilityAndFeatures: React.FC<Step2AvailabilityAndFeaturesProps> = ({
-  handleSubmit,
-  currentStep,
-  setCurrentStep,
-  availabilityList,
-  setAvailabilityList,
-  features,
-  setFeatures,
-}) => {
-  // Features state
-  const commonFeatures: string[] = ['WiFi', 'EV Charger', 'Security Camera'];
-  const [customFeature, setCustomFeature] = useState<string>('');
+                                                                                       handleSubmit,
+                                                                                       currentStep,
+                                                                                       setCurrentStep,
+                                                                                   }) => {
+    const [selectedDate, setSelectedDate] = useState<string>('');
+    const [availableFrom, setAvailableFrom] = useState<Date | null>(null);
+    const [availableUntil, setAvailableUntil] = useState<Date | null>(null);
+    const [showStartPicker, setShowStartPicker] = useState<boolean>(false);
+    const [showEndPicker, setShowEndPicker] = useState<boolean>(false);
+    const [availabilityList, setAvailabilityList] = useState<AvailabilitySlot[]>([]);
+    const [selectedDays, setSelectedDays] = useState<string[]>([]);
 
-  // Add missing state declarations for date and time handling
-  const [selectedDate, setSelectedDate] = useState<string>('');
-  const [startTime, setStartTime] = useState<Date | null>(null);
-  const [endTime, setEndTime] = useState<Date | null>(null);
-  const [showStartPicker, setShowStartPicker] = useState<boolean>(false);
-  const [showEndPicker, setShowEndPicker] = useState<boolean>(false);
+    const commonFeatures: string[] = ['WiFi', 'EV Charger', 'Security Camera'];
+    const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+    const [customFeature, setCustomFeature] = useState<string>('');
 
-  // Add the current availability slot to the list
-  const addAvailability = () => {
-    console.log(selectedDate, startTime, endTime);
-    if (selectedDate && startTime && endTime) {
-      const newSlot: AvailabilitySlot = {
-        date: selectedDate,
-        startTime,
-        endTime,
-      };
-      setAvailabilityList([...availabilityList, newSlot]);
-      console.log(availabilityList); 
-      // Reset for next entry
-      setSelectedDate('');
-      setStartTime(null);
-      setEndTime(null);
-    }
-  };
+    const weekDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-  // Toggle a common feature using lifted state
-  const toggleFeature = (feature: string) => {
-    if (features.includes(feature)) {
-      setFeatures(features.filter((f) => f !== feature));
-    } else {
-      setFeatures([...features, feature]);
-    }
-  };
+    const toggleDay = (day: string) => {
+        if (selectedDays.includes(day)) {
+            setSelectedDays(selectedDays.filter((d) => d !== day));
+        } else {
+            setSelectedDays([...selectedDays, day]);
+        }
+    };
 
-  // Add a custom feature using lifted state
-  const addCustomFeature = () => {
-    if (customFeature.trim() !== '') {
-      setFeatures([...features, customFeature.trim()]);
-      setCustomFeature('');
-    }
-  };
+    const addAvailability = () => {
+        if (selectedDate && availableFrom && availableUntil) {
+            const newSlot: AvailabilitySlot = {
+                date: selectedDate,
+                availableFrom,
+                availableUntil,
+            };
+            setAvailabilityList([...availabilityList, newSlot]);
+            setSelectedDate('');
+            setAvailableFrom(null);
+            setAvailableUntil(null);
+        }
+    };
 
-  // Handlers for the DateTimePicker
-  const onChangeStartTime = (event: DateTimePickerEvent, date?: Date) => {
-    setShowStartPicker(Platform.OS === 'ios');
-    if (date) setStartTime(date);
-  };
+    const addWeeklyAvailability = () => {
+        const now = new Date();
+        const fourWeeksFromNow = new Date();
+        fourWeeksFromNow.setDate(now.getDate() + 28);
 
-  const onChangeEndTime = (event: DateTimePickerEvent, date?: Date) => {
-    setShowEndPicker(Platform.OS === 'ios');
-    if (date) setEndTime(date);
-  };
+        const newSlots: AvailabilitySlot[] = [];
 
-  return (
-    <View className="p-10 mt-8 flex-1">
-      {/* Availability Section */}
-      <Text className="text-xl text-white my-4">Set Availability</Text>
-      <Calendar
-        onDayPress={(day: any) => setSelectedDate(day.dateString)}
-        markedDates={{
-          [selectedDate]: { selected: true, selectedColor: '#48BB78' },
-        }}
-      />
+        for (let day = new Date(now); day <= fourWeeksFromNow; day.setDate(day.getDate() + 1)) {
+            const dayName = weekDays[day.getDay()];
+            if (selectedDays.includes(dayName)) {
+                const dateStr = day.toISOString().split('T')[0];
+                newSlots.push({
+                    date: dateStr,
+                    availableFrom: new Date(`${dateStr}T00:00:00`),
+                    availableUntil: new Date(`${dateStr}T23:59:59`),
+                });
+            }
+        }
 
-      <View className="mt-4">
-        <Text className="text-white mb-2">Select Start Time</Text>
-        <TouchableOpacity onPress={() => setShowStartPicker(true)} className="bg-[#2F4858] p-3 rounded-lg mb-2">
-          <Text className="text-white">
-            {startTime ? startTime.toLocaleTimeString() : 'Choose Start Time'}
-          </Text>
-        </TouchableOpacity>
-        {showStartPicker && (
-          <DateTimePicker
-            value={startTime || new Date()}
-            mode="time"
-            is24Hour={true}
-            display="default"
-            onChange={onChangeStartTime}
-          />
-        )}
-      </View>
+        setAvailabilityList(newSlots);
+    };
 
-      <View className="mt-4">
-        <Text className="text-white mb-2">Select End Time</Text>
-        <TouchableOpacity onPress={() => setShowEndPicker(true)} className="bg-[#2F4858] p-3 rounded-lg mb-2">
-          <Text className="text-white">
-            {endTime ? endTime.toLocaleTimeString() : 'Choose End Time'}
-          </Text>
-        </TouchableOpacity>
-        {showEndPicker && (
-          <DateTimePicker
-            value={endTime || new Date()}
-            mode="time"
-            is24Hour={true}
-            display="default"
-            onChange={onChangeEndTime}
-          />
-        )}
-      </View>
+    const toggleFeature = (feature: string) => {
+        if (selectedFeatures.includes(feature)) {
+            setSelectedFeatures(selectedFeatures.filter((f) => f !== feature));
+        } else {
+            setSelectedFeatures([...selectedFeatures, feature]);
+        }
+    };
 
-      <Button title="Add Availability" onPress={() => 
-        {addAvailability()
-          console.log(availabilityList)
-        }} />
+    const addCustomFeature = () => {
+        if (customFeature.trim() !== '') {
+            setSelectedFeatures([...selectedFeatures, customFeature.trim()]);
+            setCustomFeature('');
+        }
+    };
 
-      {availabilityList.length > 0 && (
-        <View className="mt-4">
-          {availabilityList.map((slot, index) => (
-            <Text key={index} className="text-white my-1">
-              {slot.date} from {slot.startTime.toLocaleTimeString()} to {slot.endTime.toLocaleTimeString()}
-            </Text>
-          ))}
+    const onChangeStartTime = (event: Event, date?: Date) => {
+        setShowStartPicker(Platform.OS === 'ios');
+        if (date) setAvailableFrom(date);
+    };
+
+    const onChangeEndTime = (event: Event, date?: Date) => {
+        setShowEndPicker(Platform.OS === 'ios');
+        if (date) setAvailableUntil(date);
+    };
+
+    return (
+        <View className="p-3 mt-8 flex-1">
+            <Text className="text-xl text-white my-4">Set Weekly Availability</Text>
+            <Text className="text-white mb-2">Select which Days of the week the spot is available</Text>
+            <View className="flex-row flex-wrap mb-4">
+                {weekDays.map((day, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        onPress={() => toggleDay(day)}
+                        className={`px-4 py-2 rounded-full m-1 ${
+                            selectedDays.includes(day) ? 'bg-[#48BB78]' : 'bg-[#2F4858]'
+                        }`}
+                    >
+                        <Text className="text-white">{day}</Text>
+                    </TouchableOpacity>
+                ))}
+            </View>
+
+            <TouchableOpacity
+                onPress={addWeeklyAvailability}
+                className="bg-blue-600 px-4 py-3 rounded-lg items-center mb-4"
+            >
+                <Text className="text-white font-bold text-base">Confirm Availability</Text>
+            </TouchableOpacity>
+
+            {availabilityList.length > 0 && (
+                <ScrollView className="mt-4" style={{ maxHeight: 200 }}>
+                    {availabilityList.map((slot, index) => (
+                        <Text key={index} className="text-white my-1">
+                            {slot.date} from {slot.availableFrom.toLocaleTimeString()} to {slot.availableUntil.toLocaleTimeString()}
+                        </Text>
+                    ))}
+                </ScrollView>
+            )}
+
+            <Text className="text-xl text-white my-4">Select Features</Text>
+            <View className="flex-row flex-wrap mt-4">
+                {commonFeatures.map((feature, index) => (
+                    <TouchableOpacity
+                        key={index}
+                        onPress={() => toggleFeature(feature)}
+                        className={`px-4 py-2 rounded-full m-1 ${
+                            selectedFeatures.includes(feature) ? 'bg-[#48BB78]' : 'bg-[#2F4858]'
+                        }`}
+                    >
+                        <Text className="text-white">{feature}</Text>
+                    </TouchableOpacity>
+                ))}
+            </View>
+            <Text className="text-white mb-2">Add Additional Feature</Text>
+            <TextInput
+                value={customFeature}
+                onChangeText={setCustomFeature}
+                placeholder="Type additional feature"
+                placeholderTextColor="#99AAB5"
+                className="bg-[#2F4858] text-white p-3 rounded-lg mt-2 mb-4"
+            />
+            <Button title="Add Custom Feature" onPress={addCustomFeature} />
+
+            <StepNavigation
+                onBack={() => setCurrentStep((prev) => prev - 1)}
+                onNext={() => setCurrentStep((prev) => prev)}
+                handleSubmit={handleSubmit}
+            />
         </View>
-      )}
-
-      {/* Features Section */}
-      <Text className="text-xl text-white my-4">Select Features</Text>
-      <View className="flex-row flex-wrap mt-4">
-        {commonFeatures.map((feature, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => toggleFeature(feature)}
-            className={`px-4 py-2 rounded-full m-1 ${
-              features.includes(feature) ? 'bg-[#48BB78]' : 'bg-[#2F4858]'
-            }`}
-          >
-            <Text className="text-white">{feature}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
-      <Text className="text-white mb-2">Add Additional Feature</Text>
-      <TextInput
-        value={customFeature}
-        onChangeText={setCustomFeature}
-        placeholder="Type additional feature"
-        placeholderTextColor="#99AAB5"
-        className="bg-[#2F4858] text-white p-3 rounded-lg mt-2 mb-4"
-      />
-      <Button title="Add Custom Feature" onPress={addCustomFeature} />
-
-      {/* Navigation */}
-      <StepNavigation
-        onBack={() => setCurrentStep((prev) => prev - 1)}
-        onNext={() => setCurrentStep((prev) => prev)}
-        handleSubmit={handleSubmit}
-      />
-    </View>
-  );
+    );
 };
 
 export default Step2AvailabilityAndFeatures;

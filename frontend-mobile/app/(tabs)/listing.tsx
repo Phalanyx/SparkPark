@@ -120,8 +120,8 @@ const AddListingForm = () => {
         payAsYouGo,
         availability: availabilityList.map(slot => ({
           date: new Date(slot.date),
-          availableFrom: slot.startTime.toLocaleTimeString(),
-          availableUntil: slot.endTime.toLocaleTimeString(),
+          availableFrom: slot.startTime.toLocaleTimeString('en-US', { hour12: false }),
+          availableUntil: slot.endTime.toLocaleTimeString('en-US', { hour12: false }),
         })),
         features: features,
       };

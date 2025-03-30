@@ -290,7 +290,7 @@ export default function ListingDetail() {
               </TouchableOpacity>
 
             </View>
-          </>
+          </View>
         )}
       </View>
     </LinearGradient>

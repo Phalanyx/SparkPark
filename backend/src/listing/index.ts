@@ -258,11 +258,14 @@ router.get("/best-parking-spot", async (req: Request, res: Response) => {
       }
     };
 
-    query.features = [];
-    if (coveredParking) query.features.push("Covered Parking");
-    if (EVCharging) query.features.push("EV Charging");
-    if (securityFeatures) query.features.push("Security");
-    if (query.features.length === 0) delete query.features;
+    const requiredFeatures = [];
+    if (coveredParking) requiredFeatures.push("Covered Parking");
+    if (EVCharging) requiredFeatures.push("EV Charging");
+    if (securityFeatures) requiredFeatures.push("Security");
+
+    if (requiredFeatures.length > 0) {
+      query.features = { $all: requiredFeatures };
+    }
 
     if (payAsYouGoPreferred) {
       query.payAsYouGo = true;

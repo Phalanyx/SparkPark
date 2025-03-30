@@ -30,10 +30,12 @@ export default function BookingScreen() {
 
   const fetchBookings = async () => {
     try {
+      let token = await user?.getIdToken();
+
       const response = await fetch('http://localhost:4000/bookings/all',
         {
           headers: {
-            'Authorization': `Bearer ${user?.getIdToken()}`
+            'Authorization': `Bearer ${token}`
           }
         }
       );

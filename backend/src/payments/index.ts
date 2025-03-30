@@ -9,7 +9,8 @@ import mongoose from "mongoose";
 router.post('/intent', async (req: any, res: any) => {
     try {
         let { amount, bookingId } = req.body;
-        amount = amount * 100;
+        amount = Math.round(amount * 100);
+
         if (!amount) {
             return res.status(400).json({ error: "Amount is required" });
         }

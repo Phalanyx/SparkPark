@@ -63,7 +63,7 @@ router.post("/create", async (req, res) => {
     bookingStart.setHours(bookingStart.getHours() + 20);
     bookingEnd.setHours(bookingEnd.getHours() + 20);
 
-    console.log(bookingStart, bookingEnd)
+
 
     // Check if the time slot is available
     const isAvailable = listing.availability.some(slot => {
@@ -71,13 +71,12 @@ router.post("/create", async (req, res) => {
       const datePart = slotDate.toISOString().split('T')[0]; // Extract YYYY-MM-DD
 
 
-      // Pad the time strings to ensure proper format (HH:mm:ss)
-      const formattedFrom = slot.availableFrom.padStart(8, '0');
-      const formattedUntil = slot.availableUntil.padStart(8, '0');
-      const slotStart = new Date(`${datePart}T${formattedFrom}.000Z`);
-      const slotEnd = new Date(`${datePart}T${formattedUntil}.000Z`);
 
 
+      const slotStart = new Date(`${datePart}T${slot.availableFrom}`);
+      const slotEnd = new Date(`${datePart}T${slot.availableUntil}`);
+
+      console.log(slotStart, slotEnd)
 
       return (
         bookingStart >= slotStart &&
@@ -148,7 +147,7 @@ router.post("/create", async (req, res) => {
         if (bookingStart.getTime() === slotStart.getTime()) {
           return {
             date: slot.date,
-            availableFrom: bookingStart.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: false }),
+            availableFrom: `${bookingStart.getHours().toString().padStart(2, '0')}:${bookingStart.getMinutes().toString().padStart(2, '0')}`,
             availableUntil: slot.availableUntil
           };
         }
@@ -158,7 +157,7 @@ router.post("/create", async (req, res) => {
           return {
             date: slot.date,
             availableFrom: slot.availableFrom,
-            availableUntil: bookingEnd.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: false })
+            availableUntil: `${bookingEnd.getHours().toString().padStart(2, '0')}:${bookingEnd.getMinutes().toString().padStart(2, '0')}`
           };
         }
 
@@ -168,11 +167,11 @@ router.post("/create", async (req, res) => {
           {
             date: slot.date,
             availableFrom: slot.availableFrom,
-            availableUntil: bookingStart.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: false })
+            availableUntil: `${bookingStart.getHours().toString().padStart(2, '0')}:${bookingStart.getMinutes().toString().padStart(2, '0')}`
           },
           {
             date: slot.date,
-            availableFrom: bookingEnd.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: false }),
+            availableFrom: `${bookingEnd.getHours().toString().padStart(2, '0')}:${bookingEnd.getMinutes().toString().padStart(2, '0')}`,
             availableUntil: slot.availableUntil
           }
         ];

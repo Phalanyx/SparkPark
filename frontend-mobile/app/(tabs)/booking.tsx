@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-
+import auth from '@react-native-firebase/auth';
 interface Booking {
   _id: string;
   startTime: string;
@@ -21,14 +21,20 @@ interface Booking {
 export default function BookingScreen() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const user = auth().currentUser;
   useEffect(() => {
     fetchBookings();
-  }, []);
+  }, [user]);
 
   const fetchBookings = async () => {
     try {
-      const response = await fetch('http://localhost:4000/bookings/all');
+      const response = await fetch('http://localhost:4000/bookings/all',
+        {
+          headers: {
+            'Authorization': `Bearer ${user?.getIdToken()}`
+          }
+        }
+      );
       const data = await response.json();
       setBookings(data);
     } catch (error) {

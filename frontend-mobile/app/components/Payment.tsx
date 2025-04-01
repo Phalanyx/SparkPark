@@ -173,7 +173,7 @@ const PaymentButton = ({ amount, onPaymentSuccess, onPaymentFailure, drivewayId,
 
   useEffect(() => {
     initializePaymentSheet();
-  }, []);
+  }, [amount]);
 
   return (
     <View className="my-4">

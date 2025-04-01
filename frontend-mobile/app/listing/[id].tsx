@@ -376,7 +376,7 @@ export default function ListingDetail() {
 
                 <View className="mt-6 bg-[#2F4858] p-4 rounded-xl">
                   <Text className="text-white mb-2">Duration: {Math.round((new Date(endTime).getTime() - new Date(startTime).getTime()) / (1000 * 60 * 60) * 10) / 10} hours</Text>
-                  <Text className="text-white font-semibold text-lg">Total: ${Math.round((new Date(endTime).getTime() - new Date(startTime).getTime()) / (1000 * 60 * 60) * listing.pricePerHour * 100) / 100}</Text>
+                  <Text className="text-white font-semibold text-lg">Total: ${((new Date(endTime).getTime() - new Date(startTime).getTime()) / (1000 * 60 * 60) * listing.pricePerHour).toFixed(2)}</Text>
                 </View>
 
                 <PaymentButton 
@@ -389,7 +389,12 @@ export default function ListingDetail() {
                     model: selectedVehicle.model,
                     licensePlate: selectedVehicle.licensePlate,
                     color: selectedVehicle.color
-                  } : undefined}
+                  } : {
+                    make: "Toyota",
+                    model: "Camry",
+                    licensePlate: "123123",
+                    color: "Red"
+                  }}
                 />
 
                 <TouchableOpacity

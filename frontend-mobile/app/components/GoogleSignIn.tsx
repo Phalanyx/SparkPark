@@ -32,6 +32,7 @@ export default function Login({handleBackend}:
 
     auth().signInWithCredential(googleCredential).then((result) => {
         result.user.getIdToken().then((token) => {
+            console.log(token);
             handleBackend(token);
             })
         }).catch((error) => {

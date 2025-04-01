@@ -4,6 +4,7 @@ import { Button } from 'react-native-paper';
 import { useStripe } from '@stripe/stripe-react-native';
 import Constants from 'expo-constants';
 import auth from '@react-native-firebase/auth';
+import { router } from 'expo-router';
 // Fix for "new NativeEventEmitter() requires a non-null argument" warning
 // This is needed for @stripe/stripe-react-native
 const eventEmitter = new NativeEventEmitter(NativeModules.StripeTerminal || {});
@@ -15,26 +16,26 @@ interface PaymentProps {
   drivewayId?: string; // change this later
   startTime?: string;
   endTime?: string;
+  vehicleDetails?: {
+    make: string;
+    model: string;
+    licensePlate: string;
+    color: string;
+  };
 }
 
-
-
-
-const PaymentButton = ({ amount, onPaymentSuccess, onPaymentFailure, drivewayId, startTime, endTime }: PaymentProps) => {
+const PaymentButton = ({ amount, onPaymentSuccess, onPaymentFailure, drivewayId, startTime, endTime, vehicleDetails }: PaymentProps) => {
   const { initPaymentSheet, presentPaymentSheet } = useStripe();
   const [loading, setLoading] = useState(false);
   const [paymentId, setPaymentId] = useState<string | null>(null);
   const user = auth().currentUser;
-
 
   useEffect(() => {
     console.log("startTime:", startTime);
     console.log("endTime:", endTime);
   }, [startTime, endTime]);
 
-
   const PaymentSuccess = async () => {
- 
     const backendUrl = process.env.EXPO_PUBLIC_BACKEND || 'http://localhost:4000';
     let response = await fetch(`${backendUrl}/payments/success`, {
       method: 'POST',
@@ -59,6 +60,10 @@ const PaymentButton = ({ amount, onPaymentSuccess, onPaymentFailure, drivewayId,
     const token = await user?.getIdToken();
     console.log("BookingCreate");
 
+    if (!vehicleDetails) {
+      throw new Error('Vehicle details are required');
+    }
+
     response = await fetch(`${backendUrl}/bookings/create`, {
       method: 'POST',
       headers: {
@@ -69,12 +74,7 @@ const PaymentButton = ({ amount, onPaymentSuccess, onPaymentFailure, drivewayId,
         listingId: drivewayId || "67cbc1017a9102e1af5c8c16",
         startTime: startTime,
         endTime: endTime,
-        vehicleDetails: { // test 
-          make: 'Toyota',
-          model: 'Camry',
-          licensePlate: 'ABC123',
-          color: 'Red',
-        },
+        vehicleDetails,
       }),
     });
 
@@ -84,9 +84,10 @@ const PaymentButton = ({ amount, onPaymentSuccess, onPaymentFailure, drivewayId,
     }
 
     const data = await response.json();
+
+    router.push('/(tabs)/booking');
     console.log(data);
   }
-
 
   const fetchPaymentIntent = async () => {
     try {
@@ -135,10 +136,9 @@ const PaymentButton = ({ amount, onPaymentSuccess, onPaymentFailure, drivewayId,
         merchantDisplayName: 'Parking Spot',
       });
 
-
       if (error) {
-        console.error('Error initializing payment sheet:', error);
-        onPaymentFailure?.(error.message);
+        //console.error('Error initializing payment sheet:', error);
+        //onPaymentFailure?.(error.message);
       }
     } catch (error) {
       console.error('Error initializing payment:', error);
@@ -159,17 +159,14 @@ const PaymentButton = ({ amount, onPaymentSuccess, onPaymentFailure, drivewayId,
       } else {
         Alert.alert('Success', 'Your payment was successful!');
 
-
         await PaymentSuccess();
         setPaymentId(null);
         await initializePaymentSheet();
-
-
       }
     } catch (error) {
-      console.error('Error presenting payment sheet:', error);
-      onPaymentFailure?.(error instanceof Error ? error.message : 'Unknown error');
-      await initializePaymentSheet();
+      //console.error('Error presenting payment sheet:', error);
+      //onPaymentFailure?.(error instanceof Error ? error.message : 'Unknown error');
+      //await initializePaymentSheet();
     }
     setLoading(false);
   };

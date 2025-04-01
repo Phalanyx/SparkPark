@@ -74,6 +74,7 @@ const Map = () => {
 
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') return;
+      console.log("Location permission granted");
 
       const location = await Location.getCurrentPositionAsync({});
       const { latitude, longitude } = location.coords;
@@ -82,17 +83,13 @@ const Map = () => {
       const time = new Date().toISOString().split('T')[1].slice(0, 5);
       const queryUrl = `${backendUrl}/best-parking-spot?latitude=${latitude}&longitude=${longitude}&date=${date}&time=${time}`;
 
-      console.log("Request URL:", queryUrl);
-
       const response = await fetch(queryUrl, {
         method: "GET",
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
       const result = await response.json();
-
-      console.log("Response from Server:", result);
-
+      console.log("Best parking spot:", result);
       if (response.ok && result._id) {
         setDisplayData(result);
 
@@ -176,7 +173,40 @@ const Map = () => {
           {/* Display ListingCard If A Marker Is Clicked */}
           {displayData && (
               <View style={styles.listingCard}>
-                <ListingCard data={displayData} visible={!!displayData} />
+                <ListingCard 
+                  data={displayData} 
+                  visible={!!displayData}
+                  onPrevious={() => {
+                    const currentIndex = safeDatas.findIndex(listing => listing._id === displayData._id);
+                    if (currentIndex > 0) {
+                      const newListing = safeDatas[currentIndex - 1];
+                      setDisplayData(newListing);
+                      const region = {
+                        latitude: newListing.location.coordinates[1],
+                        longitude: newListing.location.coordinates[0],
+                        latitudeDelta: 0.01,
+                        longitudeDelta: 0.01,
+                      };
+                      mapRef.current?.animateToRegion(region, 1000);
+                    }
+                  }}
+                  onNext={() => {
+                    const currentIndex = safeDatas.findIndex(listing => listing._id === displayData._id);
+                    if (currentIndex < safeDatas.length - 1) {
+                      const newListing = safeDatas[currentIndex + 1];
+                      setDisplayData(newListing);
+                      const region = {
+                        latitude: newListing.location.coordinates[1],
+                        longitude: newListing.location.coordinates[0],
+                        latitudeDelta: 0.01,
+                        longitudeDelta: 0.01,
+                      };
+                      mapRef.current?.animateToRegion(region, 1000);
+                    }
+                  }}
+                  hasPrevious={safeDatas.findIndex(listing => listing._id === displayData._id) > 0}
+                  hasNext={safeDatas.findIndex(listing => listing._id === displayData._id) < safeDatas.length - 1}
+                />
               </View>
           )}
 
@@ -209,7 +239,7 @@ const styles = StyleSheet.create({
   },
   listingCard: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 0,
     width: '100%',
   },
   navBar: {

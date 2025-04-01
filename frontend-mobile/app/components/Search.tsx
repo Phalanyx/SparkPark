@@ -7,13 +7,33 @@ import {
   LayoutAnimation,
   NativeSyntheticEvent,
   TextInputSubmitEditingEventData,
+  Modal,
+  ScrollView,
 } from 'react-native';
 import { Icon } from 'react-native-elements';
 import MapView from 'react-native-maps';
+import { LinearGradient } from 'expo-linear-gradient';
+import DateTimePicker from '@react-native-community/datetimepicker';
 
 interface Coordinates {
   latitude: number;
   longitude: number;
+}
+
+interface Listing {
+  _id: string;
+  title: string;
+  address: string;
+  size: {
+    length: number;
+    width: number;
+  };
+  pricePerHour: number;
+  images: string[];
+  location: {
+    lat: number;
+    lon: number;
+  };
 }
 
 interface SearchProps {
@@ -22,16 +42,29 @@ interface SearchProps {
   mapRef: React.RefObject<MapView>;
 }
 
+const sizeGuideData = [
+  { minSize: '10.0 x 4.5', category: 'X-LARGE', examples: 'RV, bus, large truck' },
+  { minSize: '6.5 x 3.0',  category: 'LARGE',   examples: 'Van, minivans, pickup' },
+  { minSize: '5.5 x 2.7',  category: 'MEDIUM',  examples: 'Small/crossover SUV' },
+  { minSize: '5.0 x 2.5',  category: 'SMALL',   examples: 'Sedan' },
+  { minSize: '3.5 x 1.8',  category: 'X-SMALL', examples: 'Motorcycle, scooter, etc.' },
+];
+
 const Search: React.FC<SearchProps> = ({ setData, setCenter, mapRef }) => {
   const [query, setQuery] = useState('');
-  const [showFilters, setShowFilters] = useState(true);
-  const [minLength, setMinLength] = useState('');
-  const [minWidth, setMinWidth] = useState('');
-  const [date, setDate] = useState('');
-  const [time, setTime] = useState('');
+  const [showFilters, setShowFilters] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [date, setDate] = useState(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const [showTimePicker, setShowTimePicker] = useState(false);
+  const [time, setTime] = useState(new Date());
+  const [listings, setListings] = useState<Listing[]>([]);
 
   const handleSearch = async (query: string): Promise<void> => {
     try {
+      if (query === '') {
+        return;
+      }
       const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND}/geolocation/isochrones`, {
         headers: { 'Content-Type': 'application/json' },
         method: 'POST',
@@ -39,7 +72,6 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter, mapRef }) => {
       });
       const data = (await response.json())
       setData(data.points);
-      console.log(data);
 
       const region = {
         latitude: data.lat,
@@ -59,10 +91,16 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter, mapRef }) => {
   const handleApplyFilters = async () => {
     try {
       const queryParams: Record<string, string> = {};
-      if (minLength) queryParams.minLength = minLength;
-      if (minWidth) queryParams.minWidth = minWidth;
-      if (date) queryParams.date = date;
-      if (time) queryParams.time = time;
+      if (selectedCategory) {
+        const size = sizeGuideData.find(cat => cat.category === selectedCategory)?.minSize;
+        if (size) {
+          const [length, width] = size.split('x').map(s => s.trim());
+          queryParams.minLength = length;
+          queryParams.minWidth = width;
+        }
+      }
+      if (date) queryParams.date = date.toISOString().split('T')[0];
+      if (time) queryParams.time = time.toLocaleTimeString('en-US', { hour12: false });
 
       const queryString = Object.keys(queryParams)
         .map(
@@ -74,8 +112,9 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter, mapRef }) => {
         queryString ? `?${queryString}` : ''
       }`;
       const response = await fetch(url, { method: 'GET' });
-      const result = (await response.json()) as any[];
+      const result = (await response.json()) as Listing[];
       setData(result);
+      setListings(result);
       if (result && result.length > 0 && result[0].location) {
         setCenter({
           latitude: result[0].location.lat,
@@ -92,83 +131,153 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter, mapRef }) => {
     setShowFilters(prev => !prev);
   };
 
+  const getSizeCategory = (length: number, width: number) => {
+    const size = `${length} x ${width}`;
+    return sizeGuideData.find(cat => {
+      const [minLength, minWidth] = cat.minSize.split('x').map(s => parseFloat(s.trim()));
+      return length >= minLength && width >= minWidth;
+    })?.category || 'CUSTOM';
+  };
+
   return (
-    <View className="">
+    <View className="overflow-hidden">
       {/* Search Bar */}
-      <View className="flex-row items-center bg-[#1d434f] rounded-lg">
-        <TextInput
-          className="h-12 pl-2 text-white flex-1"
-          placeholder="Search"
-          placeholderTextColor="#aaa"
-          value={query}
-          onChangeText={setQuery}
-          onSubmitEditing={(
-            e: NativeSyntheticEvent<TextInputSubmitEditingEventData>
-          ) => handleSearch(e.nativeEvent.text)}
-        />
-        <TouchableOpacity
-          onPress={toggleFilters}
-          className="w-12 h-12 flex items-center justify-center"
+      <View className="rounded-xl overflow-hidden">
+        <LinearGradient
+          colors={['#1d434f', '#2e6165']}
         >
-          <Icon name="filter" type="font-awesome" color="#fff" />
-        </TouchableOpacity>
+        <View className="flex-row items-center rounded-xl">
+          <TextInput
+            className="h-12 pl-4 text-white flex-1"
+            placeholder="Search location..."
+            placeholderTextColor="#aaa"
+            value={query}
+            onChangeText={setQuery}
+            onSubmitEditing={(
+              e: NativeSyntheticEvent<TextInputSubmitEditingEventData>
+            ) => handleSearch(e.nativeEvent.text)}
+          />
+          <TouchableOpacity
+            onPress={toggleFilters}
+            className="w-12 h-12 flex items-center justify-center"
+          >
+            <Icon name="filter" type="font-awesome" color="#fff" />
+          </TouchableOpacity>
+        </View>
+        </LinearGradient>
       </View>
 
+
+
       {/* Filters Section */}
-      <View
-        style={{ display: showFilters ? 'flex' : 'none' }}
-        className="mt-2 p-4 bg-[#1d434f] rounded-lg"
-      >
-        <Text className="text-white mb-2 font-bold">Filters</Text>
-        <View className="flex flex-wrap flex-row">
-          <View className="mb-2 w-1/4">
-            <Text className="text-white">Min Length</Text>
-            <TextInput
-              className="h-10 border border-gray-300 rounded px-2"
-              placeholder="e.g., 4.5"
-              keyboardType="numeric"
-              value={minLength}
-              onChangeText={setMinLength}
-            />
-          </View>
-          <View className="mb-2 w-1/4">
-            <Text className="text-white">Min Width</Text>
-            <TextInput
-              className="h-10 border border-gray-300 rounded px-2"
-              placeholder="e.g., 2.0"
-              keyboardType="numeric"
-              value={minWidth}
-              onChangeText={setMinWidth}
-            />
-          </View>
-          <View className="mb-2 w-1/4">
-            <Text className="text-white">Date</Text>
-            <TextInput
-              className="h-10 border border-gray-300 rounded px-2"
-              placeholder="YYYY-MM-DD"
-              value={date}
-              onChangeText={setDate}
-            />
-          </View>
-          <View className="mb-2 w-1/4">
-            <Text className="text-white">Time</Text>
-            <TextInput
-              className="h-10 border border-gray-300 rounded px-2"
-              placeholder="HH:MM"
-              value={time}
-              onChangeText={setTime}
-            />
-          </View>
-        </View>
-        <TouchableOpacity
-          onPress={handleApplyFilters}
-          className="mt-2 bg-[#0a2d38] py-2 rounded"
+      {showFilters && (
+        <View className="rounded-xl overflow-hidden mt-2">
+          <LinearGradient
+            colors={['#1d434f', '#2e6165']}
         >
-          <Text className="text-center text-white font-semibold">
-            Apply Filters
-          </Text>
-        </TouchableOpacity>
-      </View>
+          <View className="p-4">
+          <Text className="text-white text-lg font-bold mb-4 rounded-xl">Filters</Text>
+          
+          {/* Size Category Selection */}
+          <View className="mb-4">
+            <Text className="text-white mb-2">Space Size</Text>
+            <View className="flex-row flex-wrap gap-2">
+              {sizeGuideData.map((size, index) => (
+                <TouchableOpacity
+                  key={index}
+                  onPress={() => setSelectedCategory(size.category)}
+                  className={`px-3 py-1.5 rounded-full ${
+                    selectedCategory === size.category
+                      ? 'bg-[#48BB78]'
+                      : 'bg-[#2F4858]'
+                  }`}
+                >
+                  <Text className="text-white text-sm">{size.category}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            {selectedCategory && (
+              <View className="mt-2 p-3 bg-[#2F4858] rounded-xl">
+                <Text className="text-white">
+                  Selected: {sizeGuideData.find(cat => cat.category === selectedCategory)?.minSize}
+                </Text>
+                <Text className="text-gray-300 text-sm">
+                  {sizeGuideData.find(cat => cat.category === selectedCategory)?.examples}
+                </Text>
+              </View>
+            )}
+          </View>
+
+          {/* Date Selection */}
+          <View className="mb-4">
+            <Text className="text-white mb-2">Date</Text>
+            <TouchableOpacity
+              onPress={() => setShowDatePicker(true)}
+              className="bg-[#2F4858] p-3 rounded-xl"
+            >
+              <Text className="text-white">
+                {date.toLocaleDateString()}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Time Selection */}
+          <View className="mb-4">
+            <Text className="text-white mb-2">Time</Text>
+            <TouchableOpacity
+              onPress={() => setShowTimePicker(true)}
+              className="bg-[#2F4858] p-3 rounded-xl"
+            >
+              <Text className="text-white">
+                {time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })}
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Apply Filters Button */}
+          <TouchableOpacity
+            onPress={handleApplyFilters}
+            className="bg-[#48BB78] py-3 rounded-xl mt-2"
+          >
+            <Text className="text-white text-center font-semibold">
+              Apply Filters
+              </Text>
+          </TouchableOpacity>
+          </View>
+          </LinearGradient>
+        </View>
+      )}
+
+      {/* Date Picker Modal */}
+      {showDatePicker && (
+        <DateTimePicker
+          value={date}
+          mode="date"
+          display="default"
+          onChange={(event, selectedDate) => {
+            setShowDatePicker(false);
+            if (selectedDate) {
+              setDate(selectedDate);
+            }
+          }}
+          minimumDate={new Date()}
+        />
+      )}
+
+      {/* Time Picker Modal */}
+      {showTimePicker && (
+        <DateTimePicker
+          value={time}
+          mode="time"
+          display="default"
+          onChange={(event, selectedTime) => {
+            setShowTimePicker(false);
+            if (selectedTime) {
+              setTime(selectedTime);
+            }
+          }}
+        />
+      )}
     </View>
   );
 };

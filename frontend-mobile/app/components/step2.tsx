@@ -10,9 +10,13 @@ interface AvailabilitySlot {
 }
 
 interface Step2AvailabilityAndFeaturesProps {
-    handleSubmit: () => void;
+    handleSubmit: () => Promise<void>;
     currentStep: number;
-    setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+    setCurrentStep: (step: number | ((prev: number) => number)) => void;
+    availabilityList: AvailabilitySlot[];
+    setAvailabilityList: React.Dispatch<React.SetStateAction<AvailabilitySlot[]>>;
+    features: string[];
+    setFeatures: (features: string[]) => void;
 }
 
 interface StepNavigationProps {
@@ -39,13 +43,16 @@ const Step2AvailabilityAndFeatures: React.FC<Step2AvailabilityAndFeaturesProps> 
                                                                                        handleSubmit,
                                                                                        currentStep,
                                                                                        setCurrentStep,
+                                                                                       availabilityList,
+                                                                                       setAvailabilityList,
+                                                                                       features,
+                                                                                       setFeatures,
                                                                                    }) => {
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [availableFrom, setAvailableFrom] = useState<Date | null>(null);
     const [availableUntil, setAvailableUntil] = useState<Date | null>(null);
     const [showStartPicker, setShowStartPicker] = useState<boolean>(false);
     const [showEndPicker, setShowEndPicker] = useState<boolean>(false);
-    const [availabilityList, setAvailabilityList] = useState<AvailabilitySlot[]>([]);
     const [selectedDays, setSelectedDays] = useState<string[]>([]);
 
     const commonFeatures: string[] = ['WiFi', 'EV Charger', 'Security Camera'];
@@ -123,6 +130,14 @@ const Step2AvailabilityAndFeatures: React.FC<Step2AvailabilityAndFeaturesProps> 
         if (date) setAvailableUntil(date);
     };
 
+    const handleNext = () => {
+        setCurrentStep((prev: number) => prev + 1);
+    };
+
+    const handleBack = () => {
+        setCurrentStep((prev: number) => prev - 1);
+    };
+
     return (
         <View className="p-3 mt-8 flex-1">
             <Text className="text-xl text-white my-4">Set Weekly Availability</Text>
@@ -183,8 +198,8 @@ const Step2AvailabilityAndFeatures: React.FC<Step2AvailabilityAndFeaturesProps> 
             <Button title="Add Custom Feature" onPress={addCustomFeature} />
 
             <StepNavigation
-                onBack={() => setCurrentStep((prev) => prev - 1)}
-                onNext={() => setCurrentStep((prev) => prev)}
+                onBack={handleBack}
+                onNext={handleNext}
                 handleSubmit={handleSubmit}
             />
         </View>

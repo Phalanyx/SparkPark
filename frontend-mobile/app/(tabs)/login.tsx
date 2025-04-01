@@ -5,7 +5,8 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   TouchableOpacity,
-  Button
+  Button,
+  Alert
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import GoogleSignIn from '../components/GoogleSignIn';
@@ -27,19 +28,48 @@ export default function Login() {
   }, []);
 
   function handleBackend(token: string) {
+    const backendUrl = process.env.EXPO_PUBLIC_BACKEND;
+
+    
+    if (!backendUrl) {
+      Alert.alert(
+        'Configuration Error',
+        'Backend URL is not configured. Please check your environment variables.'
+      );
+      return;
+    }
+
+    
     // Your backend login route
-    fetch(`${process.env.EXPO_PUBLIC_BACKEND}/login`, {
+    fetch(`${backendUrl}/auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: token
+        'Authorization': `Bearer ${token}`
       }
     })
-      .then((response) => response.json())
+      .then(async (response) => {
+        if (!response.ok) {
+          const errorText = await response.text();
+          console.error('Server response:', errorText);
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const contentType = response.headers.get('content-type');
+        if (!contentType || !contentType.includes('application/json')) {
+          throw new TypeError("Response was not JSON");
+        }
+        return response.json();
+      })
       .then((respData) => {
         setData(respData);
       })
-      .catch((error) => console.error(error));
+      .catch((error) => {
+        console.error('Error during login:', error);
+        Alert.alert(
+          'Login Error',
+          `Failed to connect to server: ${error.message}`
+        );
+      });
   }
 
   function handleLogout() {
@@ -116,3 +146,4 @@ export default function Login() {
 
   );
 }
+

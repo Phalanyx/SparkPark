@@ -27,10 +27,6 @@ router.post("/create", async (req, res) => {
         userId = decodedToken.uid;
     }
 
-
-
-
-    
     // Extract booking details from request body
     const {
       listingId,

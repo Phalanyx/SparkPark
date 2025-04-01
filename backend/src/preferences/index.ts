@@ -90,6 +90,7 @@ router.post("/add", async (req, res) => {
  */
 router.get("/get", async (req, res) => {
     try {
+        console.log("Getting preferences");
         const token = req.headers.authorization?.split(" ")[1];
         if (!token) {
             res.status(401).json({ message: "Authorization token required" });
@@ -153,6 +154,7 @@ router.delete("/delete", async (req, res) => {
  */
 router.put("/change", async (req, res) => {
     try {
+        console.log("Changing preferences");
         const token = req.headers.authorization?.split(" ")[1];
         if (!token) {
             res.status(401).json({ message: "Authorization token required" });

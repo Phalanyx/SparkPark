@@ -195,9 +195,9 @@ export default function ProfileScreen({ data, handleLogout }: ProfileScreenProps
               {renderAvatar()}
               <View>
                 <Text className="text-white text-2xl font-bold">
-                  {data?.name || 'No name specified'}
+                  {auth().currentUser?.displayName || 'No name specified'}
                 </Text>
-                <Text className="text-gray-300">{data?.email}</Text>
+                <Text className="text-gray-300">{auth().currentUser?.email}</Text>
               </View>
             </View>
           </View>

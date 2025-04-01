@@ -176,7 +176,15 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter, mapRef }) => {
             colors={['#1d434f', '#2e6165']}
         >
           <View className="p-4">
-          <Text className="text-white text-lg font-bold mb-4 rounded-xl">Filters</Text>
+          <View className="flex flex-row justify-between items-center">
+            <Text className="text-white text-lg font-bold mb-4 rounded-xl">Filters</Text>
+            <Text className="text-white text-sm" 
+            onPress={() => {
+              setSelectedCategory('');
+              setDate(new Date());
+              setTime(new Date());
+            }}>Clear</Text>
+          </View>
           
           {/* Size Category Selection */}
           <View className="mb-4">

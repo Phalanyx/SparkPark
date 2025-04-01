@@ -30,7 +30,10 @@ const Filters: React.FC<FiltersProps> = ({
     <View
       style={[styles.container, { display: showFilters ? 'flex' : 'none' }]}
     >
-      <Text className="text-white mb-2 font-bold">Filters</Text>
+      <View className="flex flex-row justify-between items-center">
+        <Text className="text-white mb-2 font-bold">Filters</Text>
+        <Text>Clear</Text>
+      </View>
       <View className="flex flex-wrap flex-row">
         <View className="mb-2 w-1/4">
           <Text className="text-white">Min Length</Text>

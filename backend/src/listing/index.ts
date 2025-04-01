@@ -261,11 +261,12 @@ router.get("/best-parking-spot", async (req: Request, res: Response) => {
     const requiredFeatures = [];
     if (coveredParking) requiredFeatures.push("Covered Parking");
     if (EVCharging) requiredFeatures.push("EV Charging");
-    if (securityFeatures) requiredFeatures.push("Security");
+    if (securityFeatures) requiredFeatures.push("Security Camera");
 
     if (requiredFeatures.length > 0) {
       query.features = { $all: requiredFeatures };
     }
+    console.log(query)
 
     if (payAsYouGoPreferred) {
       query.payAsYouGo = true;

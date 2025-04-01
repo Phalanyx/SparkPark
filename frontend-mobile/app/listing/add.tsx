@@ -98,7 +98,9 @@ export default function AddListing() {
 
       const payload = {
         title,
-        description: JSON.stringify(selectedTypes),
+        description: selectedTypes.includes('Other') 
+          ? description 
+          : selectedTypes.join(', '),
         // We store the final, concatenated address in `address`:
         address,
         location: {

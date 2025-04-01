@@ -171,7 +171,8 @@ export default function ProfileScreen({ data, handleLogout }: ProfileScreenProps
   };
 
   const renderAvatar = () => {
-    const initial = auth().currentUser?.displayName ? auth().currentUser?.displayName?.charAt(0).toUpperCase() : 'D';
+    let initial = auth().currentUser?.displayName ? auth().currentUser?.displayName?.charAt(0).toUpperCase() : 'D';
+    initial = initial || 'D';
     return (
       <View className="w-14 h-14 bg-blue-400 rounded-full justify-center items-center">
         <Text className="text-2xl font-bold text-white">{initial}</Text>

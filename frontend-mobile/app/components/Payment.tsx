@@ -116,7 +116,6 @@ const PaymentButton = ({ amount, onPaymentSuccess, onPaymentFailure, drivewayId,
       
       return clientSecret;
     } catch (error) {
-      console.error('Error fetching payment intent:', error);
       onPaymentFailure?.(error instanceof Error ? error.message : 'Unknown error');
       return null;
     }

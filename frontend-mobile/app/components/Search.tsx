@@ -40,6 +40,8 @@ interface SearchProps {
   setData: (data: any[]) => void;
   setCenter: (center: Coordinates) => void;
   mapRef: React.RefObject<MapView>;
+  setDisplayData: (data: any) => void;
+  setLoading: (loading: boolean) => void;
 }
 
 const sizeGuideData = [
@@ -50,7 +52,7 @@ const sizeGuideData = [
   { minSize: '3.5 x 1.8',  category: 'X-SMALL', examples: 'Motorcycle, scooter, etc.' },
 ];
 
-const Search: React.FC<SearchProps> = ({ setData, setCenter, mapRef }) => {
+const Search: React.FC<SearchProps> = ({ setData, setCenter, mapRef, setDisplayData, setLoading }) => {
   const [query, setQuery] = useState('');
   const [showFilters, setShowFilters] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -63,7 +65,55 @@ const Search: React.FC<SearchProps> = ({ setData, setCenter, mapRef }) => {
   const handleSearch = async (query: string): Promise<void> => {
     try {
       if (query === '') {
-        return;
+        const fetchData = async () => {
+          try {
+            const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND}/`, { method: "GET" });
+            const result = await response.json();
+    
+            if (Array.isArray(result)) {
+              setData(result);
+              if (result.length > 0) {
+                setDisplayData(result[0]);
+                console.log({
+                  latitude: result[0].location.coordinates[1],
+                  longitude: result[0].location.coordinates[0],
+                });
+                const region = {
+                  latitude: result[0].location.coordinates[1],
+                  longitude: result[0].location.coordinates[0],
+                  latitudeDelta: 0.01,
+                  longitudeDelta: 0.01,
+                };
+                setCenter({ latitude: region.latitude, longitude: region.longitude });
+                mapRef.current?.animateToRegion(region, 1000);
+              }
+            } else if (result.points && Array.isArray(result.points)) {
+              setData(result.points);
+              if (result.points.length > 0) {
+                setDisplayData(result.points[0]);
+                setCenter({
+                  latitude: result.points[0].location.coordinates[1],
+                  longitude: result.points[0].location.coordinates[0],
+                });
+              }
+    
+              if (result.lat && result.lon) {
+                setCenter({
+                  latitude: result.lat,
+                  longitude: result.lon,
+                });
+              }
+            } else {
+              setData([]);
+            }
+          } catch (error) {
+            console.error('There was an error making the request!', error);
+            setData([]);
+          } finally {
+            setLoading(false);
+          }
+        };
+        fetchData();
       }
       const response = await fetch(`${process.env.EXPO_PUBLIC_BACKEND}/geolocation/isochrones`, {
         headers: { 'Content-Type': 'application/json' },

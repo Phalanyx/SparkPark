@@ -162,6 +162,8 @@ const Map = () => {
                 setData={(data) => setDatas(Array.isArray(data) ? data : [])}
                 setCenter={setCenter}
                 mapRef={mapRef}
+                setDisplayData={setDisplayData}
+                setLoading={setLoading}
             />
           </View>
 

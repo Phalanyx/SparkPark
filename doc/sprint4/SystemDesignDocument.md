@@ -76,8 +76,8 @@ Deliver the MVP for a mobile-first parking platform that enables users to find p
 
 ## **5. CRC Cards for Sprint 4**
 
-> _These CRC cards were maintained in Lucidchart. They include updates to reflect the Booking and Payment systems, as well as the Auto-Suggestion engine._  
-> _[Insert screenshots or export images of updated CRC cards here]_
+![System Design Document-3](https://github.com/user-attachments/assets/b4c2504a-9869-47bb-bcb5-088f8f93b093)
+![Leeres Board](https://github.com/user-attachments/assets/8b25add3-b4fe-4e06-8168-e8368c8d1bb9)
 
 ---
 

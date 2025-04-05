@@ -54,8 +54,8 @@ Deliver the MVP for a mobile-first parking platform that enables users to find p
 
 ### **4.1 Abstract View & Component Diagram**
 
-> _[Insert your Lucidchart / draw.io system architecture diagram here if available]_  
-The app architecture follows a **distributed, modular 3-tier architecture**:
+![Software Architecture SparkPark-5](https://github.com/user-attachments/assets/3178d138-05e5-4627-b45e-b96539a9059d)
+
 
 **Client (Mobile App)** → **Backend (API Server)** → **Database & External Services**
 

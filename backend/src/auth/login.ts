@@ -8,7 +8,8 @@ router.get('/', (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-  admin.auth().verifyIdToken(req.headers.authorization)
+  admin.auth().verifyIdToken(req.headers.authorization?.split(" ")[1])
+
   .then(async function(decodedToken: any) {
     console.log(decodedToken);
     const user = { uid: decodedToken.uid, email: decodedToken.email, name: decodedToken.name || "Anonymous" };

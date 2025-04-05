@@ -13,7 +13,7 @@ export async function getIsochrones(lat: number, lon: number) {
             body: JSON.stringify({
 
                 locations: [[lon, lat]],
-                range: [300] // range in time
+                range: [150] // range in time
             }),
         }
     );    

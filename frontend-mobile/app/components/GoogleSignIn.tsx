@@ -16,7 +16,12 @@ export default function Login({handleBackend}:
 
     await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
 
+
+
+
+
     const signInResult = await GoogleSignin.signIn();
+
     
         
     if (!signInResult.data) {
@@ -27,6 +32,7 @@ export default function Login({handleBackend}:
 
     auth().signInWithCredential(googleCredential).then((result) => {
         result.user.getIdToken().then((token) => {
+            console.log(token);
             handleBackend(token);
             })
         }).catch((error) => {
@@ -35,6 +41,6 @@ export default function Login({handleBackend}:
     }
 
     return (
-            <GoogleSigninButton onPress={signIn} />
+            <GoogleSigninButton testID="google-signin-button" onPress={signIn} />
     )
 }

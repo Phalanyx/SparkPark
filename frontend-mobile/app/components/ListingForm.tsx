@@ -28,16 +28,15 @@ export default function ImagePickerModal({ setImages }: ImagePickerModalProps) {
       (response) => {
         if (!response.didCancel && !response.errorCode && response.assets) {
           const uris = response.assets.map((asset) => asset.uri || '');
-          uris.forEach((uri) => { 
-            uploadToCloudflare(uri)
-              .then((uploadData) => {
-                console.log("Upload Success:", uploadData);
-              })
-              .catch((error) => {
-                console.error("Upload Error:", error);
-              });
-          });
-          setImages((prev) => [...prev, ...uris]);
+          const uploadPromises = uris.map((uri) => uploadToCloudflare(uri));
+          Promise.all(uploadPromises)
+            .then((uploadResults) => {
+              const fileUrls = uploadResults.map((result) => result.fileUrl);
+              setImages((prev) => [...prev, ...fileUrls]);
+            })
+            .catch((error) => {
+              console.error("Upload Error:", error);
+            });
         }
       }
     );
@@ -52,12 +51,14 @@ export default function ImagePickerModal({ setImages }: ImagePickerModalProps) {
       );
       return;
     }
+    
     const result = await ImagePicker.launchCameraAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
       aspect: [4, 3],
       quality: 1,
     });
+
     if (!result.canceled && result.assets) {
       const uri = result.assets[0].uri;
       uploadToCloudflare(uri)

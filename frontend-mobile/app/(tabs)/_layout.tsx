@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 
 export default function TabLayout() {
+
+
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: 'white', headerShown: false,
                tabBarStyle: { backgroundColor: '#1d434f' }, 
@@ -14,7 +16,7 @@ export default function TabLayout() {
           title: 'Find Parking',
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="car" color={color} />,
         }}
-        />
+      />
       <Tabs.Screen
         name="login"
         options={{
@@ -22,13 +24,20 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} />,
         }}
       />
-      <Tabs.Screen
-        name='listings'
-        options={{
-          title: "Create Listings",
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="plus" color={color} />,
-        }}
-      />
-      </Tabs>
+          <Tabs.Screen
+            name='listing'
+            options={{
+              title: "Listings",
+              tabBarIcon: ({ color }) => <FontAwesome size={28} name="list" color={color} />,
+            }}
+          />
+          <Tabs.Screen
+            name='booking'
+            options={{
+              title: "Booking",
+              tabBarIcon: ({ color }) => <FontAwesome size={28} name="calendar" color={color} />,
+            }}
+          />
+    </Tabs>
   );
 }

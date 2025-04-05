@@ -41,6 +41,6 @@ export default function Login({handleBackend}:
     }
 
     return (
-            <GoogleSigninButton onPress={signIn} />
+            <GoogleSigninButton testID="google-signin-button" onPress={signIn} />
     )
 }

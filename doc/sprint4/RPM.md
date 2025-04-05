@@ -19,7 +19,7 @@ Detailing the primary goals for the Sprint 4 release following SMART criteria.
 ## Participants and Work Assignment
 - **Albert:** Backend bookings system, Stripe payment integration, CI/CD pipeline improvements
 - **Dianna:** Final UI design, app logo, updated Figma prototype
-- **Emily:** Authentication and security assurance (no changes in Sprint 4)
+- **Emily:** Authentication and security assurance
 - **Jaehyeon:** Frontend UI for bookings, listing detail views
 - **Thorge:** Backend functionality and frontend UI for auto-suggestion, preference integration
 

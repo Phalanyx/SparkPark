@@ -4,20 +4,20 @@
 > It does not really make sense for you to edit this document much (if at all) while working on the project - Instead, at the end of the planning phase, you can refer back to this document and decide which parts of your plan you are happy with and which parts you would like to change.
 
 
-## Iteration 03
+## Iteration 04
 
-* Start date: Mar 8
-* End date: Mar 21
+* Start date: Mar 22
+* End date: Apr 4
 
 ## Process
 
 #### Roles & Responsibilities
 
-- **Albert:** Testing, CI/CD integration.
-- **Dianna:** Finalizing design for frontend and app logo.
-- **Emily:** Ensuring security against SQL injection, authentication requirements.
-- **Jaehyeon:** Frontend implementation for user profiles, custom filtering in the app.
-- **Thorge:** Backend functionality, JMeter testing, implementing preference-based auto-suggestions.
+- **Albert:** Backend logic for bookings, Stripe payment integration, CI/CD.
+- **Dianna:** Finalized app branding, visual polish, and updated Figma design.
+- **Emily:** Security review, authentication workflows.
+- **Jaehyeon:** Frontend UI for bookings, user listings, general UI refinements.
+- **Thorge:** Backend for auto-suggestion, frontend UI for preferences and suggestion interaction.
 
 ---
 
@@ -25,27 +25,27 @@
 
 ### Stand-Up Meetings
 - **When and Where:**
-   - Days: Wednesdays, Fridays, and Sundays.
-   - Time: Flexible (8:00 PM or 10:00 PM).
-   - Format: Online (Slack, Discord).
+    - Days: Wednesdays, Fridays, and Sundays.
+    - Time: Flexible (8:00 PM or 10:00 PM).
+    - Format: Online (Slack, Discord).
 - **Purpose:**
-   - Quick check-ins to discuss progress, blockers, and next steps.
-   - Ensure alignment among team members.
-   - Keep everyone accountable and informed without taking up too much time.
+    - Quick check-ins to discuss progress, blockers, and next steps.
+    - Ensure alignment among team members.
+    - Keep everyone accountable and informed without taking up too much time.
 
 ### Coding Sessions / Code Reviews
 - **When and Where:** Scheduled as needed (e.g., weekends or evenings).
 - **Format:** Online, using screen sharing.
 - **Purpose:**
-   - Collaborative work on specific tasks or features.
-   - Pair programming or group problem-solving.
-   - Accepting pull requests and organizing GitHub.
+    - Collaborative work on specific tasks or features.
+    - Pair programming or group problem-solving.
+    - Accepting pull requests and organizing GitHub.
 
 ### Weekly Sync Meetings
 - **When and Where:** Weekly (e.g., Monday evenings).
 - **Purpose:**
-   - Review weekly goals and priorities.
-   - Address high-level concerns or updates.
+    - Review weekly goals and priorities.
+    - Address high-level concerns or updates.
 
 ---
 
@@ -56,9 +56,9 @@ We are using **Jira and Discord** to organize the team.
 ### Tracking What Needs to Get Done
 - All tasks will be logged as issues in Jira.
 - Each issue will include:
-   - A clear title and description.
-   - Relevant labels, priorities, and due dates.
-   - Subtasks for breaking down complex tasks.
+    - A clear title and description.
+    - Relevant labels, priorities, and due dates.
+    - Subtasks for breaking down complex tasks.
 - The Jira backlog will serve as the single source of truth for all pending tasks.
 
 ### Prioritizing Tasks
@@ -85,56 +85,55 @@ We are using **Jira and Discord** to organize the team.
 
 ### Goals and Tasks
 
-Our main goal in this sprint is to improve the frontend, implement backend routes, and provide support for user preferences and auto-suggestions of parking spots.
+Our main goal in this sprint is to finalize the MVP, connect frontend to booking and preference features, and polish the user experience.
 
 - **As a user, I want to be able to...**
-   - See all my listings.
-   - Find a fitting parking spot based on search criteria and auto-suggestions.
-   - Upload images to my listings.
-   - See my user profile information.
-   - Receive auto-suggestions of parking spots based on my preferences.
+    - Receive tailored auto-suggestions for parking spots.
+    - Edit and save my parking preferences.
+    - Book a parking spot.
+    - View current and past bookings.
+    - View and interact with polished UI components.
 
 ---
 
 ## Artifacts
 
-1. **Filter & Search System**
-   - Purpose: Allow custom searching based on user preferences (pricing, location, availability, etc.).
-   - Description: Backend supports preference-based searching with `$geoNear` aggregation.
-   - Deliverables: Fully functional filtering and auto-suggestion mechanism.
-   - Why It Matters: Improves user experience by providing relevant parking spot suggestions.
+1. **Auto-Suggestion Feature**
+    - Purpose: Recommend optimal parking spots based on preferences and current location/time.
+    - Description: Uses geospatial queries and preference filtering.
+    - Deliverables: Backend route with frontend integration and UI logic.
+    - Why It Matters: Simplifies the parking search process and improves user satisfaction.
 
-2. **Map Listings Markers Component**
-   - Purpose: Display listing details on an interactive map.
-   - Description: Uses React Native Maps to render markers from backend data.
-   - Deliverables: Functional map component displaying listings with clickable markers.
-   - Why It Matters: Enhances visual navigation and user interaction with listings.
+2. **Preferences UI and Backend**
+    - Purpose: Enable users to save preference criteria (e.g., EV charging, covered, pricing).
+    - Description: Connected with MongoDB and user-auth.
+    - Deliverables: Preference form, saving and updating logic.
+    - Why It Matters: Personalized suggestions and better matching.
 
-3. **Image Upload Feature**
-   - Purpose: Allow users to upload images for their listings.
-   - Description: Uses `react-native-image-picker` and stores images in Firebase Storage.
-   - Deliverables: Component for image selection and uploading.
-   - Why It Matters: Visual content enhances listing quality.
+3. **Booking Functionality**
+    - Purpose: Allow users to book spots, view reservations.
+    - Description: End-to-end booking flow with backend logic and Stripe integration.
+    - Deliverables: Book spot, see active bookings, manage.
+    - Why It Matters: Core MVP functionality.
 
-4. **Listing Uploading Form Component**
-   - Purpose: Enable users to create new listings with details.
-   - Description: Supports creating entries with address conversion, availability information, and images.
-   - Deliverables: Fully functional listing creation screen with backend integration.
-   - Why It Matters: Provides users the ability to contribute listings to the platform.
+4. **UI/UX Improvements**
+    - Purpose: Make the app feel polished and intuitive.
+    - Description: Final adjustments based on Figma mockups.
+    - Deliverables: Consistent visual design across all screens.
+    - Why It Matters: Improves usability and first impressions.
 
-5. **User Preferences System**
-   - Purpose: Store and retrieve user preferences for auto-recommendations.
-   - Description: Preference data is saved in MongoDB and used to enhance backend recommendation queries.
-   - Deliverables: API routes for adding, retrieving, and deleting preferences.
-   - Why It Matters: Makes the app’s recommendation system effective and user-specific.
+5. **Stripe Payment Integration**
+    - Purpose: Enable users to pay for bookings.
+    - Description: Secure payment processing through Stripe API.
+    - Deliverables: Frontend integration and backend handling.
+    - Why It Matters: Prepares the product for real-world monetization.
 
-6. **High-fidelity Prototype of App**
-   - Purpose: Visualize end-to-end user experience.
-   - Description: Provides the flow for frontend components related to authentication, listings, and preferences.
-   - Deliverables: Prototype shared with the team.
-   - Why It Matters: Ensures consistent UI/UX design throughout development.
+6. **CI/CD and Deployment Pipeline**
+    - Purpose: Automate deployment and testing.
+    - Description: CI/CD configured for Expo and backend with tests.
+    - Deliverables: Working automated deployment process.
+    - Why It Matters: Ensures code stability and eases maintenance.
 
 ---
 
-This updated plan reflects our progress and goals for Sprint 3, ensuring our app provides robust backend functionality and a clean, responsive frontend experience.
-
+This plan sets the foundation for a feature-complete MVP release by the end of Sprint 4.

@@ -47,12 +47,6 @@ Adapted **3-tier distributed architecture** for scalability.
 - **Version Control**: GitHub Flow (Feature Branch → Develop → Main)
 - **Project Management**: Jira for sprint planning and task tracking
 
-### Best Practices
-- 🧰 Feature branch workflow to minimize merge conflicts
-- 🔁 Parallelized tasks for faster sprint velocity
-- 💬 Focused 1-on-1 communication for technical blockers
-
----
 
 
 
